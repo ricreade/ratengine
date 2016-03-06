@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F0A48A25-3830-48ED-92ED-C9732339B782}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RatEngine</RootNamespace>
+    <AssemblyName>RatEngine</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Class1.cs" />
+    <Compile Include="DataModel\Effects\Effectable.cs" />
+    <Compile Include="DataModel\Effects\Flag.cs" />
+    <Compile Include="DataModel\Effects\FlagComparer.cs" />
+    <Compile Include="DataModel\Effects\FlagComparison.cs" />
+    <Compile Include="DataModel\Effects\FlagComparisonFailedException.cs" />
+    <Compile Include="DataModel\Effects\Flaggable.cs" />
+    <Compile Include="DataModel\GameManager.cs" />
+    <Compile Include="DataModel\Inventory\Inventoried.cs" />
+    <Compile Include="DataModel\Inventory\Item.cs" />
+    <Compile Include="DataModel\Inventory\ItemType.cs" />
+    <Compile Include="DataModel\Mob\Advancement\Ability.cs" />
+    <Compile Include="DataModel\GameElement.cs" />
+    <Compile Include="DataModel\Mob\Advancement\AbilityEffect.cs" />
+    <Compile Include="DataModel\Mob\Advancement\AbilityLadder.cs" />
+    <Compile Include="DataModel\Effects\Effect.cs" />
+    <Compile Include="DataModel\Mob\Advancement\LadderLevel.cs" />
+    <Compile Include="DataModel\Mob\BodySlot.cs" />
+    <Compile Include="DataModel\Mob\Combatant.cs" />
+    <Compile Include="DataModel\Mob\NonPlayerCharacter.cs" />
+    <Compile Include="DataModel\Mob\PlayerCharacter.cs" />
+    <Compile Include="DataModel\Mob\PlayerNotFoundException.cs" />
+    <Compile Include="DataModel\Questing\Quest.cs" />
+    <Compile Include="DataModel\Questing\QuestGoal.cs" />
+    <Compile Include="DataModel\Questing\QuestGoalType.cs" />
+    <Compile Include="DataModel\Questing\QuestManager.cs" />
+    <Compile Include="DataModel\RecordManager.cs" />
+    <Compile Include="DataModel\UserAccount\User.cs" />
+    <Compile Include="DataModel\World\Realm.cs" />
+    <Compile Include="DataModel\World\Region.cs" />
+    <Compile Include="DataModel\World\Room.cs" />
+    <Compile Include="DataModel\World\Transition.cs" />
+    <Compile Include="Engine\Command\InvalidCommandSyntaxException.cs" />
+    <Compile Include="Engine\Command\InvalidTargetException.cs" />
+    <Compile Include="Engine\Command\Keyword.cs" />
+    <Compile Include="Engine\Command\KeywordManager.cs" />
+    <Compile Include="Engine\Command\KeywordSyntax.cs" />
+    <Compile Include="Engine\Command\Response.cs" />
+    <Compile Include="Engine\Instruction\InstructionManager.cs" />
+    <Compile Include="Engine\Instruction\InstructionSyntax.cs" />
+    <Compile Include="Engine\Command\InvalidCommandStringException.cs" />
+    <Compile Include="Engine\Instruction\SystemInstruction.cs" />
+    <Compile Include="OperationFailedException.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
