@@ -16,12 +16,15 @@ namespace RatEngine.DataModel.Effects
     /// </summary>
     public abstract class Effectable : Flaggable
     {
-        // The list of AbilityEffects associated with the derived object.
-        protected ConcurrentDictionary<AbilityEffect, string> _abilityeffects;
+        // The list of Effects associated with the derived object.
+        protected ConcurrentDictionary<string, Effect> _effects;
 
-        public ConcurrentDictionary<AbilityEffect, string> AbilityEffects
+        /// <summary>
+        /// Returns a read-only view of the Effects collection.
+        /// </summary>
+        public IReadOnlyCollection<Effect> Effects
         {
-            get { return _abilityeffects; }
+            get { return _effects.Values.ToList().AsReadOnly(); }
         }
 
         /// <summary>
@@ -30,7 +33,7 @@ namespace RatEngine.DataModel.Effects
         /// </summary>
         /// <param name="NewEffect">[AbilityEffect] The new AbilityEffect to associate
         /// with the derived object.</param>
-        public void AddEffect(AbilityEffect NewEffect)
+        public void AddEffect(Effect NewEffect)
         {
 
         }
@@ -42,7 +45,7 @@ namespace RatEngine.DataModel.Effects
         /// </summary>
         /// <param name="NewEffectList">[IList] A list of effects to associate with the
         /// derived object.</param>
-        public void AddEffect(IList<AbilityEffect> NewEffectList)
+        public void AddEffect(IList<Effect> NewEffectList)
         {
 
         }
@@ -54,7 +57,7 @@ namespace RatEngine.DataModel.Effects
         /// <param name="OldEffect">[AbilityEffect] The effect to remove.</param>
         /// <returns>[AbilityEffect] A reference to the removed effect.  Returns null
         /// if nothing was removed.</returns>
-        public AbilityEffect RemoveEffect(AbilityEffect OldEffect)
+        public AbilityEffect RemoveEffect(Effect OldEffect)
         {
             return null;
         }

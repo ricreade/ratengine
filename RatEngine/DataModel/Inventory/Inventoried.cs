@@ -32,9 +32,12 @@ namespace RatEngine.DataModel.Inventory
         // stored inside it.
         protected ConcurrentDictionary<string, Item> _inv;
 
-        public IEnumerable<Item> Inventory
+        /// <summary>
+        /// Returns a read-only view of the inventory.
+        /// </summary>
+        public IReadOnlyCollection<Item> Inventory
         {
-            get { return _inv.Select(item => item.Value); }
+            get { return _inv.Values.ToList().AsReadOnly(); }
         }
 
         /// <summary>
@@ -46,7 +49,7 @@ namespace RatEngine.DataModel.Inventory
         /// circumstances under which storage occurs.
         /// </summary>
         /// <param name="NewItem">[Item] The Item object to be stored.</param>
-        protected void AddItem_Base(Item NewItem)
+        public virtual void AddItem(Item NewItem)
         {
 
         }
@@ -59,7 +62,7 @@ namespace RatEngine.DataModel.Inventory
         /// </summary>
         /// <param name="ItemKeyword">[string] A keyword string used to identify the item by name.</param>
         /// <returns>[Item] The item returned.  If no match was found, this method returns null.</returns>
-        public Item GetItem(string ItemKeyword)
+        public virtual Item GetItem(string ItemKeyword)
         {
             return null;
         }
@@ -72,7 +75,7 @@ namespace RatEngine.DataModel.Inventory
         /// <param name="OldItem">[Item] The Item object to remove.</param>
         /// <returns>[Item] A reference to the removed Item.  If no item was removed, this method
         /// returns null.</returns>
-        public Item RemoveItem(Item OldItem)
+        public virtual Item RemoveItem(Item OldItem)
         {
             return null;
         }

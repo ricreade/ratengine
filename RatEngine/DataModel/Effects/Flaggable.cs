@@ -16,14 +16,118 @@ namespace RatEngine.DataModel.Effects
     /// </summary>
     public abstract class Flaggable : GameElement
     {
-        protected List<Flag> _flags;
+        protected List<string> _flags;
+        private object _flaglock;
+
+        public enum SearchMode
+        {
+            /// <summary>
+            /// Search for flags serving the same purpose and having the same values.
+            /// </summary>
+            Equal,
+
+            /// <summary>
+            /// Search for flags serving the same purpose with equal or greater power.
+            /// </summary>
+            EqualOrGreater,
+
+            /// <summary>
+            /// Search for flags serving the same purpose with equal or lesser power.
+            /// </summary>
+            EqualOrLesser,
+
+            /// <summary>
+            /// Search for flags serving the same purpose with greater power.
+            /// </summary>
+            Greater,
+
+            /// <summary>
+            /// Search for flags serving the same purpose with lesser power.
+            /// </summary>
+            Lesser
+        }
 
         /// <summary>
         /// Returns a read-only version of the internal flags collection.
         /// </summary>
-        public IReadOnlyCollection<Flag> Flags
+        public IReadOnlyCollection<string> Flags
         {
             get { return _flags.AsReadOnly(); }
+        }
+
+        public virtual void AddFlag(Flag NewFlag)
+        {
+            lock (_flaglock)
+            {
+                _flags.Add(NewFlag.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Finds the first flag matching the specified search flag and search mode.
+        /// </summary>
+        /// <param name="SearchFlag"></param>
+        /// <param name="Mode"></param>
+        /// <returns></returns>
+        public virtual string FindFlag(Flag SearchFlag, SearchMode Mode)
+        {
+            lock (_flaglock)
+            {
+                string sFlag = SearchFlag.ToString();
+                foreach (string flag in _flags)
+                {
+                    switch (Mode)
+                    {
+                        case SearchMode.Equal:
+                            if (Flag.CompareFlags(flag, sFlag) == Flag.FlagComparison.IdenticalEqual)
+                            {
+                                return flag;
+                            }
+                            break;
+                        case SearchMode.EqualOrGreater:
+                            if (Flag.CompareFlags(flag, sFlag) == Flag.FlagComparison.IdenticalEqual ||
+                                Flag.CompareFlags(flag, sFlag) == Flag.FlagComparison.IdenticalGreater)
+                            {
+                                return flag;
+                            }
+                            break;
+                        case SearchMode.EqualOrLesser:
+                            if (Flag.CompareFlags(flag, sFlag) == Flag.FlagComparison.IdenticalEqual ||
+                                Flag.CompareFlags(flag, sFlag) == Flag.FlagComparison.IdenticalLesser)
+                            {
+                                return flag;
+                            }
+                            break;
+                        case SearchMode.Greater:
+                            if (Flag.CompareFlags(flag, sFlag) == Flag.FlagComparison.IdenticalGreater)
+                            {
+                                return flag;
+                            }
+                            break;
+                        case SearchMode.Lesser:
+                            if (Flag.CompareFlags(flag, sFlag) == Flag.FlagComparison.IdenticalLesser)
+                            {
+                                return flag;
+                            }
+                            break;
+                    }
+                }
+                return null;
+            }
+        }
+
+        public virtual string RemoveFlag(Flag OldFlag)
+        {
+            lock (_flaglock)
+            {
+                string matchflag = FindFlag(OldFlag, SearchMode.Equal);
+                if (matchflag != null && _flags.Remove(matchflag))
+                {
+                    return matchflag;
+                }
+
+                return null;
+            }
         }
 
         /// <summary>

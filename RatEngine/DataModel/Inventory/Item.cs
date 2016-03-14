@@ -19,45 +19,50 @@ namespace RatEngine.DataModel.Inventory
     public class Item : Inventoried
     {
         // The general classification for this item.
-        private ItemType _type;
+        protected ItemType _type;
 
         // If this Item can be wielded as a weapon, the average damage it deals.
-        private double _avgdmg;
+        protected double _avgdmg;
 
         // If this Item can be worn as armor, the average defense bonus it provides.
-        private double _avgdef;
+        protected double _avgdef;
 
         // The degree of variance that the average damage and defense values can have.
         // A weapon that deals the same damage every time has a variance of 0.  A weapon
         // that can deal between 50% and 150% of its average has variance of 0.5.
-        private double _variance;
+        protected double _variance;
 
         // The body slot that this item occupies, if any.  This property might require some
         // rethink to support items that have more than one optional body slot (or example,
         // rings can be worn on either hand, swords can be swung by either hand, etc).
-        private BodySlot _slot;
+        protected BodySlot _slot;
 
         // The minimum strength value required to wield, wear, or use this item.
-        private int _minstr;
+        protected int _minstr;
 
         // The minimum dexterity value required to wield, wear, or use this item.
-        private int _mindex;
+        protected int _mindex;
 
         // The minimum intelligence value required to wield, wear, or use this item.
-        private int _minint;
+        protected int _minint;
 
         // If this Item is a weapon, whether it must be wielded two-handed (i.e. without a shield)
-        private bool _istwohand;
+        protected bool _istwohand;
 
         // If this Item can be used as an offensive weapon (which might include some potions),
         // the average likelihood that it will hit.
-        private double _accur;
+        protected double _accur;
 
         // If this item can be equipped, whether this has been done.
-        private bool _isequipped;
+        protected bool _isequipped;
 
         // Whether this item is a container and there can make use of its inventory.
-        private bool _iscontainer;
+        protected bool _iscontainer;
+
+        public bool IsContainer
+        {
+            get { return _iscontainer; }
+        }
 
         /// <summary>
         /// AddItem
@@ -67,9 +72,10 @@ namespace RatEngine.DataModel.Inventory
         /// method.
         /// </summary>
         /// <param name="NewItem">[Item] The Item to be added to this Item's inventory.</param>
-        public void AddItem(Item NewItem)
+        public override void AddItem(Item NewItem)
         {
-
+            if (IsContainer)
+                base.AddItem(NewItem);
         }
 
         public override bool Delete()

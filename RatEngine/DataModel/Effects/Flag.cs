@@ -36,7 +36,71 @@ namespace RatEngine.DataModel.Effects
             /// must match the name of the targetted effect.  The Modifier String and Mitigation Type 
             /// must be specified.  
             /// </summary>
-            Mitigation
+            Mitigation,
+
+            /// <summary>
+            /// The effect associated with this flag excludes the specified target(s) from the effect.
+            /// </summary>
+            Exclusion,
+
+            /// <summary>
+            /// The effect associated with this flag explicitly includes the specified target(s) in the
+            /// effect; all other targets are unaffected.
+            /// </summary>
+            Inclusion,
+
+            /// <summary>
+            /// The effect associated with this flag can apply to multiple targets.  The effect name determines
+            /// the scope of the effect (either room, region, or world).
+            /// </summary>
+            Ambient,
+
+            /// <summary>
+            /// The effect associated with this flag is reapplied at the specified interval unti the effect
+            /// expires.
+            /// </summary>
+            Recurring
+        }
+
+        /// <summary>
+        /// The results of a flag comparison.
+        /// </summary>
+        public enum FlagComparison
+        {
+            /// <summary>
+            /// The compared flags are the same (they have the same values).
+            /// </summary>
+            IdenticalEqual,
+
+            /// <summary>
+            /// The compared flags serve the same purpose, and the other flag is less powerful than this one.
+            /// </summary>
+            IdenticalLesser,
+
+            /// <summary>
+            /// The compared flags serve the same purpose, and the other flag is more powerful than this one.
+            /// </summary>
+            IdenticalGreater,
+
+            /// <summary>
+            /// The compared flags have no relationship.
+            /// </summary>
+            NotEqual,
+
+            /// <summary>
+            /// The compared flags oppose each other and the flags have equal power.
+            /// </summary>
+            OpposedEqual,
+
+            /// <summary>
+            /// The compared flags oppose each other and the other flag is less powerful than this one.
+            /// </summary>
+            OpposedLesser,
+
+            /// <summary>
+            /// The compared flags oppose each other and the other flag is more powerful than this one.
+            /// </summary>
+            OpposedGreater
         }
 
         /// <summary>
@@ -64,6 +128,7 @@ namespace RatEngine.DataModel.Effects
         }
 
         private string _effectname;
+        private string _args;
         private FlagClassification _class;
         private string _modstr;
         private int _compval;
@@ -71,7 +136,7 @@ namespace RatEngine.DataModel.Effects
         private Effect.Component _component;
 
         /// <summary>
-        /// The name of the effect this flag is intended to modify if this  is an enhancement or 
+        /// The name of the effect this flag is intended to modify if this is an enhancement or 
         /// mitigation flag.
         /// </summary>
         public string EffectName
@@ -93,6 +158,14 @@ namespace RatEngine.DataModel.Effects
         public string ModifierString
         {
             get { return _modstr; }
+        }
+
+        /// <summary>
+        /// The arguments associated with this flag to determine its specific behavior.
+        /// </summary>
+        public string Arguments
+        {
+            get { return _args; }
         }
 
         /// <summary>
@@ -174,6 +247,33 @@ namespace RatEngine.DataModel.Effects
             _mitigatetype = MitigationSettings;
         }
 
+        /// <summary>
+        /// Constucts a Flag object from the specified string data.  If the string data is empty or null, or
+        /// is badly formed for a Flag representation, an error occurs.
+        /// </summary>
+        /// <param name="FlagString">The string representing the Flag to instantiate.</param>
+        /// <returns></returns>
+        public static Flag BuildFromString(string FlagString)
+        {
+            return null;
+        }
+
+        /// <summary>
+        /// Compares two flags to determine their relationship.
+        /// </summary>
+        /// <param name="BaseFlag"></param>
+        /// <param name="CompareFlag"></param>
+        /// <returns></returns>
+        public static FlagComparison CompareFlags(Flag BaseFlag, Flag CompareFlag)
+        {
+            return FlagComparison.NotEqual;
+        }
+
+        public static FlagComparison CompareFlags(string BaseFlag, string CompareFlag)
+        {
+            return FlagComparison.NotEqual;
+        }
+
         public override bool Delete()
         {
             throw new NotImplementedException();
@@ -187,6 +287,16 @@ namespace RatEngine.DataModel.Effects
         public override bool Save()
         {
             throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Returns a string equivalent of this flag for application to a Flaggable
+        /// object.
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return base.ToString();
         }
 
         /// <summary>
