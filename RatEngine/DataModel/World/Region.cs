@@ -50,7 +50,7 @@ namespace RatEngine.DataModel.World
         /// Region(int regionID)
         /// Constructor will handle hydrating the region and instantiating the _rooms variable
         /// </summary>
-        public Region(DataRow regionRow, Realm regionRealm)
+        public Region(string GameID, DataRow regionRow, Realm regionRealm) : base(GameID)
         {
             //instantiate _rooms variable
             _rooms = new ConcurrentDictionary<string, Room>();
@@ -143,7 +143,7 @@ namespace RatEngine.DataModel.World
                     //create Room
                     try
                     {
-                        newRoom = new Room(row, this);//TODO: change parameters to what they need to be after Room class is implemented
+                        newRoom = new Room(null, row, this);//TODO: change parameters to what they need to be after Room class is implemented
                         //add newRoom to _room list
                         if (!_rooms.TryAdd(newRoom.Name, newRoom))
                             throw new OperationFailedException("Room " + newRoom.Name +

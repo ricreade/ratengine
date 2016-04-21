@@ -72,6 +72,7 @@
     <Compile Include="DataModel\World\Region.cs" />
     <Compile Include="DataModel\World\Room.cs" />
     <Compile Include="DataModel\World\Transition.cs" />
+    <Compile Include="Engine\Command\CommandUtil.cs" />
     <Compile Include="Engine\Command\InvalidCommandSyntaxException.cs" />
     <Compile Include="Engine\Command\InvalidTargetException.cs" />
     <Compile Include="Engine\Command\Keyword.cs" />

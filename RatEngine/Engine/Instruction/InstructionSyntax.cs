@@ -42,7 +42,7 @@ namespace RatEngine.Engine.Instruction
         /// object.
         /// </summary>
         /// <param name="Row">[DataRow] The record data used to hydrate this object.</param>
-        public InstructionSyntax(DataRow Row)
+        public InstructionSyntax(string GameID, DataRow Row) : base(GameID)
         {
             if (Row != null)
             {

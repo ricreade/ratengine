@@ -22,6 +22,17 @@ namespace RatEngine.DataModel
         protected string _descr;
 
         /// <summary>
+        /// The base constructor for a GameElement.  All instances deriving from GameElement
+        /// must specify a unique GameID value.  If this is a new record to be saved to the
+        /// database, specify null for this value.
+        /// </summary>
+        /// <param name="GameID"></param>
+        public GameElement(string GameID)
+        {
+            _gameid = GameID;
+        }
+
+        /// <summary>
         /// The database primary key.
         /// </summary>
         public int ID

@@ -20,6 +20,13 @@ namespace RatEngine.DataModel.Effects
         protected ConcurrentDictionary<string, Effect> _effects;
 
         /// <summary>
+        /// The base constructor for this abstract class, which carries forward the requirement to
+        /// specify the effectable object's game ID.
+        /// </summary>
+        /// <param name="GameID">The game id of this effectable object, or null if this is a new record.</param>
+        public Effectable(string GameID) : base(GameID) { }
+
+        /// <summary>
         /// Returns a read-only view of the Effects collection.
         /// </summary>
         public IReadOnlyCollection<Effect> Effects

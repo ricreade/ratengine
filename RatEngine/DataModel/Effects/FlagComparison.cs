@@ -24,6 +24,11 @@ namespace RatEngine.DataModel.Effects
         // The type of comparison being made between these two flags.
         private FlagComparer.FlagComparisonType _comp;
 
+        public FlagComparison(string GameID) : base(GameID)
+        {
+
+        }
+
         public Flag FlagFrom
         {
             get { return _flagfrom; }

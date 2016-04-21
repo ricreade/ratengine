@@ -18,18 +18,24 @@ namespace RatEngine.DataModel.Inventory
     /// </summary>
     public abstract class Inventoried : Effectable
     {
-        // Class Constructor
-        public Inventoried()
+        /// <summary>
+        /// The base constructor for this abstract class, which carries forward the requirement to
+        /// specify the inventoried object's game ID.
+        /// </summary>
+        /// <param name="GameID">The game id of this effectable object, or null if this is a new record.</param>
+        public Inventoried(string GameID) : base(GameID)
         {
             _inv = new ConcurrentDictionary<string, Item>();
         }
 
-        // The inventory collection contained by the derived object.  There is no direct
-        // accessor to this list provided by this class.  Any derived class must provide its own
-        // This is because derived classes might want to impose restrictions on what items
-        // are stored here.  For example, a Combatant object might not care whether the stored
-        // item is a container, but an Item object would not want to allow a container to be
-        // stored inside it.
+        /// <summary>
+        /// The inventory collection contained by the derived object.  There is no direct
+        /// accessor to this list provided by this class.  Any derived class must provide its own
+        /// This is because derived classes might want to impose restrictions on what items
+        /// are stored here.  For example, a Combatant object might not care whether the stored
+        /// item is a container, but an Item object would not want to allow a container to be
+        /// stored inside it.
+        /// </summary>
         protected ConcurrentDictionary<string, Item> _inv;
 
         /// <summary>

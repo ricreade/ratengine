@@ -195,8 +195,9 @@ namespace RatEngine.DataModel.Effects
         /// <summary>
         /// Instantiates a declarative flag.
         /// </summary>
+        /// <param name="GameID">The game id of this flag object, or null if this is a new record.</param>
         /// <param name="Name">The name of the flag.</param>
-        public Flag(string Name)
+        public Flag(string GameID, string Name) : base(GameID)
         {
             _name = Name;
             ApplySettings(null, FlagClassification.Declarative, null, 0, Effect.Component.None, MitigationType.None);
@@ -205,11 +206,12 @@ namespace RatEngine.DataModel.Effects
         /// <summary>
         /// Instantiates an enhancement flag with the specified settings.
         /// </summary>
+        /// <param name="GameID">The game id of this flag object, or null if this is a new record.</param>
         /// <param name="EffectName">The name of the effect this flag targets.</param>
         /// <param name="ModifierString">The modifier this flag applies to the target effect, if any.</param>
         /// <param name="ComparatorValue">The comparator if this flag if it will be compared to another flag.</param>
         /// <param name="TargetComponent">The effect component this flag modifies.</param>
-        public Flag(string EffectName, string ModifierString, int ComparatorValue, Effect.Component TargetComponent)
+        public Flag(string GameID, string EffectName, string ModifierString, int ComparatorValue, Effect.Component TargetComponent) : base(GameID)
         {
             ApplySettings(EffectName, FlagClassification.Enhancement, ModifierString, ComparatorValue, TargetComponent, MitigationType.None);
         }
@@ -217,12 +219,13 @@ namespace RatEngine.DataModel.Effects
         /// <summary>
         /// Instantiates a mitigation flag with the specified settings.
         /// </summary>
+        /// <param name="GameID">The game id of this flag object, or null if this is a new record.</param>
         /// <param name="EffectName">The name of the effect this flag targets.</param>
         /// <param name="ModifierString">The modifier this flag applies to the target effect, if any.</param>
         /// <param name="ComparatorValue">The comparator if this flag if it will be compared to another flag.</param>
         /// <param name="TargetComponent">The effect component this flag modifies.</param>
         /// <param name="MitigationSettings">The mitigation setting that specifies how this flag mitigates an effect.</param>
-        public Flag(string EffectName, string ModifierString, int ComparatorValue, Effect.Component TargetComponent, MitigationType MitigationSettings)
+        public Flag(string GameID, string EffectName, string ModifierString, int ComparatorValue, Effect.Component TargetComponent, MitigationType MitigationSettings) : base(GameID)
         {
             ApplySettings(EffectName, FlagClassification.Mitigation, ModifierString, ComparatorValue, TargetComponent, MitigationSettings);
         }

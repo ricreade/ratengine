@@ -18,6 +18,11 @@ namespace ScriptingEngine
         string Instruction { get; }
 
         /// <summary>
+        /// Returns the unique game ID representing the game entity that originated the request.
+        /// </summary>
+        string OriginatorGameID { get; }
+
+        /// <summary>
         /// Returns the name of the script to invoke.
         /// </summary>
         string ScriptName { get; }

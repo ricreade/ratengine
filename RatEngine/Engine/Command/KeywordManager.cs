@@ -79,7 +79,7 @@ namespace RatEngine.Engine.Command
             {
                 foreach (DataRow dr in dt.Rows)
                 {
-                    Keyword k = new Keyword(dr);
+                    Keyword k = new Keyword(null, dr);
                     if (!_keywords.TryAdd(k.Name, k))
                         throw new OperationFailedException("Could not add Keyword " + k.Name + ".");
                 }

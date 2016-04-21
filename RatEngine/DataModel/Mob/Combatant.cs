@@ -50,6 +50,13 @@ namespace RatEngine.DataModel.Mob
         // The levels the Combatant has in the various ability ladders.  The key is the ladder name.
         protected ConcurrentDictionary<LadderLevel, string> _ladders;
 
+        /// <summary>
+        /// The base constructor for this abstract class, which carries forward the requirement to
+        /// specify the combatant object's game ID.
+        /// </summary>
+        /// <param name="GameID">The game id of this combatant object, or null if this is a new record.</param>
+        public Combatant(string GameID) : base(GameID) { }
+
         public int CurrentHP
         {
             get { return _hpcurr; }

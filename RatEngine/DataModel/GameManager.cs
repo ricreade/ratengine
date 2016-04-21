@@ -66,74 +66,72 @@ namespace RatEngine.DataModel
         /// specified sessionid.  If no such player is found, throws a new
         /// PlayerNotFoundException and returns null.
         /// </summary>
-        /// <param name="SessionId">[string] The session id of the player to reference.</param>
-        /// <returns>[PlayerCharacter] The player character associated with the sessionid,
-        /// or null if no such player was found.</returns>
-        public PlayerCharacter GetCharacter(string CharacterID)
+        /// <param name="GameID">[string] The game id of the character to retrieve.</param>
+        /// <returns>[PlayerCharacter] The player character associated with the game ID,
+        /// or null if no such character was found.</returns>
+        public PlayerCharacter GetCharacter(string GameID)
         {
             PlayerCharacter pc = null;
             try
             {
-                pc = _players.First(item => item.Value.ID.ToString() == CharacterID).Value;
+                if (_players.TryGetValue(GameID, out pc))
+                {
+                    return pc;
+                }
+                else
+                {
+                    return null;
+                }
             }
             catch (Exception ex)
             {
-
+                return null;
             }
-
-            if (pc == null)
-            {
-                return new PlayerCharacter();
-            }
-            return pc;
         }
 
         /// <summary>
         /// AddCharacter
         /// Retrieves a PlayerCharacter object from the database identified by the the specified
-        /// CharacterID.  If the retrieval is successful, adds the new PlayerCharacter object
+        /// GameID.  If the retrieval is successful, adds the new PlayerCharacter object
         /// to the local dictionary and returns it.  Returns an uninitiated PlayerCharacter
         /// object if any step in the process failed.
         /// </summary>
-        /// <param name="CharacterID">[string] The unique ID of the character to be retrieved.</param>
+        /// <param name="GameID">[string] The unique game ID of the character to be retrieved.</param>
         /// <returns>[PlayerCharacter] The PlayerCharacter retrieved from the database.</returns>
-        public PlayerCharacter AddCharacter(string CharacterID)
+        public PlayerCharacter AddCharacter(string GameID)
         {
-            int id = 0;
             PlayerCharacter pc = null;
-            if (Int32.TryParse(CharacterID, out id))
-            {
-                try
-                {
-                    pc = new PlayerCharacter(id);
-                    _players.TryAdd(pc.ID.ToString(), pc);
-                }
-                catch (Exception ex)
-                {
-                    return new PlayerCharacter();
-                }
 
-                // Add the new PlayerCharacter obj to the game world.
-                foreach (Realm rlm in _realms.Select(item => item.Value))
+            try
+            {
+                pc = new PlayerCharacter(GameID);
+                _players.TryAdd(pc.ID.ToString(), pc);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+
+            // Add the new PlayerCharacter obj to the game world.
+            foreach (Realm rlm in _realms.Select(item => item.Value))
+            {
+                foreach (Region reg in rlm.Regions)
                 {
-                    foreach (Region reg in rlm.Regions)
+                    foreach (Room rm in reg.Rooms)
                     {
-                        foreach (Room rm in reg.Rooms)
+                        if (pc.Location.ID == rm.ID)
                         {
-                            if (pc.Location.ID == rm.ID)
+                            lock (pc.Location)
                             {
-                                lock (pc.Location)
-                                {
-                                    pc.Location = rm;
-                                }
-                                rm.AddCombatant(pc);
-                                return pc;
+                                pc.Location = rm;
                             }
+                            rm.AddCombatant(pc);
+                            return pc;
                         }
                     }
                 }
             }
-            return new PlayerCharacter();
+            return new PlayerCharacter(null);
         }
 
         /// <summary>

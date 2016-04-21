@@ -27,6 +27,15 @@ namespace RatEngine.DataModel.UserAccount
 
         // The class diagram has Password as well, but on second thought, that's probably a bad idea.
 
+        /// <summary>
+        /// Instantiates a new User object based on the specified unique Game ID.  
+        /// If this value is provided, this object will be populated based on the data source.  
+        /// If this is a new record, specify null for this value.
+        /// </summary>
+        /// <param name="GameID">The game id of this User object, or null if this 
+        /// is a new record.</param>
+        public User(string GameID) : base(GameID) { }
+
         public string UserID
         {
             get { return _userid; }

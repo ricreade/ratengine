@@ -32,6 +32,8 @@ namespace RatEngine.DataModel.Mob.Advancement
         // This property represents that.
         private int _effectlevel;
 
+        public AbilityEffect(string GameID) : base(GameID) { }
+
         public Ability Ability
         {
             get { return _ability; }

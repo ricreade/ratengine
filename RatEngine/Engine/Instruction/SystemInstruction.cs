@@ -59,7 +59,7 @@ namespace RatEngine.Engine.Instruction
         /// this object.</param>
         /// <param name="Syntax">[KeywordSyntax] A reference to the syntax object containing
         /// this instruction.</param>
-        public SystemInstruction(DataRow Row, KeywordSyntax Syntax)
+        public SystemInstruction(string GameID, DataRow Row, KeywordSyntax Syntax) : base(GameID)
         {
             if (Syntax != null)
                 _kwrdsyntax = Syntax;
@@ -209,7 +209,7 @@ namespace RatEngine.Engine.Instruction
                         "SystemInstruction does not match the value stored in the database.");
 
                 // Instantiate the InstructionSyntax from this row.
-                _instrexpr = new InstructionSyntax(Row);
+                _instrexpr = new InstructionSyntax(null, Row);
 
                 // The instruction must validate against this instruction syntax.
                 if (!_instrexpr.IsSyntaxMatch(_instr))

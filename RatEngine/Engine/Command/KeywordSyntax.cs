@@ -55,7 +55,7 @@ namespace RatEngine.Engine.Command
         /// <param name="Row">[DataRow] The database record containing the data used to hydrate
         /// this object.</param>
         /// <param name="Keyword">[Keyword] The keyword object to which this syntax belongs.</param>
-        public KeywordSyntax(DataRow Row, Keyword Keyword)
+        public KeywordSyntax(string GameID, DataRow Row, Keyword Keyword) : base(GameID)
         {
             InitializeComponents();
 
@@ -256,7 +256,7 @@ namespace RatEngine.Engine.Command
             {
                 foreach (DataRow dr in dt.Rows)
                 {
-                    SystemInstruction s = new SystemInstruction(dr, this);
+                    SystemInstruction s = new SystemInstruction(null, dr, this);
                     if (!_instructions.TryAdd(s.ID.ToString(), s))
                         throw new OperationFailedException("Could not add SystemInstruction " + s.Name +
                             " to KeywordSyntax " + Name + ".");

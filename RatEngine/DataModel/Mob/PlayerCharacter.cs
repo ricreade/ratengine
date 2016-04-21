@@ -44,19 +44,20 @@ namespace RatEngine.DataModel.Mob
         // Quest rather than QuestGoal.  This reference is a little more appropriate to the player.
         private ConcurrentDictionary<QuestGoal, string> _questgoals;
 
-        public PlayerCharacter()
-        {
-            _id = 0;
-            _xp = 0;
-        }
-
-        public PlayerCharacter(int pcID)
+        /// <summary>
+        /// Instantiates a new PlayerCharacter object based on the specified unique Game ID.  
+        /// If this value is provided, this object will be populated based on the data source.  
+        /// If this is a new record, specify null for this value.
+        /// </summary>
+        /// <param name="GameID">The game id of this PlayerCharacter object, or null if this 
+        /// is a new record.</param>
+        public PlayerCharacter(string GameID) : base(GameID)
         {
             //InitializeComponents();
             string charprocedure = "mspGetCharacter";
 
             IList<SqlParameter> idparam = new List<SqlParameter>();
-            idparam.Add(new SqlParameter("@CharID", pcID));
+            idparam.Add(new SqlParameter("@CharID", GameID));
 
             RecordManager rm = new RecordManager();
             DataTable var = rm.SendReadRequest(charprocedure, idparam);
@@ -72,7 +73,7 @@ namespace RatEngine.DataModel.Mob
             _dex = Convert.ToInt32(var.Rows[0]["Dex"]);
             _int = Convert.ToInt32(var.Rows[0]["Int"]);
             //_location = Convert.ToInt32(var.Rows[0]["fkRoom"]);
-            _location = new Room(Convert.ToInt32(var.Rows[0]["fkRoom"]));
+            _location = new Room(var.Rows[0]["fkRoom"].ToString());
             //_level = Convert.ToInt32(var.Rows[0]["Level"]);
             _xp = Convert.ToInt32(var.Rows[0]["TotalXP"]);
             _unspentXP = Convert.ToInt32(var.Rows[0]["unspentXP"]);

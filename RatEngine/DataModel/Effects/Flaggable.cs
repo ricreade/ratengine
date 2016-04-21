@@ -48,6 +48,13 @@ namespace RatEngine.DataModel.Effects
         }
 
         /// <summary>
+        /// The base constructor for this abstract class, which carries forward the requirement to
+        /// specify the flaggable object's game ID.
+        /// </summary>
+        /// <param name="GameID">The game id of this flaggable object, or null if this is a new record.</param>
+        public Flaggable(string GameID) : base(GameID) { }
+
+        /// <summary>
         /// Returns a read-only version of the internal flags collection.
         /// </summary>
         public IReadOnlyCollection<string> Flags

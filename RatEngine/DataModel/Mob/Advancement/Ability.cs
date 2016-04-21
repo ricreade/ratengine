@@ -47,7 +47,7 @@ namespace RatEngine.DataModel.Mob.Advancement
             public const string ID = "Id";
         }
 
-        public Ability(DataRow Row)
+        public Ability(string GameID, DataRow Row) : base(GameID)
         {
             InitializeComponents();
             if (Row != null)
@@ -143,7 +143,7 @@ namespace RatEngine.DataModel.Mob.Advancement
         /// the dataRow and fill the Construct Fields and the variables
         /// </summary>
         /// <param name="Row">[DataRow] The database record containing data supporting this class.</param>
-        public Ability(AbilityLadder ladder, DataRow abilityRow)
+        public Ability(string GameID, AbilityLadder ladder, DataRow abilityRow) : base(GameID)
         {
             InitializeComponents();
 
@@ -223,7 +223,7 @@ namespace RatEngine.DataModel.Mob.Advancement
                     //create AbilityEffect
                     try
                     {
-                        newAbilityEffect = new AbilityEffect();//TODO: change parameters to what they need to be after Room class is implemented
+                        newAbilityEffect = new AbilityEffect(null);//TODO: change parameters to what they need to be after Room class is implemented
                         //add newRoom to _room list
                         //_effects.TryAdd(newAbilityEffect.Name, newAbilityEffect);
                     }

@@ -49,7 +49,7 @@ namespace RatEngine.DataModel.World
         /// This default constructor is provided for simple testing purposes.  It is not used in
         /// production.
         /// </summary>
-        public Transition()
+        public Transition(string GameID) : base(GameID)
         {
             InitializeComponents();
         }
@@ -63,7 +63,7 @@ namespace RatEngine.DataModel.World
         /// </summary>
         /// <param name="Row">[DataRow] The record from which to initialize this Transition.</param>
         /// <param name="StartingRoom">[Room] The room used to access this Transition.</param>
-        public Transition(DataRow Row, Room StartingRoom)
+        public Transition(string GameID, DataRow Row, Room StartingRoom) : base(GameID)
         {
             InitializeComponents();
 
@@ -180,7 +180,7 @@ namespace RatEngine.DataModel.World
                 // with a reference to the actual room in the realm.
                 PopulatePropertyFromDataRow<int>(Row, Fields.ROOM_TO, out tmp);
                 if (tmp > 0)
-                    _roomto = new Room(tmp);
+                    _roomto = new Room(null, tmp);
             }
             catch (Exception ex)
             {

@@ -34,11 +34,12 @@ namespace ScriptingEngine
         /// (except for case and file extension).
         /// </summary>
         /// <param name="instruction">The instruction for the script to process.</param>
+        /// <param name="originatorGameID">The unique game ID of the game object that originated this request.</param>
         /// <param name="scriptName">The name of the script for the request to invoke.</param>
         /// <returns>A script request instance.</returns>
-        public static IScriptRequest CreateRequest(string instruction, string scriptName)
+        public static IScriptRequest CreateRequest(string instruction, string originatorGameID, string scriptName)
         {
-            return new ScriptRequestInst(instruction, scriptName, null);
+            return new ScriptRequestInst(instruction, originatorGameID, scriptName, null);
         }
 
         /// <summary>
@@ -46,13 +47,14 @@ namespace ScriptingEngine
         /// class name.
         /// </summary>
         /// <param name="instruction">The instruction for the script to process.</param>
+        /// <param name="originatorGameID">The unique game ID of the game object that originated this request.</param>
         /// <param name="scriptName">The name of the script for the request to invoke.</param>
         /// <param name="className">The name of the script class responsible for processing
         /// the request.</param>
         /// <returns>A script request instance.</returns>
-        public static IScriptRequest CreateRequest(string instruction, string scriptName, string className)
+        public static IScriptRequest CreateRequest(string instruction, string originatorGameID, string scriptName, string className)
         {
-            return new ScriptRequestInst(instruction, scriptName, className);
+            return new ScriptRequestInst(instruction, originatorGameID, scriptName, className);
         }
 
         /// <summary>
@@ -142,9 +144,9 @@ namespace ScriptingEngine
         /// </summary>
         /// <param name="transaction">The transaction to execute.</param>
         /// <returns></returns>
-        public static IScriptResult SubmitTransaction(ScriptTransaction transaction)
+        public static IScriptResult SubmitTransaction(IScriptTransaction transaction)
         {
-            return null;        // so it'll compile.
+            return transaction.ExecuteTransaction();
         }
 
         /// <summary>
@@ -169,10 +171,11 @@ namespace ScriptingEngine
         private class ScriptRequestInst : IScriptRequest
         {
             string _instr;
+            string _origid;
             string _script;
             string _class;
 
-            public ScriptRequestInst(string instruction, string scriptName, string className)
+            public ScriptRequestInst(string instruction, string originatorGameID, string scriptName, string className)
             {
                 _instr = instruction;
                 _script = scriptName;
@@ -182,6 +185,11 @@ namespace ScriptingEngine
             public string Instruction
             {
                 get { return _instr; }
+            }
+
+            public string OriginatorGameID
+            {
+                get { return _origid; }
             }
 
             public string ScriptName

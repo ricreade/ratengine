@@ -38,6 +38,15 @@ namespace RatEngine.DataModel.Questing
         // The quest goals associated with this quest.  The key value is the goal name.
         private ConcurrentDictionary<QuestGoal, string> _questgoals;
 
+        /// <summary>
+        /// Instantiates a new Quest object based on the specified unique Game ID.  
+        /// If this value is provided, this object will be populated based on the data source.  
+        /// If this is a new record, specify null for this value.
+        /// </summary>
+        /// <param name="GameID">The game id of this Quest object, or null if this 
+        /// is a new record.</param>
+        public Quest(string GameID) : base(GameID) { }
+
         public override bool Delete()
         {
             throw new NotImplementedException();

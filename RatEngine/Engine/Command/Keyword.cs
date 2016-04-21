@@ -57,7 +57,7 @@ namespace RatEngine.Engine.Command
         /// NullReferenceException.
         /// </summary>
         /// <param name="Row">[DataRow] The database record from which to hydrate the Room.</param>
-        public Keyword(DataRow Row)
+        public Keyword(string GameID, DataRow Row) : base(GameID)
         {
             InitializeComponents();
 
@@ -213,7 +213,7 @@ namespace RatEngine.Engine.Command
             {
                 try
                 {
-                    _ability = new Ability(dt.Rows[0]);
+                    _ability = new Ability(null, dt.Rows[0]);
                 }
                 catch (Exception ex)
                 {
@@ -283,7 +283,7 @@ namespace RatEngine.Engine.Command
             {
                 foreach (DataRow dr in dt.Rows)
                 {
-                    KeywordSyntax ks = new KeywordSyntax(dr, this);
+                    KeywordSyntax ks = new KeywordSyntax(null, dr, this);
                     if (!_syntaxes.TryAdd(ks.ID.ToString(), ks))
                     {
                         throw new OperationFailedException("Could not add Syntax " + ks.Syntax +

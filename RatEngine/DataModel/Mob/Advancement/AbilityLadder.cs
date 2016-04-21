@@ -36,10 +36,11 @@ namespace RatEngine.DataModel.Mob.Advancement
         /// constructor will initialize components and accept DataRow of AbilityLadder to hydrate class  
         /// </summary>
         /// <params>DataRow abilityLadderRow</params>
-        public AbilityLadder(DataRow abilityLadderRow)
+        public AbilityLadder(string GameID, DataRow abilityLadderRow) : base(GameID)
         {
 
         }
+
         public override bool Delete()
         {
             throw new NotImplementedException();

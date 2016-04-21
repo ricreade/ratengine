@@ -13,6 +13,15 @@ namespace RatEngine.DataModel.Questing
     /// </summary>
     class QuestGoalType : GameElement
     {
+        /// <summary>
+        /// Instantiates a new QuestGoalType object based on the specified unique Game ID.  
+        /// If this value is provided, this object will be populated based on the data source.  
+        /// If this is a new record, specify null for this value.
+        /// </summary>
+        /// <param name="GameID">The game id of this QuestGoalType object, or null if this 
+        /// is a new record.</param>
+        public QuestGoalType(string GameID) : base(GameID) { }
+
         public override bool Delete()
         {
             throw new NotImplementedException();

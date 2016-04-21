@@ -64,7 +64,7 @@ namespace RatEngine.DataModel.Questing
         private string _npccomplete;
 
         // Copy Constructor to support a player-specific copy of the goal.
-        public QuestGoal(QuestGoal Goal)
+        public QuestGoal(QuestGoal Goal) : base(null)
         {
 
         }

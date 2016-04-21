@@ -48,7 +48,7 @@ namespace RatEngine.DataModel.World
         /// Constructor.  This constructor exists for testing purposes only.  It has no function
         /// in production.  This constructor initializes the room collections.
         /// </summary>
-        public Room()
+        public Room(string GameID) : base(GameID)
         {
             InitializeComponents();
         }
@@ -61,7 +61,7 @@ namespace RatEngine.DataModel.World
         /// this method.  Room collections are not initialized.
         /// </summary>
         /// <param name="ID">[int] The database record primary key of this room.</param>
-        public Room(int ID)
+        public Room(string GameID, int ID) : base(GameID)
         {
             _id = ID;
         }
@@ -73,7 +73,7 @@ namespace RatEngine.DataModel.World
         /// </summary>
         /// <param name="Row">[DataRow] The database record from which to hydrate the Room.</param>
         /// <param name="MapRegion">[Region] The Region for this room.</param>
-        public Room(DataRow Row, Region MapRegion)
+        public Room(string GameID, DataRow Row, Region MapRegion) : base(GameID)
         {
             InitializeComponents();
 
@@ -333,7 +333,7 @@ namespace RatEngine.DataModel.World
             {
                 foreach (DataRow dr in dt.Rows)
                 {
-                    Transition t = new Transition(dr, this);
+                    Transition t = new Transition(null, dr, this);
                     if (!_transitions.TryAdd(t.ID.ToString(), t))
                         throw new OperationFailedException("Could not add Transition " + t.Name +
                             " to Room " + Name + ".");

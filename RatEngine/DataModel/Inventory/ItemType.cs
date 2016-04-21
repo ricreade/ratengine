@@ -13,6 +13,8 @@ namespace RatEngine.DataModel.Inventory
     /// </summary>
     public class ItemType : GameElement
     {
+        public ItemType(string GameID) : base(GameID) { }
+
         public override bool Delete()
         {
             throw new NotImplementedException();

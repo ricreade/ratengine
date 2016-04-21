@@ -50,11 +50,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FlagEvaluationPackage.cs" />
     <Compile Include="FlagEvaluationResult.cs" />
     <Compile Include="IScriptInstance.cs" />
     <Compile Include="IScriptRequest.cs" />
-    <Compile Include="IScriptRequestPackage.cs" />
     <Compile Include="IScriptResult.cs" />
     <Compile Include="IScriptTransaction.cs" />
     <Compile Include="ScriptResult.cs" />

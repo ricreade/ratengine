@@ -59,6 +59,14 @@ namespace RatEngine.DataModel.Inventory
         // Whether this item is a container and there can make use of its inventory.
         protected bool _iscontainer;
 
+        /// <summary>
+        /// Instantiates a new Item object based on the specified unique Game ID.  If this value is
+        /// provided, this object will be populated based on the data source.  If this is a new
+        /// record, specify null for this value.
+        /// </summary>
+        /// <param name="GameID">The game id of this Item object, or null if this is a new record.</param>
+        public Item(string GameID) : base(GameID) { }
+
         public bool IsContainer
         {
             get { return _iscontainer; }

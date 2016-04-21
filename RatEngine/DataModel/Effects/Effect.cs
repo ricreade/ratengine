@@ -39,6 +39,14 @@ namespace RatEngine.DataModel.Effects
             None
         }
 
+        /// <summary>
+        /// Constructs a simple Effect object.  If the unique Game ID property is specified, the effect
+        /// object is populated from the data source.  If this is a new Effect record, specify null for
+        /// this value.
+        /// </summary>
+        /// <param name="GameID">The game id of this effect object, or null if this is a new record.</param>
+        public Effect(string GameID) : base(GameID) { }
+
         public override bool Delete()
         {
             throw new NotImplementedException();

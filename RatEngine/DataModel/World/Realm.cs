@@ -46,7 +46,7 @@ namespace RatEngine.DataModel.World
         /// Constructor will handle hydrating GameElement attributes from data row and instantiate _regions variable. Will hydrate using
         /// a provided DataRow
         /// </summary>
-        public Realm(DataRow Row)
+        public Realm(string GameID, DataRow Row) : base(GameID)
         {
             //instantiate Dictionary of Regions
             _regions = new ConcurrentDictionary<string, Region>();
@@ -120,7 +120,7 @@ namespace RatEngine.DataModel.World
                     //create Region
                     try
                     {
-                        newRegion = new Region(row, this);
+                        newRegion = new Region(null, row, this);
 
                         //add newRegion to _regions list
                         if (!_regions.TryAdd(newRegion.Name, newRegion))

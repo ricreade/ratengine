@@ -47,6 +47,15 @@ namespace RatEngine.DataModel.Mob
         // The key value is the quest + goal name.
         private ConcurrentDictionary<QuestGoal, string> _questgoals;
 
+        /// <summary>
+        /// Instantiates a new NonPlayerCharacter object based on the specified unique Game ID.  
+        /// If this value is provided, this object will be populated based on the data source.  
+        /// If this is a new record, specify null for this value.
+        /// </summary>
+        /// <param name="GameID">The game id of this NonPlayerCharacter object, or null if this 
+        /// is a new record.</param>
+        public NonPlayerCharacter(string GameID) : base(GameID) { }
+
         public override bool Delete()
         {
             throw new NotImplementedException();
