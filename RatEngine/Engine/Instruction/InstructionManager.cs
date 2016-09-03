@@ -39,7 +39,7 @@ namespace RatEngine.Engine.Instruction
         /// <returns>[Task<Response>] A task containing the total set of response messages to
         /// send back to the user(s).</returns>
         public async Task<Response> ExecuteInstructions(string CommandString, Keyword Keyword,
-            KeywordSyntax Syntax, IEnumerable<Flag> AssociatedFlags, Combatant Caller)
+            KeywordSyntax Syntax, IEnumerable<Flag> AssociatedFlags, Creature Caller)
         {
             InstructionResultSet result = new InstructionResultSet()
             {
@@ -90,7 +90,7 @@ namespace RatEngine.Engine.Instruction
         /// <returns>[Task<InstructionResultSet>] A task containing the resulting registers from the
         /// instruction execution.</returns>
         private Task<InstructionResultSet> ExecuteInstruction(SystemInstruction Instruction, InstructionResultSet ResultSet,
-            string CommandString, Keyword Keyword, KeywordSyntax Syntax, IEnumerable<Flag> AssociatedFlags, Combatant Caller)
+            string CommandString, Keyword Keyword, KeywordSyntax Syntax, IEnumerable<Flag> AssociatedFlags, Creature Caller)
         {
             Task<InstructionResultSet> t = null;
 
@@ -192,7 +192,7 @@ namespace RatEngine.Engine.Instruction
         /// instruction execution.</param>
         /// <returns>[bool] True if the instruction executed successfully, otherwise false.</returns>
         private bool Append(string CommandString, SystemInstruction Instruction, KeywordSyntax Syntax,
-                            Combatant Caller, InstructionResultSet ResultSet)
+                            Creature Caller, InstructionResultSet ResultSet)
         {
             try
             {
@@ -307,7 +307,7 @@ namespace RatEngine.Engine.Instruction
         /// <param name="ResultSet">[InstructionResultSet] The set of registers for
         /// instruction execution.</param>
         /// <returns>[bool] True if the instruction executed successfully, otherwise false.</returns>
-        private bool Append(SystemInstruction Instruction, Combatant Caller, InstructionResultSet ResultSet)
+        private bool Append(SystemInstruction Instruction, Creature Caller, InstructionResultSet ResultSet)
         {
             string resp = "";
             string mto = "";
@@ -431,7 +431,7 @@ namespace RatEngine.Engine.Instruction
         /// <param name="ResultSet">[InstructionResultSet] The set of registers for
         /// instruction execution.</param>
         /// <returns>[bool] True if the instruction executed successfully, otherwise false.</returns>
-        private bool CheckCounter(SystemInstruction Instruction, Combatant Caller, InstructionResultSet ResultSet)
+        private bool CheckCounter(SystemInstruction Instruction, Creature Caller, InstructionResultSet ResultSet)
         {
             try
             {
@@ -455,15 +455,15 @@ namespace RatEngine.Engine.Instruction
                                     Instruction.NextSeqOnSuccess : Instruction.NextSeqOnFail;
                                 break;
                             case "combatant":
-                                ResultSet.NextInstruction = ResultSet.LoopCounter < Caller.Location.Combatants.Count() ?
+                                ResultSet.NextInstruction = ResultSet.LoopCounter < Caller.Location.Creatures.Count() ?
                                     Instruction.NextSeqOnSuccess : Instruction.NextSeqOnFail;
                                 break;
                             case "pc":
-                                ResultSet.NextInstruction = ResultSet.LoopCounter < Caller.Location.Combatants.OfType<PlayerCharacter>().Count() ?
+                                ResultSet.NextInstruction = ResultSet.LoopCounter < Caller.Location.Creatures.OfType<PlayerCharacter>().Count() ?
                                     Instruction.NextSeqOnSuccess : Instruction.NextSeqOnFail;
                                 break;
                             case "npc":
-                                ResultSet.NextInstruction = ResultSet.LoopCounter < Caller.Location.Combatants.OfType<NonPlayerCharacter>().Count() ?
+                                ResultSet.NextInstruction = ResultSet.LoopCounter < Caller.Location.Creatures.OfType<NonPlayerCharacter>().Count() ?
                                     Instruction.NextSeqOnSuccess : Instruction.NextSeqOnFail;
                                 break;
                             default:
@@ -526,7 +526,7 @@ namespace RatEngine.Engine.Instruction
         /// <param name="ResultSet">[InstructionResultSet] The set of registers for
         /// instruction execution.</param>
         /// <returns>[bool] True if the instruction executed successfully, otherwise false.</returns>
-        private bool ExecuteCommandString(SystemInstruction Instruction, Combatant Caller, InstructionResultSet ResultSet)
+        private bool ExecuteCommandString(SystemInstruction Instruction, Creature Caller, InstructionResultSet ResultSet)
         {
             Task<Response> t = null;
             try
@@ -609,7 +609,7 @@ namespace RatEngine.Engine.Instruction
         /// <param name="ResultSet">[InstructionResultSet] The set of registers for
         /// instruction execution.</param>
         /// <returns>[bool] True if the instruction executed successfully, otherwise false.</returns>
-        private bool GetGameObject(SystemInstruction Instruction, Combatant Caller, InstructionResultSet ResultSet)
+        private bool GetGameObject(SystemInstruction Instruction, Creature Caller, InstructionResultSet ResultSet)
         {
             try
             {
@@ -643,10 +643,10 @@ namespace RatEngine.Engine.Instruction
                                 switch (prp)
                                 {
                                     case "name":
-                                        ResultSet.GameObj = Caller.Location.GetCombatant(ResultSet.ArgumentName);
+                                        ResultSet.GameObj = Caller.Location.GetCreature(ResultSet.ArgumentName);
                                         break;
                                     case "index":
-                                        ResultSet.GameObj = Caller.Location.Combatants.OfType<PlayerCharacter>().ToList()[ResultSet.LoopCounter];
+                                        ResultSet.GameObj = Caller.Location.Creatures.OfType<PlayerCharacter>().ToList()[ResultSet.LoopCounter];
                                         break;
                                 }
                                 break;
@@ -655,16 +655,16 @@ namespace RatEngine.Engine.Instruction
                                 switch (prp)
                                 {
                                     case "name":
-                                        ResultSet.GameObj = Caller.Location.GetCombatant(ResultSet.ArgumentName);
+                                        ResultSet.GameObj = Caller.Location.GetCreature(ResultSet.ArgumentName);
                                         break;
                                     case "index":
-                                        ResultSet.GameObj = Caller.Location.Combatants.OfType<NonPlayerCharacter>().ToList()[ResultSet.LoopCounter];
+                                        ResultSet.GameObj = Caller.Location.Creatures.OfType<NonPlayerCharacter>().ToList()[ResultSet.LoopCounter];
                                         break;
                                 }
                                 break;
 
                             case "combatant":
-                                ResultSet.GameObj = Caller.Location.GetCombatant(ResultSet.ArgumentName);
+                                ResultSet.GameObj = Caller.Location.GetCreature(ResultSet.ArgumentName);
                                 break;
 
                             case "transition":
@@ -716,7 +716,7 @@ namespace RatEngine.Engine.Instruction
         /// <param name="ResultSet">[InstructionResultSet] The set of registers for
         /// instruction execution.</param>
         /// <returns>[bool] True if the instruction executed successfully, otherwise false.</returns>
-        private bool Move(SystemInstruction Instruction, Combatant Caller, InstructionResultSet ResultSet)
+        private bool Move(SystemInstruction Instruction, Creature Caller, InstructionResultSet ResultSet)
         {
             try
             {
@@ -742,14 +742,14 @@ namespace RatEngine.Engine.Instruction
         /// instruction execution.</param>
         /// <param name="Syntax">[KeywordSyntax] The specific keyword syntax of the input string.</param>
         /// <returns>[bool] True if the instruction executed successfully, otherwise false.</returns>
-        private bool ResolveResponseMessages(SystemInstruction Instruction, Combatant Caller,
+        private bool ResolveResponseMessages(SystemInstruction Instruction, Creature Caller,
             KeywordSyntax Syntax, InstructionResultSet ResultSet)
         {
             try
             {
                 // Build messages for all PlayerCharacter objects in the caller's current room.  Treat
                 // message building for the caller and other PlayerCharacters differently.
-                foreach (PlayerCharacter pc in Caller.Location.Combatants.OfType<PlayerCharacter>())
+                foreach (PlayerCharacter pc in Caller.Location.Creatures.OfType<PlayerCharacter>())
                 {
                     if (pc.Equals(Caller))
                     {
@@ -938,7 +938,7 @@ namespace RatEngine.Engine.Instruction
             /// <param name="Recipient">[Combatant] The combatant for which the message is
             /// being constructed.</param>
             /// <param name="Syntax">[KeywordSyntax] The syntax of the specified instruction.</param>
-            public void ApplyResponse(Combatant Caller, Combatant Recipient, KeywordSyntax Syntax)
+            public void ApplyResponse(Creature Caller, Creature Recipient, KeywordSyntax Syntax)
             {
                 Response.Message msg = null;
                 // If the recipient is the caller.
@@ -985,7 +985,7 @@ namespace RatEngine.Engine.Instruction
             /// <param name="Syntax">[KeywordSyntax] The syntax of the initial command string.</param>
             /// <returns>[Response.Message] The Message object created or null if the message
             /// text is an empty string.</returns>
-            private Response.Message CreateMessage(Combatant Recipient, RecipientType RecipientType,
+            private Response.Message CreateMessage(Creature Recipient, RecipientType RecipientType,
                 KeywordSyntax Syntax)
             {
                 Response.Message msg = new Response.Message();

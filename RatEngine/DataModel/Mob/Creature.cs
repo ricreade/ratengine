@@ -15,7 +15,7 @@ namespace RatEngine.DataModel.Mob
     /// Describes a game object that is capable of engaging in combat and moving in the game
     /// world.  PlayerCharacter and NonPlayerCharacter derive from this class.
     /// </summary>
-    public abstract class Combatant : Inventoried
+    public abstract class Creature : Inventoried
     {
         // The Combatant's current character level.
         protected int _lvl;
@@ -55,7 +55,7 @@ namespace RatEngine.DataModel.Mob
         /// specify the combatant object's game ID.
         /// </summary>
         /// <param name="GameID">The game id of this combatant object, or null if this is a new record.</param>
-        public Combatant(string GameID) : base(GameID) { }
+        public Creature(string GameID) : base(GameID) { }
 
         public int CurrentHP
         {
@@ -168,7 +168,7 @@ namespace RatEngine.DataModel.Mob
         /// classes to provide their own implementation.
         /// </summary>
         /// <param name="Target">[Combatant] The Combatant targetted with the Kill command.</param>
-        public virtual void Kill(Combatant Target)
+        public virtual void Kill(Creature Target)
         {
             throw new NotImplementedException();
         }
@@ -211,7 +211,7 @@ namespace RatEngine.DataModel.Mob
         /// <param name="Source">[Combatant] The Combatant who used the ability against this
         /// Combatant.</param>
         /// <returns>[bool] True if the attack was prevented, otherwise false.</returns>
-        public bool TryDefend(Advancement.Ability Ability, Combatant Source)
+        public bool TryDefend(Advancement.Ability Ability, Creature Source)
         {
             throw new NotImplementedException();
         }

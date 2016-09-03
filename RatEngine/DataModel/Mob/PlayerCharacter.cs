@@ -20,7 +20,7 @@ namespace RatEngine.DataModel.Mob
     /// reaching the application service are processed through this class because all commands
     /// are executed from the perspective of the player.
     /// </summary>
-    public class PlayerCharacter : Combatant
+    public class PlayerCharacter : Creature
     {
         // The character's current xp count.  The total number of ladder levels available for
         // a player to allocate are calculated based on the total number of levels the player
@@ -125,7 +125,7 @@ namespace RatEngine.DataModel.Mob
         /// depending on any special requirements specific to players.
         /// </summary>
         /// <param name="Target">[Combatant] The target of the Kill command.</param>
-        public override void Kill(Combatant Target)
+        public override void Kill(Creature Target)
         {
             base.Kill(Target);
 
@@ -147,7 +147,7 @@ namespace RatEngine.DataModel.Mob
         /// <returns>[string] The return string to the application service.</returns>
         public Task<Response> ProcessCommandString(string CommandString)
         {
-            Combatant CommandPlayer = this;
+            Creature CommandPlayer = this;
             Task<Response> resp = null;
             if (CommandPlayer != null)
             {

@@ -4,8 +4,10 @@ using System.Collections.Concurrent;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+
 using RatEngine.DataModel.Inventory;
 using RatEngine.DataModel.Mob;
 
@@ -18,6 +20,7 @@ namespace RatEngine.DataModel.World
     /// via Rooms, NPCs encounter the players via Rooms, and Items exist only via Rooms.  The network
     /// of rooms provides the gameplay structure for the MUD.
     /// </summary>
+    [DataContract]
     public class Room : Inventoried
     {
         // Database field names.
@@ -91,7 +94,7 @@ namespace RatEngine.DataModel.World
 
         // A collection of all combatants (PCs and NPCs) currently in the room.  The key is the
         // Combatant name.
-        private ConcurrentDictionary<string, Combatant> _combatants;
+        private ConcurrentDictionary<string, Creature> _creatures;
 
         // A collection of all transitions available from this room.  The key is the Transition name.
         // This property is initialized at server startup and should never change while the application
@@ -104,16 +107,19 @@ namespace RatEngine.DataModel.World
         // hierarchy.  It is initialized at service startup.
         private Region _region;
 
+        [DataMember]
         public Region Region
         {
             get { return _region; }
         }
 
-        public IEnumerable<Combatant> Combatants
+        [DataMember]
+        public IEnumerable<Creature> Creatures
         {
-            get { return _combatants.Select(item => item.Value); }
+            get { return _creatures.Select(item => item.Value); }
         }
 
+        [DataMember]
         public IEnumerable<Transition> Transitions
         {
             get { return _transitions.Select(item => item.Value); }
@@ -127,17 +133,17 @@ namespace RatEngine.DataModel.World
         /// key collisions (such as when a PC has the same name as an NPC).
         /// </summary>
         /// <param name="NewCombatant">[Combatant] The new combatant to add to the collection.</param>
-        public bool AddCombatant(Combatant NewCombatant)
+        public bool AddCombatant(Creature NewCombatant)
         {
             if (NewCombatant != null)
             {
-                if (_combatants.ContainsKey(NewCombatant.Name))
+                if (_creatures.ContainsKey(NewCombatant.Name))
                 {
                     return false;
                     //throw new OperationFailedException("The combatant name " + NewCombatant.Name +
                     //    " already exists in this room.");
                 }
-                return _combatants.TryAdd(NewCombatant.Name, NewCombatant);
+                return _creatures.TryAdd(NewCombatant.Name, NewCombatant);
                 //if (_combatants.TryAdd(NewCombatant.Name, NewCombatant))
                 //{
                 //    return true;
@@ -173,9 +179,9 @@ namespace RatEngine.DataModel.World
         public GameElement GetElement(string ElementName)
         {
             // Search the Combatant collection
-            if (_combatants.ContainsKey(ElementName))
+            if (_creatures.ContainsKey(ElementName))
             {
-                return _combatants[ElementName];
+                return _creatures[ElementName];
             }
 
             // Search the Transition collection
@@ -207,8 +213,7 @@ namespace RatEngine.DataModel.World
         /// <returns>[Transition] The Transition object found, or null if no match was found.</returns>
         public Transition GetTransition(string TransitionKeyword)
         {
-            //if (_transitions.ContainsKey(TransitionKeyword))
-            //{
+            
             try
             {
                 return _transitions.First(item => item.Value.Name == TransitionKeyword).Value;
@@ -217,9 +222,7 @@ namespace RatEngine.DataModel.World
             {
                 return null;
             }
-            //}
 
-            //return null;
         }
 
         /// <summary>
@@ -232,11 +235,11 @@ namespace RatEngine.DataModel.World
         /// Since this is really a keyword, the method should make the best possible effort to perform
         /// partial matches against the available dictionary keys.</param>
         /// <returns>[Combatant] The Combatant object found, or null if no match was found.</returns>
-        public Combatant GetCombatant(string CombatantKeyword)
+        public Creature GetCreature(string CreatureKeyword)
         {
-            if (_combatants.ContainsKey(CombatantKeyword))
+            if (_creatures.ContainsKey(CreatureKeyword))
             {
-                return _combatants[CombatantKeyword];
+                return _creatures[CreatureKeyword];
             }
 
             return null;
@@ -248,7 +251,7 @@ namespace RatEngine.DataModel.World
         /// </summary>
         private void InitializeComponents()
         {
-            _combatants = new ConcurrentDictionary<string, Combatant>();
+            _creatures = new ConcurrentDictionary<string, Creature>();
             _transitions = new ConcurrentDictionary<string, Transition>();
         }
 
@@ -354,12 +357,12 @@ namespace RatEngine.DataModel.World
         /// </summary>
         /// <param name="OldCombatant">[Combatant] The Combatant object to remove from the room
         /// collection.</param>
-        public bool RemoveCombatant(Combatant OldCombatant)
+        public bool RemoveCombatant(Creature OldCombatant)
         {
-            Combatant com;
-            if (_combatants.ContainsKey(OldCombatant.Name))
+            Creature com;
+            if (_creatures.ContainsKey(OldCombatant.Name))
             {
-                return _combatants.TryRemove(OldCombatant.Name, out com);
+                return _creatures.TryRemove(OldCombatant.Name, out com);
                 //if (!_combatants.TryRemove(OldCombatant.Name, out com))
                 //{
                 //    throw new OperationFailedException("The combatant name " + OldCombatant.Name +
@@ -383,7 +386,6 @@ namespace RatEngine.DataModel.World
                 {
                     try
                     {
-                        //t.ResolveRoomReferences(MapRegion.Realm)
                         t.ResolveRoomReferences(Region.Realm);
                     }
                     catch (OperationFailedException ex)

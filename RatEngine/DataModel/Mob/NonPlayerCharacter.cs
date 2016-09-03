@@ -23,7 +23,7 @@ namespace RatEngine.DataModel.Mob
     /// inactive flag on itself and drop whatever inventory it is carrying as a
     /// container.  When it respawns, it obtains new inventory and removes the flag.
     /// </summary>
-    public class NonPlayerCharacter : Combatant
+    public class NonPlayerCharacter : Creature
     {
         // Indicates whether this NPC should attack PCs on sight.
         private bool _ishostile;
@@ -61,7 +61,7 @@ namespace RatEngine.DataModel.Mob
             throw new NotImplementedException();
         }
 
-        public override void Kill(Combatant Target)
+        public override void Kill(Creature Target)
         {
             base.Kill(Target);
         }
@@ -86,7 +86,7 @@ namespace RatEngine.DataModel.Mob
         /// <param name="MessageString">[string] The message the PC sent this NPC.</param>
         /// <param name="Source">[Combatant] The source of the request.</param>
         /// <returns>[string] This NPC's response.</returns>
-        public string ProcessTell(string MessageString, Combatant Source)
+        public string ProcessTell(string MessageString, Creature Source)
         {
             return "";
         }

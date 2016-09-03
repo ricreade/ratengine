@@ -58,7 +58,7 @@
     <Compile Include="DataModel\Effects\Effect.cs" />
     <Compile Include="DataModel\Mob\Advancement\LadderLevel.cs" />
     <Compile Include="DataModel\Mob\BodySlot.cs" />
-    <Compile Include="DataModel\Mob\Combatant.cs" />
+    <Compile Include="DataModel\Mob\Creature.cs" />
     <Compile Include="DataModel\Mob\NonPlayerCharacter.cs" />
     <Compile Include="DataModel\Mob\PlayerCharacter.cs" />
     <Compile Include="DataModel\Mob\PlayerNotFoundException.cs" />
@@ -72,6 +72,8 @@
     <Compile Include="DataModel\World\Region.cs" />
     <Compile Include="DataModel\World\Room.cs" />
     <Compile Include="DataModel\World\Transition.cs" />
+    <Compile Include="DataSource\DataConnection.cs" />
+    <Compile Include="DataSource\SqlDataConnection.cs" />
     <Compile Include="Engine\Command\CommandUtils.cs" />
     <Compile Include="Engine\Command\InvalidCommandSyntaxException.cs" />
     <Compile Include="Engine\Command\InvalidTargetException.cs" />

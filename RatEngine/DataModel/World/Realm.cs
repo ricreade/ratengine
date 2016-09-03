@@ -4,6 +4,7 @@ using System.Collections.Concurrent;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,6 +16,7 @@ namespace RatEngine.DataModel.World
     /// Realm.  This provides a way to introduce versions of the same game at different difficulties
     /// or completely different games using the same engine.
     /// </summary>
+    [DataContract]
     public class Realm : GameElement
     {
         // Database field names.
@@ -59,6 +61,7 @@ namespace RatEngine.DataModel.World
                     "Cannot initialize the Realm.");
         }
 
+        [DataMember]
         public IEnumerable<Region> Regions
         {
             get { return _regions.Select(item => item.Value); }

@@ -125,7 +125,7 @@ namespace RatEngine.Engine.Command
         /// </summary>
         /// <param name="CommandString">[string] The command string for this keyword to execute.</param>
         /// <param name="Player">[PlayerCharacter] A reference to the player who input this command.</param>
-        public Task<Response> ExecuteCommandString(string CommandString, Combatant Player)
+        public Task<Response> ExecuteCommandString(string CommandString, Creature Player)
         {
             KeywordSyntax ks = null;
             Task<Response> t = null;

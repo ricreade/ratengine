@@ -4,6 +4,7 @@ using System.Collections.Concurrent;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,6 +16,7 @@ namespace RatEngine.DataModel.World
     /// This class largely serves as a way to organize Rooms into groups so they can be easily
     /// categorized.  It also allows Rooms from different Regions to share the same name.
     /// </summary>
+    [DataContract]
     public class Region : GameElement
     {
         // A collection of all Rooms in this Region.  The key is the Room name.
@@ -69,11 +71,13 @@ namespace RatEngine.DataModel.World
 
         }
 
+        [DataMember]
         public Realm Realm
         {
             get { return _realm; }
         }
 
+        [DataMember]
         public IEnumerable<Room> Rooms
         {
             get { return _rooms.Select(item => item.Value); }

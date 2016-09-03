@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using RatEngine.DataModel.Effects;
@@ -14,6 +15,7 @@ namespace RatEngine.DataModel.World
     /// transitions may not be easy to use.  Transition properties define the descriptions users
     /// receive when another user enters or leaves a room.
     /// </summary>
+    [DataContract]
     public class Transition : Effectable
     {
         // Database field names.
@@ -105,26 +107,31 @@ namespace RatEngine.DataModel.World
         // The keyword a player must use with the move command to enter this transition.
         private string _kywrd;
 
+        [DataMember]
         public Room RoomFrom
         {
             get { return _roomfrom; }
         }
 
+        [DataMember]
         public Room RoomTo
         {
             get { return _roomto; }
         }
 
+        [DataMember]
         public string DescriptionFrom
         {
             get { return _descriptfrom; }
         }
 
+        [DataMember]
         public string DescriptionTo
         {
             get { return _descriptto; }
         }
 
+        [DataMember]
         public string Keyword
         {
             get { return _kywrd; }
