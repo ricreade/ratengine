@@ -7,6 +7,8 @@ using System.ServiceModel.Web;
 using System.Text;
 
 using RatEngine.DataModel;
+using RatEngine.DataModel.World;
+using RatEngine.DataSource;
 
 namespace RatGameService
 {
@@ -30,6 +32,11 @@ namespace RatGameService
                 composite.StringValue += "Suffix";
             }
             return composite;
+        }
+
+        public List<Realm> GetRealmList()
+        {
+            throw new NotImplementedException();
         }
     }
 }

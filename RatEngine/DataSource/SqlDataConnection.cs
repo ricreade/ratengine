@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace RatEngine.DataSource
 {
+    /// <summary>
+    /// Represents a connection to a SQL data source.
+    /// </summary>
     public class SqlDataConnection : DataConnection<SqlParameter, DataTable>
     {
         private SqlConnection _connection;
