@@ -8,6 +8,8 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
+using RatEngine.DataSource;
+
 namespace RatEngine.DataModel.World
 {
     /// <summary>
@@ -48,17 +50,17 @@ namespace RatEngine.DataModel.World
         /// Constructor will handle hydrating GameElement attributes from data row and instantiate _regions variable. Will hydrate using
         /// a provided DataRow
         /// </summary>
-        public Realm(string GameID, DataRow Row) : base(GameID)
+        public Realm(string GameID, RatDataModelAdapter Adapter) : base(GameID, Adapter)
         {
             //instantiate Dictionary of Regions
             _regions = new ConcurrentDictionary<string, Region>();
 
             //if statements to make sure DataRow contains correct information
-            if (Row != null)
-                LoadDataRow(Row);
-            else
-                throw new NullReferenceException("The DataRow record for a Realm was null.  " +
-                    "Cannot initialize the Realm.");
+            //if (Row != null)
+            //    LoadDataRow(Row);
+            //else
+            //    throw new NullReferenceException("The DataRow record for a Realm was null.  " +
+            //        "Cannot initialize the Realm.");
         }
 
         [DataMember]
@@ -69,7 +71,11 @@ namespace RatEngine.DataModel.World
 
         public override bool Delete()
         {
-            throw new NotImplementedException();
+            if (_adapter != null)
+            {
+
+            }
+            return false;
         }
 
         public override void LoadDataRow(DataRow Row)

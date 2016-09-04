@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using RatEngine.DataSource;
+
 namespace RatEngine.DataModel
 {
     /// <summary>
@@ -20,6 +22,7 @@ namespace RatEngine.DataModel
         protected string _gameid;
         protected string _name;
         protected string _descr;
+        protected RatDataModelAdapter _adapter;
 
         /// <summary>
         /// The base constructor for a GameElement.  All instances deriving from GameElement
@@ -27,9 +30,10 @@ namespace RatEngine.DataModel
         /// database, specify null for this value.
         /// </summary>
         /// <param name="GameID"></param>
-        public GameElement(string GameID)
+        public GameElement(string GameID, RatDataModelAdapter Adapter)
         {
             _gameid = GameID;
+            _adapter = Adapter;
         }
 
         /// <summary>
@@ -38,6 +42,15 @@ namespace RatEngine.DataModel
         public int ID
         {
             get { return _id; }
+        }
+
+        /// <summary>
+        /// Gets or sets the data adapter for communication with the data source.
+        /// </summary>
+        public RatDataModelAdapter DataAdapter
+        {
+            get { return _adapter; }
+            set { _adapter = value; }
         }
 
         /// <summary>

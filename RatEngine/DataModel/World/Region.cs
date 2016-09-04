@@ -8,6 +8,8 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
+using RatEngine.DataSource;
+
 namespace RatEngine.DataModel.World
 {
     /// <summary>
@@ -52,7 +54,7 @@ namespace RatEngine.DataModel.World
         /// Region(int regionID)
         /// Constructor will handle hydrating the region and instantiating the _rooms variable
         /// </summary>
-        public Region(string GameID, DataRow regionRow, Realm regionRealm) : base(GameID)
+        public Region(string GameID, DataRow regionRow, Realm regionRealm, RatDataModelAdapter Adapter) : base(GameID, Adapter)
         {
             //instantiate _rooms variable
             _rooms = new ConcurrentDictionary<string, Room>();
