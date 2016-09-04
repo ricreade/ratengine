@@ -12,7 +12,7 @@ namespace RatEngine.DataSource
     /// <summary>
     /// Represents a connection to a SQL data source.
     /// </summary>
-    public class SqlDataConnection : DataConnection<SqlParameter, DataTable>
+    public class SqlDataConnection : DataConnection<SqlParameter>
     {
         private SqlConnection _connection;
         private SqlCredential _credentials;
@@ -49,44 +49,127 @@ namespace RatEngine.DataSource
 
         public override void OpenConnection()
         {
-            _connection.Open();
+            try
+            {
+                _connection.Open();
+            }
+            catch (InvalidOperationException ex)
+            {
+                // TODO: Log event.
+                throw;
+            }
+            catch (SqlException ex)
+            {
+                // TODO: Log event.
+                throw;
+            }
         }
 
-        public override DataTable SendReadRequest(string InstructionString, IList<SqlParameter> Parameters)
+        /// <summary>
+        /// Invokes the specified SELECT stored procedure at the database using the specified parameters.
+        /// Returns a DataTable of the retrieved records.
+        /// </summary>
+        /// <param name="InstructionString">The name of the stored procedure to invoke.</param>
+        /// <param name="Parameters">A list of parameters associated with the request.</param>
+        /// <returns>A DataTable containing the results of the request.</returns>
+        public override IDataResultSet SendReadRequest(string InstructionString, IList<SqlParameter> Parameters)
         {
-            SqlDataAdapter adapter;
-            DataTable table = new DataTable();
-            SqlCommand cmd = new SqlCommand(InstructionString, _connection);
+            SqlDataReader reader = null;
+            DataTable table = null;
+            SqlCommand cmd = null;
 
-            if (Parameters != null)
+            try
             {
-                foreach (SqlParameter param in Parameters)
+                OpenConnection();
+            }
+            catch (Exception ex)
+            {
+                // TODO: Log event.
+                CloseConnection();
+                return null;
+            }
+
+            try
+            {
+                cmd = new SqlCommand(InstructionString, _connection);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                if (Parameters != null)
                 {
-                    cmd.Parameters.Add(param);
+                    cmd.Parameters.AddRange(Parameters.ToArray());
                 }
+
+                reader = cmd.ExecuteReader();
+                table = new DataTable();
+                table.Load(reader);
+            }
+            catch (Exception ex)
+            {
+                // TODO: Log event.
+                throw;
+            }
+            finally
+            {
+                CloseConnection();
             }
             
-            using (adapter = new SqlDataAdapter(cmd))
-            {
-                adapter.Fill(table);
-            }
-
-            return table;
+            return new SqlDataResultSet(table);
         }
 
+        /// <summary>
+        /// Invokes the specified INSERT, UPDATE, or DELETE stored procedure at the database using the 
+        /// specified parameters.  Returns an integer indicating the number of records affected (UPDATE or
+        /// DELETE) or the primary key value of the new record (INSERT).
+        /// </summary>
+        /// <param name="InstructionString">The name of the stored procedure to invoke.</param>
+        /// <param name="Parameters">A list of parameters associated with the request.</param>
+        /// <returns></returns>
         public override int SendWriteRequest(string InstructionString, IList<SqlParameter> Parameters)
         {
-            SqlCommand cmd = new SqlCommand(InstructionString, _connection);
+            SqlCommand cmd = null;
+            int returnVal;
+            SqlParameter result = null;
 
-            if (Parameters != null)
+            try
             {
-                foreach (SqlParameter param in Parameters)
-                {
-                    cmd.Parameters.Add(param);
-                }
+                OpenConnection();
+            }
+            catch (Exception ex)
+            {
+                // TODO: Log event.
+                CloseConnection();
+                return 0;
             }
 
-            return cmd.ExecuteNonQuery();
+            try
+            {
+                result = new SqlParameter("@result", SqlDbType.Int);
+                result.Direction = ParameterDirection.ReturnValue;
+
+                cmd = new SqlCommand(InstructionString, _connection);
+                cmd.CommandType = CommandType.StoredProcedure;
+                
+                if (Parameters != null)
+                    cmd.Parameters.AddRange(Parameters.ToArray());
+
+                cmd.Parameters.Add(result);
+
+            }
+            catch (Exception ex)
+            {
+                // TODO: Log event.
+                return 0;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+
+            if (int.TryParse(result.Value.ToString(), out returnVal))
+            {
+                return returnVal;
+            }
+            return 0;
         }
     }
 }

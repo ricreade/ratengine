@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using RatEngine.DataModel.World;
+
 namespace RatEngine.DataSource
 {
     /// <summary>
@@ -12,6 +14,11 @@ namespace RatEngine.DataSource
     /// </summary>
     class RatDataModelAdapter
     {
+        public static List<Realm> GetRealms()
+        {
+            List<Realm> realms = new List<Realm>();
 
+            return realms;
+        }
     }
 }

@@ -73,8 +73,10 @@
     <Compile Include="DataModel\World\Room.cs" />
     <Compile Include="DataModel\World\Transition.cs" />
     <Compile Include="DataSource\DataConnection.cs" />
+    <Compile Include="DataSource\IDataResultSet.cs" />
     <Compile Include="DataSource\RatDataModelAdapter.cs" />
     <Compile Include="DataSource\SqlDataConnection.cs" />
+    <Compile Include="DataSource\SqlDataResultSet.cs" />
     <Compile Include="Engine\Command\CommandUtils.cs" />
     <Compile Include="Engine\Command\InvalidCommandSyntaxException.cs" />
     <Compile Include="Engine\Command\InvalidTargetException.cs" />

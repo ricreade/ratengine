@@ -11,7 +11,7 @@ namespace RatEngine.DataSource
     /// </summary>
     /// <typeparam name="ParameterType">The type to use to represent a parameter.</typeparam>
     /// <typeparam name="RecordsetType">The type to use to represent a record set.</typeparam>
-    public abstract class DataConnection<ParameterType, RecordsetType>
+    public abstract class DataConnection<ParameterType>
     {
         protected string _connectionString;
 
@@ -36,7 +36,7 @@ namespace RatEngine.DataSource
         /// <param name="InstructionString">The instruction string to send to the data source.</param>
         /// <param name="Parameters">The list of parameters to include with the data request.</param>
         /// <returns></returns>
-        public abstract RecordsetType SendReadRequest(string InstructionString, IList<ParameterType> Parameters);
+        public abstract IDataResultSet SendReadRequest(string InstructionString, IList<ParameterType> Parameters);
 
         /// <summary>
         /// Sends a request to the data source to modify data records.
