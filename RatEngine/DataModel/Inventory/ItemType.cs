@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using RatEngine.DataSource;
+
 namespace RatEngine.DataModel.Inventory
 {
     /// <summary>
@@ -13,19 +15,34 @@ namespace RatEngine.DataModel.Inventory
     /// </summary>
     public class ItemType : GameElement
     {
-        public ItemType(string GameID) : base(GameID) { }
+        public ItemType(RatDataModelAdapter Adapter) : base(Adapter) { }
 
         public override bool Delete()
         {
             throw new NotImplementedException();
         }
 
-        public override void LoadDataRow(System.Data.DataRow Row)
+        public override bool Delete(RatDataModelAdapter Adapter)
         {
             throw new NotImplementedException();
         }
 
+        public override void LoadFromAdapter(RatDataModelAdapter Adapter)
+        {
+            throw new NotImplementedException();
+        }
+
+        //public override void LoadDataRow(System.Data.DataRow Row)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
         public override bool Save()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool Save(RatDataModelAdapter Adapter)
         {
             throw new NotImplementedException();
         }

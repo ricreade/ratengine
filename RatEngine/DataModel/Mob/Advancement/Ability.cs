@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 using RatEngine.DataModel;
 using RatEngine.DataModel.Effects;
+using RatEngine.DataSource;
 
 namespace RatEngine.DataModel.Mob.Advancement
 {
@@ -47,14 +48,14 @@ namespace RatEngine.DataModel.Mob.Advancement
             public const string ID = "Id";
         }
 
-        public Ability(string GameID, DataRow Row) : base(GameID)
+        public Ability(RatDataModelAdapter Adapter) : base(Adapter)
         {
             InitializeComponents();
-            if (Row != null)
-                LoadDataRow(Row);
-            else
-                throw new NullReferenceException("The DataRow record for an Ability was null.  " +
-                    "Cannot initialize the Ability.");
+            //if (Row != null)
+            //    LoadDataRow(Row);
+            //else
+            //    throw new NullReferenceException("The DataRow record for an Ability was null.  " +
+            //        "Cannot initialize the Ability.");
         }
 
         // The time the user must wait before using another ability after this one.
@@ -128,6 +129,11 @@ namespace RatEngine.DataModel.Mob.Advancement
             throw new NotImplementedException();
         }
 
+        public override bool Delete(RatDataModelAdapter Adapter)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// InitializeComponents
         /// Sets all object properties to their initial values.
@@ -143,7 +149,7 @@ namespace RatEngine.DataModel.Mob.Advancement
         /// the dataRow and fill the Construct Fields and the variables
         /// </summary>
         /// <param name="Row">[DataRow] The database record containing data supporting this class.</param>
-        public Ability(string GameID, AbilityLadder ladder, DataRow abilityRow) : base(GameID)
+        public Ability(AbilityLadder ladder, RatDataModelAdapter Adapter) : base(Adapter)
         {
             InitializeComponents();
 
@@ -153,11 +159,11 @@ namespace RatEngine.DataModel.Mob.Advancement
             else
                 throw new NullReferenceException("The ability of an AbilityLadder cannot be null.");
 
-            if (abilityRow != null)
-                LoadDataRow(abilityRow);
-            else
-                throw new NullReferenceException("The DataRow record for a Region was null.  " +
-                    "Cannot initialize the Region.");
+            //if (abilityRow != null)
+            //    LoadDataRow(abilityRow);
+            //else
+            //    throw new NullReferenceException("The DataRow record for a Region was null.  " +
+            //        "Cannot initialize the Region.");
         }
 
 
@@ -167,27 +173,27 @@ namespace RatEngine.DataModel.Mob.Advancement
         /// from the appropriate class constant.
         /// </summary>
         /// <param name="Row">[DataRow] The database record containing data supporting this class.</param>
-        public override void LoadDataRow(DataRow Row)
-        {
-            try
-            {
-                PopulatePropertyFromDataRow<int>(Row, Fields.ID, out this._id);
-                PopulatePropertyFromDataRow<string>(Row, Fields.NAME, out this._name);
-                PopulatePropertyFromDataRow<string>(Row, Fields.DESCRIPTION, out this._descr);
-                PopulatePropertyFromDataRow<int>(Row, Fields.POWER, out this._power);
-                PopulatePropertyFromDataRow<int>(Row, Fields.COOLDOWN, out this._cooldown);
-                PopulatePropertyFromDataRow<double>(Row, Fields.ACCURACY, out this._accur);
-                PopulatePropertyFromDataRow<int>(Row, Fields.LEVEL, out this._level);
+        //public override void LoadDataRow(DataRow Row)
+        //{
+        //    try
+        //    {
+        //        PopulatePropertyFromDataRow<int>(Row, Fields.ID, out this._id);
+        //        PopulatePropertyFromDataRow<string>(Row, Fields.NAME, out this._name);
+        //        PopulatePropertyFromDataRow<string>(Row, Fields.DESCRIPTION, out this._descr);
+        //        PopulatePropertyFromDataRow<int>(Row, Fields.POWER, out this._power);
+        //        PopulatePropertyFromDataRow<int>(Row, Fields.COOLDOWN, out this._cooldown);
+        //        PopulatePropertyFromDataRow<double>(Row, Fields.ACCURACY, out this._accur);
+        //        PopulatePropertyFromDataRow<int>(Row, Fields.LEVEL, out this._level);
 
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw;
+        //    }
 
-            //if no exceptions, run method to fill _levels
-            LoadEffects();
-        }
+        //    //if no exceptions, run method to fill _levels
+        //    LoadEffects();
+        //}
 
         /// <summary>
         /// LoadEffects
@@ -240,7 +246,17 @@ namespace RatEngine.DataModel.Mob.Advancement
             }
         }
 
+        public override void LoadFromAdapter(RatDataModelAdapter Adapter)
+        {
+            throw new NotImplementedException();
+        }
+
         public override bool Save()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool Save(RatDataModelAdapter Adapter)
         {
             throw new NotImplementedException();
         }

@@ -5,7 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+
 using RatEngine.DataModel;
+using RatEngine.DataSource;
 
 namespace RatEngine.Engine.Instruction
 {
@@ -42,15 +44,15 @@ namespace RatEngine.Engine.Instruction
         /// object.
         /// </summary>
         /// <param name="Row">[DataRow] The record data used to hydrate this object.</param>
-        public InstructionSyntax(string GameID, DataRow Row) : base(GameID)
+        public InstructionSyntax(RatDataModelAdapter Adapter) : base(Adapter)
         {
-            if (Row != null)
-            {
-                LoadDataRow(Row);
-            }
-            else
-                throw new NullReferenceException("The DataRow record for an InstructionSyntax was null.  " +
-                    "Cannot initialize the InstructionSyntax.");
+            //if (Row != null)
+            //{
+            //    LoadDataRow(Row);
+            //}
+            //else
+            //    throw new NullReferenceException("The DataRow record for an InstructionSyntax was null.  " +
+            //        "Cannot initialize the InstructionSyntax.");
         }
 
         // The regular expression object used to validate all incoming command strings.
@@ -90,6 +92,11 @@ namespace RatEngine.Engine.Instruction
         }
 
         public override bool Delete()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool Delete(RatDataModelAdapter Adapter)
         {
             throw new NotImplementedException();
         }
@@ -212,22 +219,27 @@ namespace RatEngine.Engine.Instruction
         /// Hydrates this object from the data stored in the specified DataRow.
         /// </summary>
         /// <param name="Row">[DataRow] The data record used to hydrate this object.</param>
-        public override void LoadDataRow(DataRow Row)
-        {
-            try
-            {
-                PopulatePropertyFromDataRow<int>(Row, Fields.ID, out this._id);
-                PopulatePropertyFromDataRow<string>(Row, Fields.SYNTAX, out this._syntax);
-                PopulatePropertyFromDataRow<string>(Row, Fields.NOTE, out this._note);
+        //public override void LoadDataRow(DataRow Row)
+        //{
+        //    try
+        //    {
+        //        PopulatePropertyFromDataRow<int>(Row, Fields.ID, out this._id);
+        //        PopulatePropertyFromDataRow<string>(Row, Fields.SYNTAX, out this._syntax);
+        //        PopulatePropertyFromDataRow<string>(Row, Fields.NOTE, out this._note);
 
-                // Now is a good time to instantiate the regex object with the stored
-                // syntax pattern.
-                InitializeRegex();
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
+        //        // Now is a good time to instantiate the regex object with the stored
+        //        // syntax pattern.
+        //        InitializeRegex();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw;
+        //    }
+        //}
+
+        public override void LoadFromAdapter(RatDataModelAdapter Adapter)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -237,6 +249,11 @@ namespace RatEngine.Engine.Instruction
         /// </summary>
         /// <returns>[bool] True if the save was successful, otherwise false.</returns>
         public override bool Save()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool Save(RatDataModelAdapter Adapter)
         {
             throw new NotImplementedException();
         }

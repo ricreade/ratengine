@@ -11,6 +11,7 @@ using RatEngine.DataModel;
 using RatEngine.DataModel.Effects;
 using RatEngine.DataModel.Mob;
 using RatEngine.DataModel.Mob.Advancement;
+using RatEngine.DataSource;
 using RatEngine.Engine.Instruction;
 
 namespace RatEngine.Engine.Command
@@ -57,19 +58,19 @@ namespace RatEngine.Engine.Command
         /// NullReferenceException.
         /// </summary>
         /// <param name="Row">[DataRow] The database record from which to hydrate the Room.</param>
-        public Keyword(string GameID, DataRow Row) : base(GameID)
+        public Keyword(RatDataModelAdapter Adapter) : base(Adapter)
         {
             InitializeComponents();
 
-            if (Row != null)
-            {
-                LoadDataRow(Row);
-                //LoadAbility();
-                //LoadAssociatedFlags();
-            }
-            else
-                throw new NullReferenceException("The DataRow record for a Keyword was null.  " +
-                    "Cannot initialize the Keyword.");
+            //if (Row != null)
+            //{
+            //    LoadDataRow(Row);
+            //    //LoadAbility();
+            //    //LoadAssociatedFlags();
+            //}
+            //else
+            //    throw new NullReferenceException("The DataRow record for a Keyword was null.  " +
+            //        "Cannot initialize the Keyword.");
         }
 
         // The keyword value.
@@ -114,6 +115,11 @@ namespace RatEngine.Engine.Command
         {
             RecordManager rm = new RecordManager();
             return rm.SendWriteRequest(StoredProcedures.DELETE, null) > 0;
+        }
+
+        public override bool Delete(RatDataModelAdapter Adapter)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -213,7 +219,7 @@ namespace RatEngine.Engine.Command
             {
                 try
                 {
-                    _ability = new Ability(null, dt.Rows[0]);
+                    //_ability = new Ability(null, dt.Rows[0]);
                 }
                 catch (Exception ex)
                 {
@@ -233,29 +239,34 @@ namespace RatEngine.Engine.Command
 
         }
 
+        public override void LoadFromAdapter(RatDataModelAdapter Adapter)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// LoadDataRow
         /// Hydrates this keyword using the data stored in the specified DataRow.
         /// </summary>
         /// <param name="Row">[DataRow] The database record containing the data used to hydrate
         /// this keyword object.</param>
-        public override void LoadDataRow(DataRow Row)
-        {
-            try
-            {
-                PopulatePropertyFromDataRow<int>(Row, Fields.ID, out this._id);
-                PopulatePropertyFromDataRow<string>(Row, Fields.NAME, out this._name);
-                //PopulatePropertyFromDataRow<string>(Row, Fields.DESCRIPTION, out this._descr);
-                PopulatePropertyFromDataRow<string>(Row, Fields.ALIAS, out this._alias);
-                PopulatePropertyFromDataRow<string>(Row, Fields.HELP, out this._help);
+        //public override void LoadDataRow(DataRow Row)
+        //{
+        //    try
+        //    {
+        //        PopulatePropertyFromDataRow<int>(Row, Fields.ID, out this._id);
+        //        PopulatePropertyFromDataRow<string>(Row, Fields.NAME, out this._name);
+        //        //PopulatePropertyFromDataRow<string>(Row, Fields.DESCRIPTION, out this._descr);
+        //        PopulatePropertyFromDataRow<string>(Row, Fields.ALIAS, out this._alias);
+        //        PopulatePropertyFromDataRow<string>(Row, Fields.HELP, out this._help);
 
-                LoadSyntaxes();
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-        }
+        //        LoadSyntaxes();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw;
+        //    }
+        //}
 
         /// <summary>
         /// LoadSyntaxes
@@ -265,36 +276,45 @@ namespace RatEngine.Engine.Command
         /// </summary>
         public void LoadSyntaxes()
         {
-            List<SqlParameter> p = new List<SqlParameter>();
-            p.Add(new SqlParameter(SPArguments.ID, _id));
-            RecordManager rm = new RecordManager();
-            DataTable dt = null;
+            RatDataModelAdapter a = new RatDataModelAdapter();
+            a.Retrieve(RatDataModelType.KeywordSyntax, null);
 
-            try
+            for (int i = 0; i < a.ResultSet.RecordCount; i++)
             {
-                dt = rm.SendReadRequest(KeywordSyntax.StoredProcedures.SELECTALL, p);
+                a.ResultSet.MoveToRecord(i);
+                KeywordSyntax ks = new KeywordSyntax(a, this);
+                _syntaxes.TryAdd(ks.GameID, ks);
             }
-            catch (Exception ex)
-            {
-                throw;
-            }
+            //List<SqlParameter> p = new List<SqlParameter>();
+            //p.Add(new SqlParameter(SPArguments.ID, _id));
+            //RecordManager rm = new RecordManager();
+            //DataTable dt = null;
 
-            try
-            {
-                foreach (DataRow dr in dt.Rows)
-                {
-                    KeywordSyntax ks = new KeywordSyntax(null, dr, this);
-                    if (!_syntaxes.TryAdd(ks.ID.ToString(), ks))
-                    {
-                        throw new OperationFailedException("Could not add Syntax " + ks.Syntax +
-                            " to Keyword " + Name + ".");
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
+            //try
+            //{
+            //    dt = rm.SendReadRequest(KeywordSyntax.StoredProcedures.SELECTALL, p);
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw;
+            //}
+
+            //try
+            //{
+            //    foreach (DataRow dr in dt.Rows)
+            //    {
+            //        KeywordSyntax ks = new KeywordSyntax(null, dr, this);
+            //        if (!_syntaxes.TryAdd(ks.ID.ToString(), ks))
+            //        {
+            //            throw new OperationFailedException("Could not add Syntax " + ks.Syntax +
+            //                " to Keyword " + Name + ".");
+            //        }
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw;
+            //}
         }
 
         /// <summary>
@@ -315,6 +335,11 @@ namespace RatEngine.Engine.Command
                 _id = rm.SendWriteRequest(StoredProcedures.INSERT, null);
                 return _id > 0;
             }
+        }
+
+        public override bool Save(RatDataModelAdapter Adapter)
+        {
+            throw new NotImplementedException();
         }
     }
 }

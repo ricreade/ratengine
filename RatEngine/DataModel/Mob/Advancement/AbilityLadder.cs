@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using RatEngine.DataSource;
+
 namespace RatEngine.DataModel.Mob.Advancement
 {
     /// <summary>
@@ -36,7 +38,7 @@ namespace RatEngine.DataModel.Mob.Advancement
         /// constructor will initialize components and accept DataRow of AbilityLadder to hydrate class  
         /// </summary>
         /// <params>DataRow abilityLadderRow</params>
-        public AbilityLadder(string GameID, DataRow abilityLadderRow) : base(GameID)
+        public AbilityLadder(RatDataModelAdapter Adapter) : base(Adapter)
         {
 
         }
@@ -46,12 +48,27 @@ namespace RatEngine.DataModel.Mob.Advancement
             throw new NotImplementedException();
         }
 
-        public override void LoadDataRow(System.Data.DataRow Row)
+        public override bool Delete(RatDataModelAdapter Adapter)
+        {
+            throw new NotImplementedException();
+        }
+
+        //public override void LoadDataRow(System.Data.DataRow Row)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        public override void LoadFromAdapter(RatDataModelAdapter Adapter)
         {
             throw new NotImplementedException();
         }
 
         public override bool Save()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool Save(RatDataModelAdapter Adapter)
         {
             throw new NotImplementedException();
         }

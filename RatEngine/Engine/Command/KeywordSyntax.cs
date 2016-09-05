@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 using RatEngine.DataModel;
+using RatEngine.DataSource;
 using RatEngine.Engine.Instruction;
 
 namespace RatEngine.Engine.Command
@@ -55,7 +56,7 @@ namespace RatEngine.Engine.Command
         /// <param name="Row">[DataRow] The database record containing the data used to hydrate
         /// this object.</param>
         /// <param name="Keyword">[Keyword] The keyword object to which this syntax belongs.</param>
-        public KeywordSyntax(string GameID, DataRow Row, Keyword Keyword) : base(GameID)
+        public KeywordSyntax(RatDataModelAdapter Adapter, Keyword Keyword) : base(Adapter)
         {
             InitializeComponents();
 
@@ -64,13 +65,13 @@ namespace RatEngine.Engine.Command
             else
                 throw new NullReferenceException("The Keyword for this KeywordSyntax cannot be null.");
 
-            if (Row != null)
-            {
-                LoadDataRow(Row);
-            }
-            else
-                throw new NullReferenceException("The DataRow record for a KeywordSyntax was null.  " +
-                    "Cannot initialize the KeywordSyntax.");
+            //if (Row != null)
+            //{
+            //    LoadDataRow(Row);
+            //}
+            //else
+            //    throw new NullReferenceException("The DataRow record for a KeywordSyntax was null.  " +
+            //        "Cannot initialize the KeywordSyntax.");
         }
 
         // The regular expression object used to validate all incoming command strings.
@@ -118,6 +119,11 @@ namespace RatEngine.Engine.Command
         /// </summary>
         /// <returns>[bool] True if the delete operation was successful, otherwise false.</returns>
         public override bool Delete()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool Delete(RatDataModelAdapter Adapter)
         {
             throw new NotImplementedException();
         }
@@ -197,38 +203,43 @@ namespace RatEngine.Engine.Command
                 "initialized.");
         }
 
+        public override void LoadFromAdapter(RatDataModelAdapter Adapter)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// LoadDataRow
         /// Hydrates this keyword syntax using the data stored in the specified DataRow.
         /// </summary>
         /// <param name="Row">[DataRow] The database record containing the data used to hydrate
         /// this keyword syntax object.</param>
-        public override void LoadDataRow(DataRow Row)
-        {
-            int tmp = 0;
+        //public override void LoadDataRow(DataRow Row)
+        //{
+        //    int tmp = 0;
 
-            try
-            {
-                PopulatePropertyFromDataRow<int>(Row, Fields.ID, out this._id);
-                //PopulatePropertyFromDataRow<string>(Row, Fields.NAME, out this._name);
-                //PopulatePropertyFromDataRow<string>(Row, Fields.DESCRIPTION, out this._descr);
-                PopulatePropertyFromDataRow<string>(Row, Fields.SYNTAX, out this._syntax);
+        //    try
+        //    {
+        //        PopulatePropertyFromDataRow<int>(Row, Fields.ID, out this._id);
+        //        //PopulatePropertyFromDataRow<string>(Row, Fields.NAME, out this._name);
+        //        //PopulatePropertyFromDataRow<string>(Row, Fields.DESCRIPTION, out this._descr);
+        //        PopulatePropertyFromDataRow<string>(Row, Fields.SYNTAX, out this._syntax);
 
-                PopulatePropertyFromDataRow<int>(Row, Fields.KEYWORD, out tmp);
-                if (Keyword.ID != tmp)
-                    throw new OperationFailedException("The Keyword referenced when creating this KeywordSyntax " +
-                        "does not match the value stored in the database.");
+        //        PopulatePropertyFromDataRow<int>(Row, Fields.KEYWORD, out tmp);
+        //        if (Keyword.ID != tmp)
+        //            throw new OperationFailedException("The Keyword referenced when creating this KeywordSyntax " +
+        //                "does not match the value stored in the database.");
 
-                // Now is a good time to instantiate the regex object with the stored
-                // syntax pattern.
-                InitializeRegex();
-                LoadInstructions();
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-        }
+        //        // Now is a good time to instantiate the regex object with the stored
+        //        // syntax pattern.
+        //        InitializeRegex();
+        //        LoadInstructions();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw;
+        //    }
+        //}
 
         /// <summary>
         /// LoadInstructions
@@ -238,34 +249,43 @@ namespace RatEngine.Engine.Command
         /// </summary>
         public void LoadInstructions()
         {
-            List<SqlParameter> p = new List<SqlParameter>();
-            p.Add(new SqlParameter(SPArguments.ID, _id));
-            RecordManager rm = new RecordManager();
-            DataTable dt = null;
+            RatDataModelAdapter a = new RatDataModelAdapter();
+            a.Retrieve(RatDataModelType.SystemInstruction, null);
+            
+            for (int i = 0; i < a.ResultSet.RecordCount; i++)
+            {
+                a.ResultSet.MoveToRecord(i);
+                SystemInstruction si = new SystemInstruction(a, this);
+                _instructions.TryAdd(si.GameID, si);
+            }
+            //List<SqlParameter> p = new List<SqlParameter>();
+            //p.Add(new SqlParameter(SPArguments.ID, _id));
+            //RecordManager rm = new RecordManager();
+            //DataTable dt = null;
 
-            try
-            {
-                dt = rm.SendReadRequest(SystemInstruction.StoredProcedures.SELECTALL, p);
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
+            //try
+            //{
+            //    dt = rm.SendReadRequest(SystemInstruction.StoredProcedures.SELECTALL, p);
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw;
+            //}
 
-            try
-            {
-                foreach (DataRow dr in dt.Rows)
-                {
-                    SystemInstruction s = new SystemInstruction(null, dr, this);
-                    if (!_instructions.TryAdd(s.ID.ToString(), s))
-                        throw new OperationFailedException("Could not add SystemInstruction " + s.Name +
-                            " to KeywordSyntax " + Name + ".");
-                }
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
+            //try
+            //{
+            //    foreach (DataRow dr in dt.Rows)
+            //    {
+            //        SystemInstruction s = new SystemInstruction(null, dr, this);
+            //        if (!_instructions.TryAdd(s.ID.ToString(), s))
+            //            throw new OperationFailedException("Could not add SystemInstruction " + s.Name +
+            //                " to KeywordSyntax " + Name + ".");
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw;
+            //}
         }
 
         /// <summary>
@@ -275,6 +295,11 @@ namespace RatEngine.Engine.Command
         /// </summary>
         /// <returns></returns>
         public override bool Save()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool Save(RatDataModelAdapter Adapter)
         {
             throw new NotImplementedException();
         }

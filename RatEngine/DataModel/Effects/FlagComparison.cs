@@ -26,7 +26,7 @@ namespace RatEngine.DataModel.Effects
         // The type of comparison being made between these two flags.
         private FlagComparer.FlagComparisonType _comp;
 
-        public FlagComparison(string GameID, RatDataModelAdapter Adapter) : base(GameID, Adapter)
+        public FlagComparison(RatDataModelAdapter Adapter) : base(Adapter)
         {
 
         }
@@ -51,12 +51,27 @@ namespace RatEngine.DataModel.Effects
             throw new NotImplementedException();
         }
 
-        public override void LoadDataRow(System.Data.DataRow Row)
+        public override bool Delete(RatDataModelAdapter Adapter)
+        {
+            throw new NotImplementedException();
+        }
+
+        //public override void LoadDataRow(System.Data.DataRow Row)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        public override void LoadFromAdapter(RatDataModelAdapter Adapter)
         {
             throw new NotImplementedException();
         }
 
         public override bool Save()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool Save(RatDataModelAdapter Adapter)
         {
             throw new NotImplementedException();
         }

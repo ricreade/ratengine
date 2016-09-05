@@ -104,7 +104,7 @@ namespace RatEngine.DataModel
 
             try
             {
-                pc = new PlayerCharacter(GameID);
+                pc = new PlayerCharacter(null);
                 _players.TryAdd(pc.ID.ToString(), pc);
             }
             catch (Exception ex)

@@ -4,7 +4,10 @@ using System.Collections.Concurrent;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
+
 using RatEngine.DataModel.World;
+using RatEngine.DataSource;
 
 namespace RatEngine.DataModel.Effects
 {
@@ -52,7 +55,7 @@ namespace RatEngine.DataModel.Effects
         /// specify the flaggable object's game ID.
         /// </summary>
         /// <param name="GameID">The game id of this flaggable object, or null if this is a new record.</param>
-        public Flaggable(string GameID) : base(GameID) { }
+        public Flaggable(RatDataModelAdapter Adapter) : base(Adapter) { }
 
         /// <summary>
         /// Returns a read-only version of the internal flags collection.

@@ -98,7 +98,7 @@ namespace RatEngine.DataSource
                 {
                     cmd.Parameters.AddRange(Parameters.ToArray());
                 }
-
+                
                 reader = cmd.ExecuteReader();
                 table = new DataTable();
                 table.Load(reader);
@@ -124,7 +124,7 @@ namespace RatEngine.DataSource
         /// <param name="InstructionString">The name of the stored procedure to invoke.</param>
         /// <param name="Parameters">A list of parameters associated with the request.</param>
         /// <returns></returns>
-        public override int SendWriteRequest(string InstructionString, IList<SqlParameter> Parameters)
+        public override IDataResultSet SendWriteRequest(string InstructionString, IList<SqlParameter> Parameters)
         {
             SqlCommand cmd = null;
             int returnVal;
@@ -138,7 +138,7 @@ namespace RatEngine.DataSource
             {
                 // TODO: Log event.
                 CloseConnection();
-                return 0;
+                return new SqlDataResultSet(0);
             }
 
             try
@@ -158,7 +158,7 @@ namespace RatEngine.DataSource
             catch (Exception ex)
             {
                 // TODO: Log event.
-                return 0;
+                return new SqlDataResultSet(0);
             }
             finally
             {
@@ -167,9 +167,9 @@ namespace RatEngine.DataSource
 
             if (int.TryParse(result.Value.ToString(), out returnVal))
             {
-                return returnVal;
+                return new SqlDataResultSet(returnVal);
             }
-            return 0;
+            return new SqlDataResultSet(0);
         }
     }
 }

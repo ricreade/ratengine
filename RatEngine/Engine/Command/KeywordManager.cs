@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using RatEngine.DataModel;
+using RatEngine.DataSource;
 
 namespace RatEngine.Engine.Command
 {
@@ -63,31 +64,40 @@ namespace RatEngine.Engine.Command
         /// </summary>
         private static void LoadKeywords()
         {
-            RecordManager rm = new RecordManager();
-            DataTable dt = null;
+            RatDataModelAdapter a = new RatDataModelAdapter();
+            a.Retrieve(RatDataModelType.Keyword, null);
 
-            try
+            for (int i = 0; i < a.ResultSet.RecordCount; i++)
             {
-                dt = rm.SendReadRequest(Keyword.StoredProcedures.SELECT_ALL, new List<SqlParameter>());
+                a.ResultSet.MoveToRecord(i);
+                Keyword k = new Keyword(a);
+                _keywords.TryAdd(k.GameID, k);
             }
-            catch (Exception ex)
-            {
-                throw;
-            }
+            //RecordManager rm = new RecordManager();
+            //DataTable dt = null;
 
-            try
-            {
-                foreach (DataRow dr in dt.Rows)
-                {
-                    Keyword k = new Keyword(null, dr);
-                    if (!_keywords.TryAdd(k.Name, k))
-                        throw new OperationFailedException("Could not add Keyword " + k.Name + ".");
-                }
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
+            //try
+            //{
+            //    dt = rm.SendReadRequest(Keyword.StoredProcedures.SELECT_ALL, new List<SqlParameter>());
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw;
+            //}
+
+            //try
+            //{
+            //    foreach (DataRow dr in dt.Rows)
+            //    {
+            //        Keyword k = new Keyword(null, dr);
+            //        if (!_keywords.TryAdd(k.Name, k))
+            //            throw new OperationFailedException("Could not add Keyword " + k.Name + ".");
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw;
+            //}
         }
     }
 }

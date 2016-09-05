@@ -4,9 +4,11 @@ using System.Collections.Concurrent;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 using RatEngine.DataModel.Inventory;
 using RatEngine.DataModel.Mob.Advancement;
 using RatEngine.DataModel.World;
+using RatEngine.DataSource;
 
 namespace RatEngine.DataModel.Mob
 {
@@ -55,7 +57,7 @@ namespace RatEngine.DataModel.Mob
         /// specify the combatant object's game ID.
         /// </summary>
         /// <param name="GameID">The game id of this combatant object, or null if this is a new record.</param>
-        public Creature(string GameID) : base(GameID) { }
+        public Creature(RatDataModelAdapter Adapter) : base(Adapter) { }
 
         public int CurrentHP
         {

@@ -5,7 +5,9 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+
 using RatEngine.DataModel.Effects;
+using RatEngine.DataSource;
 
 namespace RatEngine.DataModel.World
 {
@@ -51,7 +53,7 @@ namespace RatEngine.DataModel.World
         /// This default constructor is provided for simple testing purposes.  It is not used in
         /// production.
         /// </summary>
-        public Transition(string GameID) : base(GameID)
+        public Transition(Room OriginatingRoom, RatDataModelAdapter Adapter) : base(Adapter)
         {
             InitializeComponents();
         }
@@ -65,7 +67,7 @@ namespace RatEngine.DataModel.World
         /// </summary>
         /// <param name="Row">[DataRow] The record from which to initialize this Transition.</param>
         /// <param name="StartingRoom">[Room] The room used to access this Transition.</param>
-        public Transition(string GameID, DataRow Row, Room StartingRoom) : base(GameID)
+        public Transition(RatDataModelAdapter Adapter, Room StartingRoom) : base(Adapter)
         {
             InitializeComponents();
 
@@ -74,11 +76,11 @@ namespace RatEngine.DataModel.World
             else
                 throw new NullReferenceException("The starting room of a transition cannot be null.");
 
-            if (Row != null)
-                LoadDataRow(Row);
-            else
-                throw new NullReferenceException("The DataRow record for a Transition was null.  " +
-                    "Cannot initialize the Transition.");
+            //if (Row != null)
+            //    LoadDataRow(Row);
+            //else
+            //    throw new NullReferenceException("The DataRow record for a Transition was null.  " +
+            //        "Cannot initialize the Transition.");
 
             // Load Effects
 
@@ -142,9 +144,19 @@ namespace RatEngine.DataModel.World
             throw new NotImplementedException();
         }
 
+        public override bool Delete(RatDataModelAdapter Adapter)
+        {
+            throw new NotImplementedException();
+        }
+
         public void InitializeComponents()
         {
 
+        }
+
+        public override void LoadFromAdapter(RatDataModelAdapter Adapter)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -159,41 +171,41 @@ namespace RatEngine.DataModel.World
         /// because it is possible for a Transition to join Rooms from two different Regions.
         /// </summary>
         /// <param name="Row">[DataRow] The database record from which this object will be hydrated.</param>
-        public override void LoadDataRow(DataRow Row)
-        {
-            int tmp = 0;
-            try
-            {
-                PopulatePropertyFromDataRow<int>(Row, Fields.ID, out this._id);
-                PopulatePropertyFromDataRow<string>(Row, Fields.NAME, out this._name);
-                PopulatePropertyFromDataRow<string>(Row, Fields.DESC, out this._descr);
-                PopulatePropertyFromDataRow<string>(Row, Fields.DESCFROM, out this._descriptfrom);
-                PopulatePropertyFromDataRow<string>(Row, Fields.DESCTO, out this._descriptto);
-                //PopulatePropertyFromDataRow<string>(Row, Fields.KEYWORD, out this._kywrd);
+        //public override void LoadDataRow(DataRow Row)
+        //{
+        //    int tmp = 0;
+        //    try
+        //    {
+        //        PopulatePropertyFromDataRow<int>(Row, Fields.ID, out this._id);
+        //        PopulatePropertyFromDataRow<string>(Row, Fields.NAME, out this._name);
+        //        PopulatePropertyFromDataRow<string>(Row, Fields.DESC, out this._descr);
+        //        PopulatePropertyFromDataRow<string>(Row, Fields.DESCFROM, out this._descriptfrom);
+        //        PopulatePropertyFromDataRow<string>(Row, Fields.DESCTO, out this._descriptto);
+        //        //PopulatePropertyFromDataRow<string>(Row, Fields.KEYWORD, out this._kywrd);
 
-                // The starting room was obtained in the constructor, so this value should already be available.
-                // Check it against the database record to verify that the object stored in the RoomFrom
-                // property is correct.
-                PopulatePropertyFromDataRow<int>(Row, Fields.ROOM_FROM, out tmp);
-                if (RoomFrom.ID != tmp)
-                    throw new OperationFailedException("The Room referenced when creating this transition " +
-                        "does not match the value stored in the database.");
+        //        // The starting room was obtained in the constructor, so this value should already be available.
+        //        // Check it against the database record to verify that the object stored in the RoomFrom
+        //        // property is correct.
+        //        PopulatePropertyFromDataRow<int>(Row, Fields.ROOM_FROM, out tmp);
+        //        if (RoomFrom.ID != tmp)
+        //            throw new OperationFailedException("The Room referenced when creating this transition " +
+        //                "does not match the value stored in the database.");
 
-                // Get the target Room ID
-                // The intent of this process is to get the room ID and store it somewhere convenient.
-                // It will be necessary later to traverse the Realm and find the room in the realm that matches
-                // the given ID.  Because all Rooms must be populated before that can happen, the target
-                // room ID will have to be stored temporarily.  The object created below will be replaced
-                // with a reference to the actual room in the realm.
-                PopulatePropertyFromDataRow<int>(Row, Fields.ROOM_TO, out tmp);
-                if (tmp > 0)
-                    _roomto = new Room(null, tmp);
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-        }
+        //        // Get the target Room ID
+        //        // The intent of this process is to get the room ID and store it somewhere convenient.
+        //        // It will be necessary later to traverse the Realm and find the room in the realm that matches
+        //        // the given ID.  Because all Rooms must be populated before that can happen, the target
+        //        // room ID will have to be stored temporarily.  The object created below will be replaced
+        //        // with a reference to the actual room in the realm.
+        //        PopulatePropertyFromDataRow<int>(Row, Fields.ROOM_TO, out tmp);
+        //        if (tmp > 0)
+        //            _roomto = new Room(null, tmp);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw;
+        //    }
+        //}
 
         /// <summary>
         /// ResolveRoomReferences
@@ -232,6 +244,11 @@ namespace RatEngine.DataModel.World
         }
 
         public override bool Save()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool Save(RatDataModelAdapter Adapter)
         {
             throw new NotImplementedException();
         }

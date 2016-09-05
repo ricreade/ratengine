@@ -8,6 +8,8 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
+using log4net;
+
 using RatEngine.DataSource;
 
 namespace RatEngine.DataModel.World
@@ -21,46 +23,21 @@ namespace RatEngine.DataModel.World
     [DataContract]
     public class Realm : GameElement
     {
-        // Database field names.
-        public struct Fields
-        {
-            public const string ID = "ID";
-            public const string NAME = "Name";
-            public const string DESCRIPTION = "Description";
-        }
-
-        // Database stored procedures.
-        public struct StoredProcedures
-        {
-            public const string SELECT = "";
-        }
-
-        public struct SPArguments
-        {
-            public const string ID = "Id";
-        }
-
         // A collection of all Regions in the Realm.
         private ConcurrentDictionary<string, Region> _regions;
-
-        // Public getters and setters.
+        private static readonly ILog log = LogManager.GetLogger(typeof(Realm));
 
         /// <summary>
-        /// Realm(int realmID, string desc)
-        /// Constructor will handle hydrating GameElement attributes from data row and instantiate _regions variable. Will hydrate using
-        /// a provided DataRow
+        /// Instantiates a new instance with the specified GameID value and data adapter.  If
+        /// the adapter is not null and contains data for Realms, the new object is hydrated
+        /// using its internal result set.
         /// </summary>
-        public Realm(string GameID, RatDataModelAdapter Adapter) : base(GameID, Adapter)
+        public Realm(RatDataModelAdapter Adapter) : base(Adapter)
         {
             //instantiate Dictionary of Regions
             _regions = new ConcurrentDictionary<string, Region>();
 
-            //if statements to make sure DataRow contains correct information
-            //if (Row != null)
-            //    LoadDataRow(Row);
-            //else
-            //    throw new NullReferenceException("The DataRow record for a Realm was null.  " +
-            //        "Cannot initialize the Realm.");
+            LoadFromAdapter(_adapter);
         }
 
         [DataMember]
@@ -73,83 +50,53 @@ namespace RatEngine.DataModel.World
         {
             if (_adapter != null)
             {
-
+                _adapter.Delete(RatDataModelType.Realm, new List<DataParameter>() {
+                    new DataParameter(RatDataModelAdapter.RealmFields.ID, ID) });
+                return true;
             }
             return false;
         }
 
-        public override void LoadDataRow(DataRow Row)
+        public override bool Delete(RatDataModelAdapter Adapter)
         {
-            //parse through DataRow making sure data types are correct in each field
             try
             {
-                PopulatePropertyFromDataRow<int>(Row, Fields.ID, out this._id);
-                PopulatePropertyFromDataRow<string>(Row, Fields.NAME, out this._name);
-                PopulatePropertyFromDataRow<string>(Row, Fields.DESCRIPTION, out this._descr);
+                Adapter.Delete(RatDataModelType.Realm, new List<DataParameter>() {
+                    new DataParameter(RatDataModelAdapter.RealmFields.ID, ID) });
             }
             catch (Exception ex)
             {
-                throw;
+                log.Error(string.Format("The attempt to delete realm '{0}' failed.", Name), ex);
+                return false;
             }
+            return true;
+        }
 
-            //load _regions using method
-            LoadRegions();
+        public override void LoadFromAdapter(RatDataModelAdapter Adapter)
+        {
+            if (Adapter != null && Adapter.LastRetrievedModel == RatDataModelType.Realm)
+            {
+                _id = Adapter.ResultSet.GetValue<int>(RatDataModelAdapter.RealmFields.ID);
+                _name = Adapter.ResultSet.GetValue<string>(RatDataModelAdapter.RealmFields.NAME);
+                _descr = Adapter.ResultSet.GetValue<string>(RatDataModelAdapter.RealmFields.DESCRIPTION);
+            }
         }
 
         /// <summary>
-        /// LoadRegions
-        /// This method loads all Regions in this Realm.  This
-        /// method should only be called at service start up.
+        /// Loads all regions associated with this realm.
         /// </summary>
         public void LoadRegions()
         {
-            //Create instance of RecordManager for retrieving Data
-            RecordManager recordManager = new RecordManager();
+            RatDataModelAdapter a = new RatDataModelAdapter();
+            a.Retrieve(RatDataModelType.Region, null);
 
-            //Create empty DataTable for results
-            DataTable dtResults = new DataTable();
-            //attempt to retrieve table
-            try
+            for (int i = 0; i < a.ResultSet.RecordCount; i++)
             {
-                //create IList<SqlParam> and sp name for SendReadRequest 
-                IList<SqlParameter> sqlParams = new List<SqlParameter>();
-                SqlParameter realmID = new SqlParameter("@RealmID", this._id);//TODO: verify names and parameters of sp when final ERD is up
-                string spName = "mspGetRegions";
-
-                //add SqlParam to Ilist
-                sqlParams.Add(realmID);
-
-                //fill table by calling SendReadRequest
-                dtResults = recordManager.SendReadRequest(spName, sqlParams);
-
-                //foreach loop to create and add each Region to _regions list with the <Tkey> as name of Region
-                foreach (DataRow row in dtResults.Rows)
-                {
-                    Region newRegion;
-                    //create Region
-                    try
-                    {
-                        newRegion = new Region(null, row, this);
-
-                        //add newRegion to _regions list
-                        if (!_regions.TryAdd(newRegion.Name, newRegion))
-                            throw new OperationFailedException("Region " + newRegion.Name +
-                                " could not be added to Realm " + this.Name + ".");
-                    }
-                    catch (Exception ex)
-                    {
-                        //Console.WriteLine(ex.ToString());
-                        throw;
-                    }
-
-                }
-
+                a.ResultSet.MoveToRecord(i);
+                Region reg = new Region(a, this);
+                _regions.TryAdd(reg.GameID, reg);
             }
-            catch (Exception e)
-            {
-                //Console.WriteLine(e.ToString());//TODO: write Exception code for each Exception message found while testing.
-                throw;
-            }
+            
         }
 
         public void ResolveTransitionReferences()
@@ -162,7 +109,34 @@ namespace RatEngine.DataModel.World
 
         public override bool Save()
         {
-            throw new NotImplementedException();
+            try
+            {
+                _adapter.Save(RatDataModelType.Realm, new List<DataParameter>() {
+                    new DataParameter(RatDataModelAdapter.RealmFields.ID, ID) });
+                if (_id == 0)
+                    _id = _adapter.ResultSet.ReturnValue;
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public override bool Save(RatDataModelAdapter Adapter)
+        {
+            try
+            {
+                Adapter.Save(RatDataModelType.Realm, new List<DataParameter>() {
+                    new DataParameter(RatDataModelAdapter.RealmFields.ID, ID) });
+                if (_id == 0)
+                    _id = Adapter.ResultSet.ReturnValue;
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
     }
 }

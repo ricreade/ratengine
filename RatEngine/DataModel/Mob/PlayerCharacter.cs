@@ -11,6 +11,7 @@ using RatEngine.DataModel.Effects;
 using RatEngine.DataModel.Mob.Advancement;
 using RatEngine.DataModel.Questing;
 using RatEngine.DataModel.World;
+using RatEngine.DataSource;
 using RatEngine.Engine.Command;
 
 namespace RatEngine.DataModel.Mob
@@ -51,7 +52,7 @@ namespace RatEngine.DataModel.Mob
         /// </summary>
         /// <param name="GameID">The game id of this PlayerCharacter object, or null if this 
         /// is a new record.</param>
-        public PlayerCharacter(string GameID) : base(GameID)
+        public PlayerCharacter(RatDataModelAdapter Adapter) : base(Adapter)
         {
             //InitializeComponents();
             string charprocedure = "mspGetCharacter";
@@ -73,7 +74,7 @@ namespace RatEngine.DataModel.Mob
             _dex = Convert.ToInt32(var.Rows[0]["Dex"]);
             _int = Convert.ToInt32(var.Rows[0]["Int"]);
             //_location = Convert.ToInt32(var.Rows[0]["fkRoom"]);
-            _location = new Room(var.Rows[0]["fkRoom"].ToString());
+            //_location = new Room(var.Rows[0]["fkRoom"].ToString());
             //_level = Convert.ToInt32(var.Rows[0]["Level"]);
             _xp = Convert.ToInt32(var.Rows[0]["TotalXP"]);
             _unspentXP = Convert.ToInt32(var.Rows[0]["unspentXP"]);
@@ -85,6 +86,11 @@ namespace RatEngine.DataModel.Mob
             _user = ID;
         }
         public override bool Delete()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool Delete(RatDataModelAdapter Adapter)
         {
             throw new NotImplementedException();
         }
@@ -131,10 +137,15 @@ namespace RatEngine.DataModel.Mob
 
         }
 
-        public override void LoadDataRow(System.Data.DataRow Row)
+        public override void LoadFromAdapter(RatDataModelAdapter Adapter)
         {
             throw new NotImplementedException();
         }
+
+        //public override void LoadDataRow(System.Data.DataRow Row)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         /// <summary>
         /// ProcessCommandString
@@ -205,6 +216,11 @@ namespace RatEngine.DataModel.Mob
 
             //throw new NotImplementedException();
             return true;
+        }
+
+        public override bool Save(RatDataModelAdapter Adapter)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>

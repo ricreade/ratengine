@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using RatEngine.DataModel.Inventory;
 using RatEngine.DataModel.Mob;
+using RatEngine.DataSource;
 
 namespace RatEngine.DataModel.Questing
 {
@@ -64,7 +65,7 @@ namespace RatEngine.DataModel.Questing
         private string _npccomplete;
 
         // Copy Constructor to support a player-specific copy of the goal.
-        public QuestGoal(QuestGoal Goal) : base(null)
+        public QuestGoal(QuestGoal Goal, RatDataModelAdapter Adapter) : base(Adapter)
         {
 
         }
@@ -74,12 +75,27 @@ namespace RatEngine.DataModel.Questing
             throw new NotImplementedException();
         }
 
-        public override void LoadDataRow(System.Data.DataRow Row)
+        public override bool Delete(RatDataModelAdapter Adapter)
+        {
+            throw new NotImplementedException();
+        }
+
+        //public override void LoadDataRow(System.Data.DataRow Row)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        public override void LoadFromAdapter(RatDataModelAdapter Adapter)
         {
             throw new NotImplementedException();
         }
 
         public override bool Save()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool Save(RatDataModelAdapter Adapter)
         {
             throw new NotImplementedException();
         }

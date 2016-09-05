@@ -27,49 +27,22 @@ namespace RatEngine.DataModel.World
         //private variable containing the Realm containing the Region. Gives a way to walk up to the Realm. instantiated in constructor.
         private Realm _realm;
 
-        // Database field names.
-        public struct Fields
-        {
-            public const string ID = "Id";
-            public const string NAME = "Name";
-            public const string DESCRIPTION = "Description";
-            public const string REALM = "fkRealm";
-        }
-
-        // Database stored procedures.
-        public struct StoredProcedures
-        {
-            public const string SELECT = "";
-            public const string DELETE = "";
-            public const string INSERT = "";
-            public const string UPDATE = "";
-        }
-
-        public struct SPArguments
-        {
-            public const string ID = "@RegionID";
-        }
-
         /// <summary>
-        /// Region(int regionID)
-        /// Constructor will handle hydrating the region and instantiating the _rooms variable
+        /// Instantiates a new instance with the specified GameID value and data adapter.  If
+        /// the adapter is not null and contains data for Regions, the new object is hydrated
+        /// using its internal result set.
         /// </summary>
-        public Region(string GameID, DataRow regionRow, Realm regionRealm, RatDataModelAdapter Adapter) : base(GameID, Adapter)
+        public Region(RatDataModelAdapter Adapter, Realm ContainingRealm) : base(Adapter)
         {
             //instantiate _rooms variable
             _rooms = new ConcurrentDictionary<string, Room>();
 
-            if (regionRealm != null)
-                _realm = regionRealm;
+            if (ContainingRealm != null)
+                _realm = ContainingRealm;
             else
                 throw new NullReferenceException("The region of a room cannot be null.");
 
-            if (regionRow != null)
-                LoadDataRow(regionRow);
-            else
-                throw new NullReferenceException("The DataRow record for a Region was null.  " +
-                    "Cannot initialize the Region.");
-
+            LoadFromAdapter(_adapter);
 
         }
 
@@ -90,31 +63,21 @@ namespace RatEngine.DataModel.World
             throw new NotImplementedException();
         }
 
-        public override void LoadDataRow(DataRow Row)
+        public override bool Delete(RatDataModelAdapter Adapter)
         {
-            //parse through DataRow making sure data types are correct in each field
-            try
-            {
-                PopulatePropertyFromDataRow<int>(Row, Fields.ID, out this._id);
-                PopulatePropertyFromDataRow<string>(Row, Fields.NAME, out this._name);
-                PopulatePropertyFromDataRow<string>(Row, Fields.DESCRIPTION, out this._descr);
-                //check to see if _realm is equal to retrieved Realm
-                int tmp = 0;
-                PopulatePropertyFromDataRow<int>(Row, Fields.REALM, out tmp);
-
-                if (_realm.ID != tmp)
-                {
-                    throw new Exception("Realm retrieved from the Database does not match Realm created");
-                }
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-            //call loadRooms method to fill _rooms
-            LoadRooms();
+            throw new NotImplementedException();
         }
 
+        public override void LoadFromAdapter(RatDataModelAdapter Adapter)
+        {
+            if (Adapter != null && Adapter.LastRetrievedModel == RatDataModelType.Region)
+            {
+                _id = Adapter.ResultSet.GetValue<int>(RatDataModelAdapter.RegionFields.ID);
+                _name = Adapter.ResultSet.GetValue<string>(RatDataModelAdapter.RegionFields.NAME);
+                _descr = Adapter.ResultSet.GetValue<string>(RatDataModelAdapter.RegionFields.DESCRIPTION);
+            }
+        }
+        
         /// <summary>
         /// LoadRooms
         /// Loads all Rooms in this Region from the database and hydrates them.  This method is only
@@ -122,52 +85,53 @@ namespace RatEngine.DataModel.World
         /// </summary>
         public void LoadRooms()
         {
+
             //Create instance of RecordManager for retrieving Data
-            RecordManager recordManager = new RecordManager();
+            //RecordManager recordManager = new RecordManager();
 
-            //Create empty DataTable for results
-            DataTable dtResults = new DataTable();
-            //attempt to retrieve table
-            try
-            {
-                //create IList<SqlParam> and sp name for SendReadRequest 
-                IList<SqlParameter> sqlParams = new List<SqlParameter>();
-                SqlParameter regionID = new SqlParameter("@RegionID", this._id);
-                string spName = "mspGetRooms";
+            ////Create empty DataTable for results
+            //DataTable dtResults = new DataTable();
+            ////attempt to retrieve table
+            //try
+            //{
+            //    //create IList<SqlParam> and sp name for SendReadRequest 
+            //    IList<SqlParameter> sqlParams = new List<SqlParameter>();
+            //    SqlParameter regionID = new SqlParameter("@RegionID", this._id);
+            //    string spName = "mspGetRooms";
 
-                //add SqlParam to Ilist
-                sqlParams.Add(regionID);
+            //    //add SqlParam to Ilist
+            //    sqlParams.Add(regionID);
 
-                //fill table by calling SendReadRequest
-                dtResults = recordManager.SendReadRequest(spName, sqlParams);
+            //    //fill table by calling SendReadRequest
+            //    dtResults = recordManager.SendReadRequest(spName, sqlParams);
 
-                //foreach loop to create and add each Room to _rooms list with the <Tkey> as name of Room
-                foreach (DataRow row in dtResults.Rows)
-                {
-                    Room newRoom;
+            //    //foreach loop to create and add each Room to _rooms list with the <Tkey> as name of Room
+            //    foreach (DataRow row in dtResults.Rows)
+            //    {
+            //        Room newRoom;
 
-                    //create Room
-                    try
-                    {
-                        newRoom = new Room(null, row, this);//TODO: change parameters to what they need to be after Room class is implemented
-                        //add newRoom to _room list
-                        if (!_rooms.TryAdd(newRoom.Name, newRoom))
-                            throw new OperationFailedException("Room " + newRoom.Name +
-                                " could not be added to Region " + this.Name + ".");
-                    }
-                    catch (Exception ex)
-                    {
-                        //Console.WriteLine(ex.ToString());
-                        throw;
-                    }
-                }
+            //        //create Room
+            //        try
+            //        {
+            //            newRoom = new Room(null, row, this);//TODO: change parameters to what they need to be after Room class is implemented
+            //            //add newRoom to _room list
+            //            if (!_rooms.TryAdd(newRoom.Name, newRoom))
+            //                throw new OperationFailedException("Room " + newRoom.Name +
+            //                    " could not be added to Region " + this.Name + ".");
+            //        }
+            //        catch (Exception ex)
+            //        {
+            //            //Console.WriteLine(ex.ToString());
+            //            throw;
+            //        }
+            //    }
 
-            }
-            catch (Exception e)
-            {
-                //Console.WriteLine(e.ToString());//TODO: After testing, write Exception code for each Exception found
-                throw;
-            }
+            //}
+            //catch (Exception e)
+            //{
+            //    //Console.WriteLine(e.ToString());//TODO: After testing, write Exception code for each Exception found
+            //    throw;
+            //}
         }
 
         public void ResolveTransitionReferences()
@@ -179,6 +143,11 @@ namespace RatEngine.DataModel.World
         }
 
         public override bool Save()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool Save(RatDataModelAdapter Adapter)
         {
             throw new NotImplementedException();
         }

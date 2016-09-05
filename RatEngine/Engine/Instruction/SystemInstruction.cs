@@ -4,7 +4,9 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 using RatEngine.DataModel;
+using RatEngine.DataSource;
 using RatEngine.Engine.Command;
 
 namespace RatEngine.Engine.Instruction
@@ -59,18 +61,18 @@ namespace RatEngine.Engine.Instruction
         /// this object.</param>
         /// <param name="Syntax">[KeywordSyntax] A reference to the syntax object containing
         /// this instruction.</param>
-        public SystemInstruction(string GameID, DataRow Row, KeywordSyntax Syntax) : base(GameID)
+        public SystemInstruction(RatDataModelAdapter Adapter, KeywordSyntax Syntax) : base(Adapter)
         {
             if (Syntax != null)
                 _kwrdsyntax = Syntax;
             else
                 throw new NullReferenceException("The keyword syntax for an instruction cannot be null.");
 
-            if (Row != null)
-                LoadDataRow(Row);
-            else
-                throw new NullReferenceException("The DataRow record for a SystemInstruction was null.  " +
-                    "Cannot initialize the SystemInstruction.");
+            //if (Row != null)
+            //    LoadDataRow(Row);
+            //else
+            //    throw new NullReferenceException("The DataRow record for a SystemInstruction was null.  " +
+            //        "Cannot initialize the SystemInstruction.");
         }
 
         // The position of this instruction in sequence.  This can also be considered the line number
@@ -144,6 +146,11 @@ namespace RatEngine.Engine.Instruction
             throw new NotImplementedException();
         }
 
+        public override bool Delete(RatDataModelAdapter Adapter)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// GetArgumentString
         /// Returns the argument string as specified by the specified argument type.
@@ -187,43 +194,53 @@ namespace RatEngine.Engine.Instruction
         /// </summary>
         /// <param name="Row">[DataRow] The database record containing the data used to hydrate
         /// this system instruction object.</param>
-        public override void LoadDataRow(DataRow Row)
+        //public override void LoadDataRow(DataRow Row)
+        //{
+        //    int tmp = 0;
+        //    try
+        //    {
+        //        PopulatePropertyFromDataRow<int>(Row, Fields.ID, out this._id);
+        //        //PopulatePropertyFromDataRow<string>(Row, Fields.NAME, out this._name);
+        //        //PopulatePropertyFromDataRow<string>(Row, Fields.DESCRIPTION, out this._descr);
+        //        PopulatePropertyFromDataRow<int>(Row, Fields.NEXT_ON_FAIL, out this._nextonfail);
+        //        PopulatePropertyFromDataRow<int>(Row, Fields.NEXT_ON_SUCCESS, out this._nextonsuccess);
+        //        PopulatePropertyFromDataRow<string>(Row, Fields.INSTRUCTION, out this._instr);
+        //        PopulatePropertyFromDataRow<string>(Row, Fields.NOTE, out this._note);
+        //        PopulatePropertyFromDataRow<int>(Row, Fields.SEQUENCE, out this._seq);
+
+        //        // Verify that the keywordsyntax object passed to this object's constructor matches
+        //        // what the database record predicted.
+        //        PopulatePropertyFromDataRow<int>(Row, Fields.SYNTAX_ID, out tmp);
+        //        if (tmp != _kwrdsyntax.ID)
+        //            throw new OperationFailedException("The KeywordSyntax referenced when creating this " +
+        //                "SystemInstruction does not match the value stored in the database.");
+
+        //        // Instantiate the InstructionSyntax from this row.
+        //        _instrexpr = new InstructionSyntax(null, Row);
+
+        //        // The instruction must validate against this instruction syntax.
+        //        if (!_instrexpr.IsSyntaxMatch(_instr))
+        //            throw new OperationFailedException("The instruction '" + _instr +
+        //                "' failed to validate against the regular expression '" +
+        //                _instrexpr.RegularExpression.ToString() + "'.");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw;
+        //    }
+        //}
+
+        public override void LoadFromAdapter(RatDataModelAdapter Adapter)
         {
-            int tmp = 0;
-            try
-            {
-                PopulatePropertyFromDataRow<int>(Row, Fields.ID, out this._id);
-                //PopulatePropertyFromDataRow<string>(Row, Fields.NAME, out this._name);
-                //PopulatePropertyFromDataRow<string>(Row, Fields.DESCRIPTION, out this._descr);
-                PopulatePropertyFromDataRow<int>(Row, Fields.NEXT_ON_FAIL, out this._nextonfail);
-                PopulatePropertyFromDataRow<int>(Row, Fields.NEXT_ON_SUCCESS, out this._nextonsuccess);
-                PopulatePropertyFromDataRow<string>(Row, Fields.INSTRUCTION, out this._instr);
-                PopulatePropertyFromDataRow<string>(Row, Fields.NOTE, out this._note);
-                PopulatePropertyFromDataRow<int>(Row, Fields.SEQUENCE, out this._seq);
-
-                // Verify that the keywordsyntax object passed to this object's constructor matches
-                // what the database record predicted.
-                PopulatePropertyFromDataRow<int>(Row, Fields.SYNTAX_ID, out tmp);
-                if (tmp != _kwrdsyntax.ID)
-                    throw new OperationFailedException("The KeywordSyntax referenced when creating this " +
-                        "SystemInstruction does not match the value stored in the database.");
-
-                // Instantiate the InstructionSyntax from this row.
-                _instrexpr = new InstructionSyntax(null, Row);
-
-                // The instruction must validate against this instruction syntax.
-                if (!_instrexpr.IsSyntaxMatch(_instr))
-                    throw new OperationFailedException("The instruction '" + _instr +
-                        "' failed to validate against the regular expression '" +
-                        _instrexpr.RegularExpression.ToString() + "'.");
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
+            throw new NotImplementedException();
         }
 
         public override bool Save()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool Save(RatDataModelAdapter Adapter)
         {
             throw new NotImplementedException();
         }

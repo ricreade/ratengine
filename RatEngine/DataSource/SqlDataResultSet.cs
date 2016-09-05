@@ -11,6 +11,25 @@ namespace RatEngine.DataSource
     {
         private DataTable _data;
         private int _recordnumber;
+        private int _returnvalue;
+
+        public int RecordCount
+        {
+            get
+            {
+                if (_data != null)
+                    return _data.Rows.Count;
+                return 0;
+            }
+        }
+
+        public int ReturnValue
+        {
+            get
+            {
+                return _returnvalue;
+            }
+        }
 
         public SqlDataResultSet(DataTable Data)
         {
@@ -19,6 +38,11 @@ namespace RatEngine.DataSource
 
             _data = Data;
             _recordnumber = 0;
+        }
+
+        public SqlDataResultSet(int ReturnValue)
+        {
+            _returnvalue = ReturnValue;
         }
 
         public T GetValue<T>(string FieldName)
@@ -43,11 +67,6 @@ namespace RatEngine.DataSource
         public void MoveToRecord(int Position)
         {
             throw new NotImplementedException();
-        }
-
-        public int RecordCount()
-        {
-            return _data.Rows.Count;
         }
     }
 }

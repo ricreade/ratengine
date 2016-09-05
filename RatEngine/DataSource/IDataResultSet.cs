@@ -16,6 +16,8 @@ namespace RatEngine.DataSource
 
         void MoveToRecord(int Position);
 
-        int RecordCount();
+        int RecordCount { get; }
+
+        int ReturnValue { get; }
     }
 }

@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -73,6 +77,7 @@
     <Compile Include="DataModel\World\Room.cs" />
     <Compile Include="DataModel\World\Transition.cs" />
     <Compile Include="DataSource\DataConnection.cs" />
+    <Compile Include="DataSource\DataParameter.cs" />
     <Compile Include="DataSource\IDataResultSet.cs" />
     <Compile Include="DataSource\RatDataModelAdapter.cs" />
     <Compile Include="DataSource\SqlDataConnection.cs" />
@@ -98,6 +103,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

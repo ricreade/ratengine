@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 using RatEngine.DataModel.Inventory;
 using RatEngine.DataModel.Mob;
+using RatEngine.DataSource;
 
 namespace RatEngine.DataModel.World
 {
@@ -23,51 +24,28 @@ namespace RatEngine.DataModel.World
     [DataContract]
     public class Room : Inventoried
     {
-        // Database field names.
-        public struct Fields
-        {
-            public const string ID = "Id";
-            public const string NAME = "Name";
-            public const string DESCRIPTION = "Description";
-            public const string REGION = "fkRegion";
-        }
-
-        // Database stored procedures.
-        public struct StoredProcedures
-        {
-            public const string SELECT = "";
-            public const string GET_ALL_BY_REGION = "mspGetRooms";
-            public const string DELETE = "";
-            public const string INSERT = "";
-            public const string UPDATE = "";
-        }
-
-        public struct SPArguments
-        {
-            public const string ID = "Id";
-        }
-
+        
         /// <summary>
         /// Constructor.  This constructor exists for testing purposes only.  It has no function
         /// in production.  This constructor initializes the room collections.
         /// </summary>
-        public Room(string GameID) : base(GameID)
-        {
-            InitializeComponents();
-        }
+        //public Room(string GameID) : base(GameID)
+        //{
+        //    InitializeComponents();
+        //}
 
-        /// <summary>
-        /// Constructor.  This constructor exists to provide a means to create a dummy object
-        /// referencing only the record id.  This option is provided so that a Transition can
-        /// maintain a record of the ID of its target room until the reference to the actual
-        /// target room can be resolved.  A functional game Room cannot be created through
-        /// this method.  Room collections are not initialized.
-        /// </summary>
-        /// <param name="ID">[int] The database record primary key of this room.</param>
-        public Room(string GameID, int ID) : base(GameID)
-        {
-            _id = ID;
-        }
+        ///// <summary>
+        ///// Constructor.  This constructor exists to provide a means to create a dummy object
+        ///// referencing only the record id.  This option is provided so that a Transition can
+        ///// maintain a record of the ID of its target room until the reference to the actual
+        ///// target room can be resolved.  A functional game Room cannot be created through
+        ///// this method.  Room collections are not initialized.
+        ///// </summary>
+        ///// <param name="ID">[int] The database record primary key of this room.</param>
+        //public Room(string GameID, int ID) : base(GameID)
+        //{
+        //    _id = ID;
+        //}
 
         /// <summary>
         /// Constructor.  This constructor provides a means to hydrate the Room object from
@@ -76,7 +54,7 @@ namespace RatEngine.DataModel.World
         /// </summary>
         /// <param name="Row">[DataRow] The database record from which to hydrate the Room.</param>
         /// <param name="MapRegion">[Region] The Region for this room.</param>
-        public Room(string GameID, DataRow Row, Region MapRegion) : base(GameID)
+        public Room(RatDataModelAdapter Adapter, Region MapRegion) : base(Adapter)
         {
             InitializeComponents();
 
@@ -85,11 +63,13 @@ namespace RatEngine.DataModel.World
             else
                 throw new NullReferenceException("The region of a room cannot be null.");
 
-            if (Row != null)
-                LoadDataRow(Row);
-            else
-                throw new NullReferenceException("The DataRow record for a Room was null.  " +
-                    "Cannot initialize the Room.");
+            LoadFromAdapter(_adapter);
+
+            //if (Row != null)
+            //    LoadDataRow(Row);
+            //else
+            //    throw new NullReferenceException("The DataRow record for a Room was null.  " +
+            //        "Cannot initialize the Room.");
         }
 
         // A collection of all combatants (PCs and NPCs) currently in the room.  The key is the
@@ -159,6 +139,11 @@ namespace RatEngine.DataModel.World
         }
 
         public override bool Delete()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool Delete(RatDataModelAdapter Adapter)
         {
             throw new NotImplementedException();
         }
@@ -255,37 +240,47 @@ namespace RatEngine.DataModel.World
             _transitions = new ConcurrentDictionary<string, Transition>();
         }
 
+        public override void LoadFromAdapter(RatDataModelAdapter Adapter)
+        {
+            if (Adapter != null && Adapter.LastRetrievedModel == RatDataModelType.Room)
+            {
+                _id = Adapter.ResultSet.GetValue<int>(RatDataModelAdapter.RoomFields.ID);
+                _name = Adapter.ResultSet.GetValue<string>(RatDataModelAdapter.RoomFields.NAME);
+                _descr = Adapter.ResultSet.GetValue<string>(RatDataModelAdapter.RoomFields.DESCRIPTION);
+            }
+        }
+
         /// <summary>
         /// LoadDataRow
         /// Loads the contents of a data row from the database.  Database field names are obtained
         /// from the appropriate class constant.
         /// </summary>
         /// <param name="Row">[DataRow] The database record containing data supporting this class.</param>
-        public override void LoadDataRow(DataRow Row)
-        {
-            int tmp = 0;
+        //public override void LoadDataRow(DataRow Row)
+        //{
+        //    int tmp = 0;
 
-            try
-            {
-                PopulatePropertyFromDataRow<int>(Row, Fields.ID, out this._id);
-                PopulatePropertyFromDataRow<string>(Row, Fields.NAME, out this._name);
-                PopulatePropertyFromDataRow<string>(Row, Fields.DESCRIPTION, out this._descr);
+        //    try
+        //    {
+        //        PopulatePropertyFromDataRow<int>(Row, Fields.ID, out this._id);
+        //        PopulatePropertyFromDataRow<string>(Row, Fields.NAME, out this._name);
+        //        PopulatePropertyFromDataRow<string>(Row, Fields.DESCRIPTION, out this._descr);
 
-                // The region for this room was obtained in the constructor, so this value should already 
-                // be available.  Check it against the database record to verify that the object stored 
-                // in the MapRegion property is correct.
-                PopulatePropertyFromDataRow<int>(Row, Fields.REGION, out tmp);
-                if (Region.ID != tmp)
-                    throw new OperationFailedException("The Region referenced when creating this Room " +
-                        "does not match the value stored in the database.");
+        //        // The region for this room was obtained in the constructor, so this value should already 
+        //        // be available.  Check it against the database record to verify that the object stored 
+        //        // in the MapRegion property is correct.
+        //        PopulatePropertyFromDataRow<int>(Row, Fields.REGION, out tmp);
+        //        if (Region.ID != tmp)
+        //            throw new OperationFailedException("The Region referenced when creating this Room " +
+        //                "does not match the value stored in the database.");
 
-                LoadTransitions();
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-        }
+        //        LoadTransitions();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw;
+        //    }
+        //}
 
         /// <summary>
         /// LoadInventory
@@ -318,34 +313,44 @@ namespace RatEngine.DataModel.World
         /// </summary>
         public void LoadTransitions()
         {
-            List<SqlParameter> p = new List<SqlParameter>();
-            p.Add(new SqlParameter(Transition.SPArguments.ID, _id));
-            RecordManager rm = new RecordManager();
-            DataTable dt = null;
+            RatDataModelAdapter a = new RatDataModelAdapter();
+            a.Retrieve(RatDataModelType.Transition, new List<DataParameter>() {
+                new DataParameter(RatDataModelAdapter.TransitionFields.ROOM_FROM, ID) });
 
-            try
+            for (int i = 0; i < a.ResultSet.RecordCount; i++)
             {
-                dt = rm.SendReadRequest(Transition.StoredProcedures.SELECTALL, p);
+                a.ResultSet.MoveToRecord(i);
+                Transition t = new Transition(a, this);
+                _transitions.TryAdd(t.GameID, t);
             }
-            catch (Exception ex)
-            {
-                throw;
-            }
+            //List<SqlParameter> p = new List<SqlParameter>();
+            //p.Add(new SqlParameter(Transition.SPArguments.ID, _id));
+            //RecordManager rm = new RecordManager();
+            //DataTable dt = null;
 
-            try
-            {
-                foreach (DataRow dr in dt.Rows)
-                {
-                    Transition t = new Transition(null, dr, this);
-                    if (!_transitions.TryAdd(t.ID.ToString(), t))
-                        throw new OperationFailedException("Could not add Transition " + t.Name +
-                            " to Room " + Name + ".");
-                }
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
+            //try
+            //{
+            //    dt = rm.SendReadRequest(Transition.StoredProcedures.SELECTALL, p);
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw;
+            //}
+
+            //try
+            //{
+            //    foreach (DataRow dr in dt.Rows)
+            //    {
+            //        Transition t = new Transition(this, new RatDataModelAdapter());
+            //        if (!_transitions.TryAdd(t.ID.ToString(), t))
+            //            throw new OperationFailedException("Could not add Transition " + t.Name +
+            //                " to Room " + Name + ".");
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw;
+            //}
         }
 
         /// <summary>
@@ -401,6 +406,11 @@ namespace RatEngine.DataModel.World
         }
 
         public override bool Save()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool Save(RatDataModelAdapter Adapter)
         {
             throw new NotImplementedException();
         }

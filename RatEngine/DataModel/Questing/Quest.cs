@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using RatEngine.DataSource;
+
 namespace RatEngine.DataModel.Questing
 {
     /// <summary>
@@ -45,19 +47,34 @@ namespace RatEngine.DataModel.Questing
         /// </summary>
         /// <param name="GameID">The game id of this Quest object, or null if this 
         /// is a new record.</param>
-        public Quest(string GameID) : base(GameID) { }
+        public Quest(RatDataModelAdapter Adapter) : base(Adapter) { }
 
         public override bool Delete()
         {
             throw new NotImplementedException();
         }
 
-        public override void LoadDataRow(System.Data.DataRow Row)
+        public override bool Delete(RatDataModelAdapter Adapter)
+        {
+            throw new NotImplementedException();
+        }
+
+        //public override void LoadDataRow(System.Data.DataRow Row)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        public override void LoadFromAdapter(RatDataModelAdapter Adapter)
         {
             throw new NotImplementedException();
         }
 
         public override bool Save()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool Save(RatDataModelAdapter Adapter)
         {
             throw new NotImplementedException();
         }
