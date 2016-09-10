@@ -32,11 +32,27 @@ namespace RatEngine.DataSource
         private RatDataModelType _lastRetrievedModel;
 
         // Database field names.
+        public struct GameRegistryFields
+        {
+            public const string ID = "GameRegistryID";
+            public const string GameID = "GameId";
+            public const string PrefixID = "GameIdPrefixID";
+            public const string Name = "Name";
+            public const string Description = "Description";
+        }
+
         public struct RealmFields
         {
             public const string ID = "RealmID";
             public const string NAME = "Name";
             public const string DESCRIPTION = "Description";
+        }
+
+        public struct RealmProcedures
+        {
+            public const string Delete = "DeleteRealm";
+            public const string Insert = "InsertRealm";
+            public const string Retrieve = "RetrieveRealm";
         }
 
         public struct RegionFields
@@ -99,9 +115,19 @@ namespace RatEngine.DataSource
 
         public void Retrieve(RatDataModelType Model, List<DataParameter> Parameters)
         {
-            
+            string proc = null;
+
+            switch (Model)
+            {
+                case RatDataModelType.Realm:
+                    proc = RealmProcedures.Retrieve;
+                    break;
+                default:
+                    // Log this error.
+                    break;
+            }
             SqlDataConnection conn = new SqlDataConnection(Properties.Settings.Default.ConnString);
-            _queryResult = conn.SendReadRequest("", ConvertParameterList(Parameters));
+            _queryResult = conn.SendReadRequest(proc, ConvertParameterList(Parameters));
             _lastRetrievedModel = Model;
 
         }

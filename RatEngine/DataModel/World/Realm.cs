@@ -46,17 +46,6 @@ namespace RatEngine.DataModel.World
             get { return _regions.Select(item => item.Value); }
         }
 
-        public override bool Delete()
-        {
-            if (_adapter != null)
-            {
-                _adapter.Delete(RatDataModelType.Realm, new List<DataParameter>() {
-                    new DataParameter(RatDataModelAdapter.RealmFields.ID, ID) });
-                return true;
-            }
-            return false;
-        }
-
         public override bool Delete(RatDataModelAdapter Adapter)
         {
             try
@@ -107,22 +96,6 @@ namespace RatEngine.DataModel.World
             }
         }
 
-        public override bool Save()
-        {
-            try
-            {
-                _adapter.Save(RatDataModelType.Realm, new List<DataParameter>() {
-                    new DataParameter(RatDataModelAdapter.RealmFields.ID, ID) });
-                if (_id == 0)
-                    _id = _adapter.ResultSet.ReturnValue;
-                return true;
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
-        }
-
         public override bool Save(RatDataModelAdapter Adapter)
         {
             try
@@ -135,6 +108,7 @@ namespace RatEngine.DataModel.World
             }
             catch (Exception ex)
             {
+                log.Error(string.Format("The attempt save Realm '{0}' failed.", Name), ex);
                 return false;
             }
         }

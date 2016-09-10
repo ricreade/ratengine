@@ -82,7 +82,10 @@ namespace RatEngine.DataModel
         /// Deletes this record from the data source.
         /// </summary>
         /// <returns>True if the delete operation was successful.</returns>
-        public abstract bool Delete();
+        public virtual bool Delete()
+        {
+            return Delete(_adapter);
+        }
 
         /// <summary>
         /// Deletes this record from the data source using the specified adapter instead of
@@ -103,7 +106,10 @@ namespace RatEngine.DataModel
         /// Inserts or updates this record at the data source.
         /// </summary>
         /// <returns>True if the save operation was successful.</returns>
-        public abstract bool Save();
+        public virtual bool Save()
+        {
+            return Save(_adapter);
+        }
 
         /// <summary>
         /// Inserts or updates this record at the data source using the specified
