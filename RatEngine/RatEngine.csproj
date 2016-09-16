@@ -76,6 +76,7 @@
     <Compile Include="DataModel\World\Region.cs" />
     <Compile Include="DataModel\World\Room.cs" />
     <Compile Include="DataModel\World\Transition.cs" />
+    <Compile Include="DataSource\ConnectionUtils.cs" />
     <Compile Include="DataSource\DataConnection.cs" />
     <Compile Include="DataSource\DataParameter.cs" />
     <Compile Include="DataSource\IDataResultSet.cs" />

@@ -24,7 +24,7 @@ namespace RatEngine.DataModel.World
     public class Realm : GameElement
     {
         // A collection of all Regions in the Realm.
-        private ConcurrentDictionary<string, Region> _regions;
+        private ConcurrentDictionary<Guid, Region> _regions;
         private static readonly ILog log = LogManager.GetLogger(typeof(Realm));
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace RatEngine.DataModel.World
         public Realm(RatDataModelAdapter Adapter) : base(Adapter)
         {
             //instantiate Dictionary of Regions
-            _regions = new ConcurrentDictionary<string, Region>();
+            _regions = new ConcurrentDictionary<Guid, Region>();
 
             LoadFromAdapter(_adapter);
         }
@@ -68,6 +68,7 @@ namespace RatEngine.DataModel.World
                 _id = Adapter.ResultSet.GetValue<int>(RatDataModelAdapter.RealmFields.ID);
                 _name = Adapter.ResultSet.GetValue<string>(RatDataModelAdapter.RealmFields.NAME);
                 _descr = Adapter.ResultSet.GetValue<string>(RatDataModelAdapter.RealmFields.DESCRIPTION);
+                base.LoadFromAdapter(Adapter);
             }
         }
 
@@ -100,8 +101,15 @@ namespace RatEngine.DataModel.World
         {
             try
             {
-                Adapter.Save(RatDataModelType.Realm, new List<DataParameter>() {
-                    new DataParameter(RatDataModelAdapter.RealmFields.ID, ID) });
+                List<DataParameter> parameters = new List<DataParameter>();
+                parameters.Add(new DataParameter(RatDataModelAdapter.RealmFields.NAME, Name));
+                parameters.Add(new DataParameter(RatDataModelAdapter.RealmFields.DESCRIPTION, Description));
+
+                if (ID > 0)
+                {
+                    parameters.Add(new DataParameter(RatDataModelAdapter.RealmFields.ID, ID));
+                }
+                Adapter.Save(RatDataModelType.Realm, parameters);
                 if (_id == 0)
                     _id = Adapter.ResultSet.ReturnValue;
                 return true;

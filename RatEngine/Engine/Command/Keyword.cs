@@ -78,7 +78,7 @@ namespace RatEngine.Engine.Command
 
         // A collection of the available syntaxes for this keyword.  The command string must validate
         // against one of these syntaxes to be considered valid.  The key is the syntax name.
-        private ConcurrentDictionary<string, KeywordSyntax> _syntaxes;
+        private ConcurrentDictionary<Guid, KeywordSyntax> _syntaxes;
 
         // The string to provide the user when the help command is executed with this keyword as an
         // argument.
@@ -189,7 +189,7 @@ namespace RatEngine.Engine.Command
         /// </summary>
         public void InitializeComponents()
         {
-            _syntaxes = new ConcurrentDictionary<string, KeywordSyntax>();
+            _syntaxes = new ConcurrentDictionary<Guid, KeywordSyntax>();
             _associatedflags = new ConcurrentDictionary<string, Flag>();
             _ability = null;
         }

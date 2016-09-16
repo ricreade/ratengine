@@ -49,6 +49,7 @@ namespace RatEngine.DataSource
         {
             if (_data.Columns.Contains(FieldName))
             {
+                
                 return (T)_data.Rows[_recordnumber][FieldName];
             }
             throw new KeyNotFoundException("");

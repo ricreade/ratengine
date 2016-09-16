@@ -81,7 +81,7 @@ namespace RatEngine.DataModel.World
         // is running.  For this reason, this object is kept encapsulated and a GetTransition method
         // is provided to prevent any tampering with the transition list.  Transition properties are
         // all read only.
-        private ConcurrentDictionary<string, Transition> _transitions;
+        private ConcurrentDictionary<Guid, Transition> _transitions;
 
         // The Region that contains this Room.  This property provides a way to walk up the map
         // hierarchy.  It is initialized at service startup.
@@ -170,9 +170,9 @@ namespace RatEngine.DataModel.World
             }
 
             // Search the Transition collection
-            if (_transitions.ContainsKey(ElementName))
+            if (_transitions.ContainsKey(new Guid(ElementName)))
             {
-                return _transitions[ElementName];
+                return _transitions[new Guid(ElementName)];
             }
 
             // Search the Item collection
@@ -237,7 +237,7 @@ namespace RatEngine.DataModel.World
         private void InitializeComponents()
         {
             _creatures = new ConcurrentDictionary<string, Creature>();
-            _transitions = new ConcurrentDictionary<string, Transition>();
+            _transitions = new ConcurrentDictionary<Guid, Transition>();
         }
 
         public override void LoadFromAdapter(RatDataModelAdapter Adapter)

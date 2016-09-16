@@ -88,7 +88,7 @@ namespace RatEngine.Engine.Command
 
         // A collection of system instructions to be executed when a syntax match is found.  The
         // key is the SystemInstruction name.
-        private ConcurrentDictionary<string, SystemInstruction> _instructions;
+        private ConcurrentDictionary<Guid, SystemInstruction> _instructions;
 
         // The possible types of argument in a keyword syntax expressions.
         public enum ArgumentType { Target, Ability, Location, Container, Message };
@@ -172,7 +172,7 @@ namespace RatEngine.Engine.Command
         /// </summary>
         public void InitializeComponents()
         {
-            _instructions = new ConcurrentDictionary<string, SystemInstruction>();
+            _instructions = new ConcurrentDictionary<Guid, SystemInstruction>();
         }
 
         /// <summary>

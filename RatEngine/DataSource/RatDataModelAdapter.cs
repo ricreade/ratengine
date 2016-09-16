@@ -35,10 +35,10 @@ namespace RatEngine.DataSource
         public struct GameRegistryFields
         {
             public const string ID = "GameRegistryID";
-            public const string GameID = "GameId";
-            public const string PrefixID = "GameIdPrefixID";
-            public const string Name = "Name";
-            public const string Description = "Description";
+            public const string GAME_ID = "GameId";
+            public const string PREFIX_ID = "GameIdPrefixID";
+            public const string NAME = "Name";
+            public const string DESCRIPTION = "Description";
         }
 
         public struct RealmFields
@@ -50,9 +50,10 @@ namespace RatEngine.DataSource
 
         public struct RealmProcedures
         {
-            public const string Delete = "DeleteRealm";
-            public const string Insert = "InsertRealm";
-            public const string Retrieve = "RetrieveRealm";
+            public const string DELETE = "DeleteRealm";
+            public const string INSERT = "InsertRealm";
+            public const string RETRIEVE = "RetrieveRealm";
+            public const string UPDATE = "UpdateRealm";
         }
 
         public struct RegionFields
@@ -120,7 +121,7 @@ namespace RatEngine.DataSource
             switch (Model)
             {
                 case RatDataModelType.Realm:
-                    proc = RealmProcedures.Retrieve;
+                    proc = RealmProcedures.RETRIEVE;
                     break;
                 default:
                     // Log this error.
@@ -134,8 +135,23 @@ namespace RatEngine.DataSource
 
         public void Save(RatDataModelType Model, List<DataParameter> Parameters)
         {
+            string proc = null;
+
+            switch (Model)
+            {
+                case RatDataModelType.Realm:
+                    if (Parameters.Find(item => item.FieldName == RatDataModelAdapter.RealmFields.ID) != null)
+                    {
+                        proc = RealmProcedures.INSERT;
+                    }
+                    else
+                    {
+                        proc = RealmProcedures.UPDATE;
+                    }
+                    break;
+            }
             SqlDataConnection conn = new SqlDataConnection(Properties.Settings.Default.ConnString);
-            _queryResult = conn.SendWriteRequest("", ConvertParameterList(Parameters));
+            _queryResult = conn.SendWriteRequest(proc, ConvertParameterList(Parameters));
         }
 
         

@@ -20,12 +20,12 @@ namespace RatEngine.Engine.Command
     {
         static KeywordManager()
         {
-            _keywords = new ConcurrentDictionary<string, Keyword>();
+            _keywords = new ConcurrentDictionary<Guid, Keyword>();
             LoadKeywords();
         }
 
         // The full list of keywords in the application
-        private static ConcurrentDictionary<string, Keyword> _keywords;
+        private static ConcurrentDictionary<Guid, Keyword> _keywords;
 
         /// <summary>
         /// GetKeyword
@@ -48,7 +48,7 @@ namespace RatEngine.Engine.Command
                 StringSplitOptions.RemoveEmptyEntries)[0];
 
             // If that keyword string exists in the dictionary, return it.
-            if (_keywords.TryGetValue(kywrdstr, out kywrd))
+            if (_keywords.TryGetValue(new Guid(kywrdstr), out kywrd))
             {
                 return kywrd;
             }

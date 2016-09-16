@@ -51,6 +51,7 @@ namespace RatEngine.DataSource
         {
             try
             {
+                _connection.ConnectionString = _connectionString;
                 _connection.Open();
             }
             catch (InvalidOperationException ex)

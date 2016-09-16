@@ -19,7 +19,7 @@ namespace RatEngine.DataModel
     public abstract class GameElement
     {
         protected int _id;
-        protected string _gameid;
+        protected Guid _gameid;
         protected string _name;
         protected string _descr;
         protected RatDataModelAdapter _adapter;
@@ -55,7 +55,7 @@ namespace RatEngine.DataModel
         /// <summary>
         /// The unique game identifier for this game object.
         /// </summary>
-        public string GameID
+        public Guid GameID
         {
             get { return _gameid; }
         }
@@ -100,7 +100,10 @@ namespace RatEngine.DataModel
         /// Hydrates the data object using the specified adapter.
         /// </summary>
         /// <param name="Adapter">The data adapter to use to hydrate this object.</param>
-        public abstract void LoadFromAdapter(RatDataModelAdapter Adapter);
+        public virtual void LoadFromAdapter(RatDataModelAdapter Adapter)
+        {
+            _gameid = Adapter.ResultSet.GetValue<Guid>(RatDataModelAdapter.GameRegistryFields.GAME_ID);
+        }
 
         /// <summary>
         /// Inserts or updates this record at the data source.
