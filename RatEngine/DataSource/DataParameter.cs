@@ -8,10 +8,19 @@ namespace RatEngine.DataSource
 {
     public class DataParameter
     {
+        public enum DataParameterDirection
+        {
+            In,
+            Out
+        }
+
         private string _fieldname;
         private object _value;
+        private DataParameterDirection _direction;
 
-        public DataParameter(string FieldName, object Value)
+        public DataParameter(string FieldName, object Value):this(FieldName, Value, DataParameterDirection.In) { }
+
+        public DataParameter(string FieldName, object Value, DataParameterDirection Direction)
         {
             _fieldname = FieldName;
             _value = Value;

@@ -51,7 +51,7 @@ namespace RatEngine.DataModel.World
             try
             {
                 Adapter.Delete(RatDataModelType.Realm, new List<DataParameter>() {
-                    new DataParameter(RatDataModelAdapter.RealmFields.ID, ID) });
+                    new DataParameter(RatDataModelAdapter.RealmParameters.ID, ID) });
             }
             catch (Exception ex)
             {
@@ -102,17 +102,18 @@ namespace RatEngine.DataModel.World
             try
             {
                 List<DataParameter> parameters = new List<DataParameter>();
-                parameters.Add(new DataParameter(RatDataModelAdapter.RealmFields.NAME, Name));
-                parameters.Add(new DataParameter(RatDataModelAdapter.RealmFields.DESCRIPTION, Description));
+                parameters.Add(new DataParameter(RatDataModelAdapter.RealmParameters.NAME, Name));
+                parameters.Add(new DataParameter(RatDataModelAdapter.RealmParameters.DESCRIPTION, Description));
 
                 if (ID > 0)
                 {
                     parameters.Add(new DataParameter(RatDataModelAdapter.RealmFields.ID, ID));
                 }
                 Adapter.Save(RatDataModelType.Realm, parameters);
-                if (_id == 0)
-                    _id = Adapter.ResultSet.ReturnValue;
-                return true;
+                _id = Adapter.NewRecordID;
+                _gameid = Adapter.NewGameID;
+                //LoadFromAdapter(Adapter);
+                return ID > 0;
             }
             catch (Exception ex)
             {

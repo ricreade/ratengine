@@ -16,6 +16,8 @@ namespace RatEngine.DataSource
     {
         private SqlConnection _connection;
         private SqlCredential _credentials;
+        private SqlCommand _command;
+
         public SqlDataConnection(string ConnectionString) : this(ConnectionString, null) { }
 
         public SqlDataConnection(string ConnectionString, SqlCredential Credentials) : base(ConnectionString)
@@ -45,6 +47,16 @@ namespace RatEngine.DataSource
         public override void CloseConnection()
         {
             _connection.Close();
+        }
+
+        public override List<SqlParameter> GetConnectionParameters()
+        {
+            List<SqlParameter> plist = new List<SqlParameter>();
+            foreach (SqlParameter p in _command.Parameters)
+            {
+                plist.Add(p);
+            }
+            return plist;
         }
 
         public override void OpenConnection()
@@ -125,12 +137,8 @@ namespace RatEngine.DataSource
         /// <param name="InstructionString">The name of the stored procedure to invoke.</param>
         /// <param name="Parameters">A list of parameters associated with the request.</param>
         /// <returns></returns>
-        public override IDataResultSet SendWriteRequest(string InstructionString, IList<SqlParameter> Parameters)
+        public override void SendWriteRequest(string InstructionString, IList<SqlParameter> Parameters)
         {
-            SqlCommand cmd = null;
-            int returnVal;
-            SqlParameter result = null;
-
             try
             {
                 OpenConnection();
@@ -139,38 +147,30 @@ namespace RatEngine.DataSource
             {
                 // TODO: Log event.
                 CloseConnection();
-                return new SqlDataResultSet(0);
+                return;
             }
 
             try
             {
-                result = new SqlParameter("@result", SqlDbType.Int);
-                result.Direction = ParameterDirection.ReturnValue;
-
-                cmd = new SqlCommand(InstructionString, _connection);
-                cmd.CommandType = CommandType.StoredProcedure;
+                _command = new SqlCommand(InstructionString, _connection);
+                _command.CommandType = CommandType.StoredProcedure;
                 
                 if (Parameters != null)
-                    cmd.Parameters.AddRange(Parameters.ToArray());
+                    _command.Parameters.AddRange(Parameters.ToArray());
 
-                cmd.Parameters.Add(result);
+                //_command.Parameters.Add(result);
+                _command.ExecuteNonQuery();
 
             }
             catch (Exception ex)
             {
                 // TODO: Log event.
-                return new SqlDataResultSet(0);
+                return;
             }
             finally
             {
                 CloseConnection();
             }
-
-            if (int.TryParse(result.Value.ToString(), out returnVal))
-            {
-                return new SqlDataResultSet(returnVal);
-            }
-            return new SqlDataResultSet(0);
         }
     }
 }

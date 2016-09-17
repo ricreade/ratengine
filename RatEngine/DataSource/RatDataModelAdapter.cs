@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -29,6 +30,10 @@ namespace RatEngine.DataSource
     {
 
         private IDataResultSet _queryResult;
+        private Guid _newgameid;
+        private int _newregid;
+        private int _newrecid;
+        private int _returnvalue;
         private RatDataModelType _lastRetrievedModel;
 
         // Database field names.
@@ -41,11 +46,26 @@ namespace RatEngine.DataSource
             public const string DESCRIPTION = "Description";
         }
 
+        public struct GameRegistryParameters
+        {
+            public const string GAME_ID = "@gameid";
+            public const string REGISTRY_ID = "@regid";
+            public const string RECORD_ID = "@id";
+            public const string RETURN_VALUE = "@returnval";
+        }
+
         public struct RealmFields
         {
             public const string ID = "RealmID";
             public const string NAME = "Name";
             public const string DESCRIPTION = "Description";
+        }
+
+        public struct RealmParameters
+        {
+            public const string ID = "@realmid";
+            public const string NAME = "@name";
+            public const string DESCRIPTION = "@descript";
         }
 
         public struct RealmProcedures
@@ -84,6 +104,21 @@ namespace RatEngine.DataSource
             public const string ROOM_TO = "fkRoomTo";
         }
 
+        public Guid NewGameID
+        {
+            get { return _newgameid; }
+        }
+
+        public int NewRecordID
+        {
+            get { return _newrecid; }
+        }
+
+        public int NewRegistryID
+        {
+            get { return _newregid; }
+        }
+
         public IDataResultSet ResultSet
         {
             get { return _queryResult; }
@@ -92,6 +127,11 @@ namespace RatEngine.DataSource
         public RatDataModelType LastRetrievedModel
         {
             get { return _lastRetrievedModel; }
+        }
+
+        public int ReturnValue
+        {
+            get { return _returnvalue; }
         }
 
         private List<SqlParameter> ConvertParameterList(List<DataParameter> Parameters)
@@ -110,8 +150,19 @@ namespace RatEngine.DataSource
 
         public void Delete(RatDataModelType Model, List<DataParameter> Parameters)
         {
+            string proc = null;
+
+            switch (Model)
+            {
+                case RatDataModelType.Realm:
+                    proc = RealmProcedures.DELETE;
+                    break;
+                default:
+                    // Log this error
+                    break;
+            }
             SqlDataConnection conn = new SqlDataConnection(Properties.Settings.Default.ConnString);
-            _queryResult = conn.SendWriteRequest("", ConvertParameterList(Parameters));
+            conn.SendWriteRequest(proc, ConvertParameterList(Parameters));
         }
 
         public void Retrieve(RatDataModelType Model, List<DataParameter> Parameters)
@@ -136,24 +187,74 @@ namespace RatEngine.DataSource
         public void Save(RatDataModelType Model, List<DataParameter> Parameters)
         {
             string proc = null;
+            List<SqlParameter> outParams = new List<SqlParameter>();
+            SqlParameter p = null;
 
             switch (Model)
             {
                 case RatDataModelType.Realm:
-                    if (Parameters.Find(item => item.FieldName == RatDataModelAdapter.RealmFields.ID) != null)
+                    if (Parameters.Find(item => item.FieldName == RatDataModelAdapter.RealmFields.ID) == null)
                     {
                         proc = RealmProcedures.INSERT;
+
+                        p = new SqlParameter(GameRegistryParameters.GAME_ID, SqlDbType.UniqueIdentifier);
+                        p.Direction = ParameterDirection.Output;
+                        outParams.Add(p);
+
+                        p = new SqlParameter(GameRegistryParameters.RECORD_ID, SqlDbType.Int);
+                        p.Direction = ParameterDirection.Output;
+                        outParams.Add(p);
                     }
                     else
                     {
                         proc = RealmProcedures.UPDATE;
+
+                        p = new SqlParameter(GameRegistryParameters.RETURN_VALUE, SqlDbType.Int);
+                        p.Direction = ParameterDirection.Output;
+                        outParams.Add(p);
                     }
                     break;
             }
             SqlDataConnection conn = new SqlDataConnection(Properties.Settings.Default.ConnString);
-            _queryResult = conn.SendWriteRequest(proc, ConvertParameterList(Parameters));
+            List<SqlParameter> paramlist = ConvertParameterList(Parameters);
+            paramlist.AddRange(outParams);
+
+            conn.SendWriteRequest(proc, paramlist);
+            //_queryResult = conn.SendReadRequest(proc, ConvertParameterList(Parameters));
+            //_lastRetrievedModel = Model;
+            SetResultIDValues(conn);
         }
 
-        
+        private void SetResultIDValues(SqlDataConnection Connection)
+        {
+            Guid guidVal;
+            int intVal;
+            List<SqlParameter> plist = Connection.GetConnectionParameters();
+            SqlParameter p = null;
+
+            p = plist.Find(item => item.ParameterName == GameRegistryParameters.GAME_ID);
+            if (p != null && Guid.TryParse(p.Value.ToString(), out guidVal))
+            {
+                _newgameid = guidVal;
+            }
+
+            p = plist.Find(item => item.ParameterName == GameRegistryParameters.REGISTRY_ID);
+            if (p != null && int.TryParse(p.Value.ToString(), out intVal))
+            {
+                _newregid = intVal;
+            }
+
+            p = plist.Find(item => item.ParameterName == GameRegistryParameters.RECORD_ID);
+            if (p != null && int.TryParse(p.Value.ToString(), out intVal))
+            {
+                _newrecid = intVal;
+            }
+
+            p = plist.Find(item => item.ParameterName == GameRegistryParameters.RETURN_VALUE);
+            if (p != null && int.TryParse(p.Value.ToString(), out intVal))
+            {
+                _returnvalue = intVal;
+            }
+        }
     }
 }

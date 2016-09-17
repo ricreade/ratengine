@@ -19,10 +19,16 @@ namespace RatEngine.DataSource
             _connectionString = ConnectionString;
         }
 
+        
         /// <summary>
         /// Closes the connection to the data source.
         /// </summary>
         public abstract void CloseConnection();
+
+        /// <summary>
+        /// Returns the parameters associated with this connection.
+        /// </summary>
+        public abstract List<ParameterType> GetConnectionParameters();
 
         /// <summary>
         /// Opens the connection to the data source.
@@ -43,7 +49,7 @@ namespace RatEngine.DataSource
         /// <param name="InstructionString">The instruction string to send to the data source.</param>
         /// <param name="Parameters">The list of parameters to include with the modification request.</param>
         /// <returns></returns>
-        public abstract IDataResultSet SendWriteRequest(string InstructionString, IList<ParameterType> Parameters);
+        public abstract void SendWriteRequest(string InstructionString, IList<ParameterType> Parameters);
 
 
     }

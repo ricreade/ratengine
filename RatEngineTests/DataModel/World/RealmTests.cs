@@ -16,7 +16,7 @@ namespace RatEngine.DataModel.World.Tests
         public void DeleteTest()
         {
             Realm r = new Realm(new RatDataModelAdapter());
-
+            Assert.Fail();
         }
 
         [TestMethod()]
@@ -33,6 +33,17 @@ namespace RatEngine.DataModel.World.Tests
             Assert.AreEqual(expectedName, realm.Name);
             Assert.AreEqual(expectedDescription, realm.Description);
             Assert.AreEqual(expectedGameId, realm.GameID);
+        }
+
+        [TestMethod()]
+        public void SaveTest()
+        {
+            RatDataModelAdapter adapter = new RatDataModelAdapter();
+            Realm realm = new Realm(adapter);
+            realm.Name = "Middle Earth";
+            realm.Description = "The famous setting of the Lord of the Rings.";
+            realm.Save();
+            Assert.IsTrue(realm.ID > 0);
         }
     }
 }
