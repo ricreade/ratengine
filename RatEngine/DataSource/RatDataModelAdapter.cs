@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using RatEngine.DataModel;
 using RatEngine.DataModel.World;
 
+using log4net;
+
 namespace RatEngine.DataSource
 {
     public enum RatDataModelType
@@ -28,6 +30,7 @@ namespace RatEngine.DataSource
     /// </summary>
     public class RatDataModelAdapter
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(RatDataModelAdapter));
 
         private IDataResultSet _queryResult;
         private Guid _newgameid;
@@ -151,6 +154,8 @@ namespace RatEngine.DataSource
         public void Delete(RatDataModelType Model, List<DataParameter> Parameters)
         {
             string proc = null;
+            SqlParameter p = new SqlParameter(GameRegistryParameters.RETURN_VALUE, SqlDbType.Int);
+            p.Direction = ParameterDirection.Output;
 
             switch (Model)
             {
@@ -158,11 +163,15 @@ namespace RatEngine.DataSource
                     proc = RealmProcedures.DELETE;
                     break;
                 default:
-                    // Log this error
+                    log.Error(string.Format("Cannot process delete request for model type enumeration '{0}'.", Model.ToString()));
                     break;
             }
+
             SqlDataConnection conn = new SqlDataConnection(Properties.Settings.Default.ConnString);
-            conn.SendWriteRequest(proc, ConvertParameterList(Parameters));
+            List<SqlParameter> paramlist = ConvertParameterList(Parameters);
+            paramlist.Add(p);
+            conn.SendWriteRequest(proc, paramlist);
+            SetResultIDValues(conn);
         }
 
         public void Retrieve(RatDataModelType Model, List<DataParameter> Parameters)
@@ -193,7 +202,7 @@ namespace RatEngine.DataSource
             switch (Model)
             {
                 case RatDataModelType.Realm:
-                    if (Parameters.Find(item => item.FieldName == RatDataModelAdapter.RealmFields.ID) == null)
+                    if (Parameters.Find(item => item.FieldName == RealmFields.ID) == null)
                     {
                         proc = RealmProcedures.INSERT;
 

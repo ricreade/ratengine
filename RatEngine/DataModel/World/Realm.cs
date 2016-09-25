@@ -36,8 +36,8 @@ namespace RatEngine.DataModel.World
         {
             //instantiate Dictionary of Regions
             _regions = new ConcurrentDictionary<Guid, Region>();
-
             LoadFromAdapter(_adapter);
+            log.Info(string.Format("Instantiated realm '{0}'.", Name));
         }
 
         [DataMember]
@@ -63,7 +63,7 @@ namespace RatEngine.DataModel.World
 
         public override void LoadFromAdapter(RatDataModelAdapter Adapter)
         {
-            if (Adapter != null && Adapter.LastRetrievedModel == RatDataModelType.Realm)
+            if (Adapter != null && Adapter.LastRetrievedModel == RatDataModelType.Realm && Adapter.ResultSet.RecordCount > 0)
             {
                 _id = Adapter.ResultSet.GetValue<int>(RatDataModelAdapter.RealmFields.ID);
                 _name = Adapter.ResultSet.GetValue<string>(RatDataModelAdapter.RealmFields.NAME);

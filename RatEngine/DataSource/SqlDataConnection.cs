@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using log4net;
+
 namespace RatEngine.DataSource
 {
     /// <summary>
@@ -14,6 +16,8 @@ namespace RatEngine.DataSource
     /// </summary>
     public class SqlDataConnection : DataConnection<SqlParameter>
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(SqlDataConnection));
+
         private SqlConnection _connection;
         private SqlCredential _credentials;
         private SqlCommand _command;
@@ -145,7 +149,7 @@ namespace RatEngine.DataSource
             }
             catch (Exception ex)
             {
-                // TODO: Log event.
+                log.Error("The data connection failed.", ex);
                 CloseConnection();
                 return;
             }
@@ -164,7 +168,7 @@ namespace RatEngine.DataSource
             }
             catch (Exception ex)
             {
-                // TODO: Log event.
+                log.Error(string.Format("Cannot process instruction string '{0}'.", InstructionString), ex);
                 return;
             }
             finally
