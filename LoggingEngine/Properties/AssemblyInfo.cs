@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("RatEngine")]
+[assembly: AssemblyTitle("LoggingEngine")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("RatEngine")]
+[assembly: AssemblyProduct("LoggingEngine")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("388ef38e-6c0f-42f9-baf9-913773fac4fe")]
+[assembly: Guid("f3127d9c-a33b-4161-ad29-733c2aaa4051")]
 
 // Version information for an assembly consists of the following four values:
 //

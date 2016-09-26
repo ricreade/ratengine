@@ -8,8 +8,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-using log4net;
-
+using LoggingEngine;
 using RatEngine.DataSource;
 
 namespace RatEngine.DataModel.World
@@ -25,8 +24,8 @@ namespace RatEngine.DataModel.World
     {
         // A collection of all Regions in the Realm.
         private ConcurrentDictionary<Guid, Region> _regions;
-        private static readonly ILog log = LogManager.GetLogger(typeof(Realm));
-
+        private static readonly RatLogger log = LogUtil.Instance.GetLogger(typeof(Realm));
+        
         /// <summary>
         /// Instantiates a new instance with the specified GameID value and data adapter.  If
         /// the adapter is not null and contains data for Realms, the new object is hydrated
@@ -37,7 +36,6 @@ namespace RatEngine.DataModel.World
             //instantiate Dictionary of Regions
             _regions = new ConcurrentDictionary<Guid, Region>();
             LoadFromAdapter(_adapter);
-            log.Info(string.Format("Instantiated realm '{0}'.", Name));
         }
 
         [DataMember]

@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RatGameService", "RatGameSe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RatEngineTests", "RatEngineTests\RatEngineTests.csproj", "{AB1EAB8F-972C-405F-9F44-3B6BB8841BB4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoggingEngine", "LoggingEngine\LoggingEngine.csproj", "{F3127D9C-A33B-4161-AD29-733C2AAA4051}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{AB1EAB8F-972C-405F-9F44-3B6BB8841BB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AB1EAB8F-972C-405F-9F44-3B6BB8841BB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AB1EAB8F-972C-405F-9F44-3B6BB8841BB4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3127D9C-A33B-4161-AD29-733C2AAA4051}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3127D9C-A33B-4161-AD29-733C2AAA4051}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3127D9C-A33B-4161-AD29-733C2AAA4051}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3127D9C-A33B-4161-AD29-733C2AAA4051}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

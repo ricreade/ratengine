@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using log4net;
+using LoggingEngine;
 
 namespace RatEngine.DataSource
 {
@@ -16,7 +16,8 @@ namespace RatEngine.DataSource
     /// </summary>
     public class SqlDataConnection : DataConnection<SqlParameter>
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(SqlDataConnection));
+        //private static readonly ILog log = LogManager.GetLogger(typeof(SqlDataConnection));
+        private static readonly RatLogger log = LogUtil.Instance.GetLogger(typeof(SqlDataConnection));
 
         private SqlConnection _connection;
         private SqlCredential _credentials;

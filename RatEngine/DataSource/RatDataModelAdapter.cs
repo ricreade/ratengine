@@ -6,10 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using LoggingEngine;
 using RatEngine.DataModel;
 using RatEngine.DataModel.World;
-
-using log4net;
 
 namespace RatEngine.DataSource
 {
@@ -30,8 +29,9 @@ namespace RatEngine.DataSource
     /// </summary>
     public class RatDataModelAdapter
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(RatDataModelAdapter));
-
+        //private static readonly ILog log = log4net.LogManager.GetLogger(typeof(RatDataModelAdapter));
+        private static readonly RatLogger log = LogUtil.Instance.GetLogger(typeof(RatDataModelAdapter));
+        
         private IDataResultSet _queryResult;
         private Guid _newgameid;
         private int _newregid;
