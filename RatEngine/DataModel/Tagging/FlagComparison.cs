@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using RatEngine.DataSource;
 
-namespace RatEngine.DataModel.Effects
+namespace RatEngine.DataModel.Tagging
 {
     /// <summary>
     /// This class defines a comparison between two flags in the game.  The values in this

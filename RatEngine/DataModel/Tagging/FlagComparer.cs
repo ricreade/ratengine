@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RatEngine.DataModel.Effects
+namespace RatEngine.DataModel.Tagging
 {
     /// <summary>
     /// This class references all possible flag comparisons in the game.  This class

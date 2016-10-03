@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RatEngine.DataModel.Effects
+namespace RatEngine.DataModel.Tagging
 {
     class FlagComparisonFailedException : Exception
     {

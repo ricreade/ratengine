@@ -46,12 +46,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
-    <Compile Include="DataModel\Effects\Effectable.cs" />
-    <Compile Include="DataModel\Effects\Flag.cs" />
-    <Compile Include="DataModel\Effects\FlagComparer.cs" />
-    <Compile Include="DataModel\Effects\FlagComparison.cs" />
-    <Compile Include="DataModel\Effects\FlagComparisonFailedException.cs" />
-    <Compile Include="DataModel\Effects\Flaggable.cs" />
+    <Compile Include="DataModel\Tagging\Effectable.cs" />
+    <Compile Include="DataModel\Tagging\Flag.cs" />
+    <Compile Include="DataModel\Tagging\FlagComparer.cs" />
+    <Compile Include="DataModel\Tagging\FlagComparison.cs" />
+    <Compile Include="DataModel\Tagging\FlagComparisonFailedException.cs" />
+    <Compile Include="DataModel\Tagging\Flaggable.cs" />
     <Compile Include="DataModel\GameManager.cs" />
     <Compile Include="DataModel\Inventory\Inventoried.cs" />
     <Compile Include="DataModel\Inventory\Item.cs" />
@@ -60,7 +60,7 @@
     <Compile Include="DataModel\GameElement.cs" />
     <Compile Include="DataModel\Mob\Advancement\AbilityEffect.cs" />
     <Compile Include="DataModel\Mob\Advancement\AbilityLadder.cs" />
-    <Compile Include="DataModel\Effects\Effect.cs" />
+    <Compile Include="DataModel\Tagging\Effect.cs" />
     <Compile Include="DataModel\Mob\Advancement\LadderLevel.cs" />
     <Compile Include="DataModel\Mob\BodySlot.cs" />
     <Compile Include="DataModel\Mob\Creature.cs" />
@@ -72,6 +72,7 @@
     <Compile Include="DataModel\Questing\QuestGoalType.cs" />
     <Compile Include="DataModel\Questing\QuestManager.cs" />
     <Compile Include="DataModel\RecordManager.cs" />
+    <Compile Include="DataModel\Tagging\FlagTemplate.cs" />
     <Compile Include="DataModel\UserAccount\User.cs" />
     <Compile Include="DataModel\World\Realm.cs" />
     <Compile Include="DataModel\World\Region.cs" />

@@ -6,7 +6,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-using RatEngine.DataModel.Effects;
+using RatEngine.DataModel.Tagging;
 using RatEngine.DataSource;
 
 namespace RatEngine.DataModel.World

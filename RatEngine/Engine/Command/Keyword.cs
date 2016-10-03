@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using RatEngine.DataModel;
-using RatEngine.DataModel.Effects;
+using RatEngine.DataModel.Tagging;
 using RatEngine.DataModel.Mob;
 using RatEngine.DataModel.Mob.Advancement;
 using RatEngine.DataSource;

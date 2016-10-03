@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using RatEngine.DataModel.World;
 using RatEngine.DataSource;
 
-namespace RatEngine.DataModel.Effects
+namespace RatEngine.DataModel.Tagging
 {
     /// <summary>
     /// Flaggable

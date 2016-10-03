@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using RatEngine.DataModel.Effects;
+using RatEngine.DataModel.Tagging;
 using RatEngine.DataModel.Mob.Advancement;
 using RatEngine.DataModel.Questing;
 using RatEngine.DataModel.World;
