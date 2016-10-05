@@ -47,10 +47,13 @@
   <ItemGroup>
     <Compile Include="Class1.cs" />
     <Compile Include="DataModel\Tagging\Effectable.cs" />
+    <Compile Include="DataModel\Tagging\EffectContext.cs" />
+    <Compile Include="DataModel\Tagging\EffectTemplate.cs" />
     <Compile Include="DataModel\Tagging\Flag.cs" />
     <Compile Include="DataModel\Tagging\FlagComparer.cs" />
     <Compile Include="DataModel\Tagging\FlagComparison.cs" />
     <Compile Include="DataModel\Tagging\FlagComparisonFailedException.cs" />
+    <Compile Include="DataModel\Tagging\FlagContext.cs" />
     <Compile Include="DataModel\Tagging\Flaggable.cs" />
     <Compile Include="DataModel\GameManager.cs" />
     <Compile Include="DataModel\Inventory\Inventoried.cs" />
