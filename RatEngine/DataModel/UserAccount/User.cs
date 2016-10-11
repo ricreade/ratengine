@@ -54,6 +54,19 @@ namespace RatEngine.DataModel.UserAccount
             set { _email = value; }
         }
 
+        public override RatDataModelAdapter DataAdapter
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         public override bool Delete()
         {
             throw new NotImplementedException();

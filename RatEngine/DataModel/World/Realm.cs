@@ -44,6 +44,19 @@ namespace RatEngine.DataModel.World
             get { return _regions.Select(item => item.Value); }
         }
 
+        public override RatDataModelAdapter DataAdapter
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         public override bool Delete(RatDataModelAdapter Adapter)
         {
             try

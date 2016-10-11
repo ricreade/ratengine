@@ -113,6 +113,19 @@ namespace RatEngine.Engine.Command
             get { return new List<SystemInstruction>(_instructions.Select(item => item.Value)); }
         }
 
+        public override RatDataModelAdapter DataAdapter
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         /// <summary>
         /// Delete
         /// Deletes this syntax from the database.

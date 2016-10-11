@@ -119,6 +119,19 @@ namespace RatEngine.DataModel.Mob.Advancement
             get { return _level; }
         }
 
+        public override RatDataModelAdapter DataAdapter
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         /// <summary>
         /// Delete
         /// Deletes the record from the database represented by this object.

@@ -64,6 +64,19 @@ namespace RatEngine.DataModel.Questing
         // If NPC communication is associated with this goal.
         private string _npccomplete;
 
+        public override RatDataModelAdapter DataAdapter
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         // Copy Constructor to support a player-specific copy of the goal.
         public QuestGoal(QuestGoal Goal, RatDataModelAdapter Adapter) : base(Adapter)
         {

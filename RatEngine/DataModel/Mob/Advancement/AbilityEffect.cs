@@ -41,6 +41,19 @@ namespace RatEngine.DataModel.Mob.Advancement
             get { return _ability; }
         }
 
+        public override RatDataModelAdapter DataAdapter
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         public int Duration
         {
             get { return _duration; }

@@ -111,6 +111,19 @@ namespace RatEngine.Engine.Command
             get { return _ability; }
         }
 
+        public override RatDataModelAdapter DataAdapter
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         public override bool Delete()
         {
             RecordManager rm = new RecordManager();

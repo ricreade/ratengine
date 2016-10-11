@@ -91,6 +91,19 @@ namespace RatEngine.Engine.Instruction
             get { return _regex; }
         }
 
+        public override RatDataModelAdapter DataAdapter
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         public override bool Delete()
         {
             throw new NotImplementedException();

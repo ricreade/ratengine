@@ -14,5 +14,10 @@ namespace RatEngine.DataModel.Tagging
         {
             get { return _flags.AsReadOnly(); }
         }
+
+        public bool IsConforming(Effect Element)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

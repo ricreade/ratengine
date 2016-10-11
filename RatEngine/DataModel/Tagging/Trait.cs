@@ -3,19 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using RatEngine.DataSource;
 
-namespace RatEngine.DataModel.Inventory
+namespace RatEngine.DataModel.Tagging
 {
-    /// <summary>
-    /// ItemType
-    /// Represents a specific type of item defined in the game.  These are general
-    /// categories for convenient reference.
-    /// </summary>
-    public class ItemType : GameElement
+    public class Trait : Effectable
     {
-        public ItemType(RatDataModelAdapter Adapter) : base(Adapter) { }
+        public Trait(RatDataModelAdapter Adapter) : base(Adapter)
+        {
+            
+        }
 
         public override RatDataModelAdapter DataAdapter
         {
@@ -44,11 +41,6 @@ namespace RatEngine.DataModel.Inventory
         {
             throw new NotImplementedException();
         }
-
-        //public override void LoadDataRow(System.Data.DataRow Row)
-        //{
-        //    throw new NotImplementedException();
-        //}
 
         public override bool Save()
         {

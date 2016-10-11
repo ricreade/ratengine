@@ -105,6 +105,19 @@ namespace RatEngine.DataModel.World
             get { return _transitions.Select(item => item.Value); }
         }
 
+        public override RatDataModelAdapter DataAdapter
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         /// <summary>
         /// AddCombatant
         /// Adds a Combatant to the room.  This is typically called when a player logs in, when the

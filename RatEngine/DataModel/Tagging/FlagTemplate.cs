@@ -37,5 +37,10 @@ namespace RatEngine.DataModel.Tagging
         {
             get { return _valuemask; }
         }
+
+        public bool IsConforming(Flag Element)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

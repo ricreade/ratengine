@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Concurrent;
 using System.Linq;
@@ -17,138 +18,82 @@ namespace RatEngine.DataModel.Tagging
     /// flags associated with them.  This class uses the ConcurrentDictionary
     /// type to support fast lookup and thread safety.
     /// </summary>
-    public abstract class Flaggable : GameElement
+    public abstract class Flaggable : IDataObject
     {
-        protected List<string> _flags;
-        private object _flaglock;
-
-        public enum SearchMode
-        {
-            /// <summary>
-            /// Search for flags serving the same purpose and having the same values.
-            /// </summary>
-            Equal,
-
-            /// <summary>
-            /// Search for flags serving the same purpose with equal or greater power.
-            /// </summary>
-            EqualOrGreater,
-
-            /// <summary>
-            /// Search for flags serving the same purpose with equal or lesser power.
-            /// </summary>
-            EqualOrLesser,
-
-            /// <summary>
-            /// Search for flags serving the same purpose with greater power.
-            /// </summary>
-            Greater,
-
-            /// <summary>
-            /// Search for flags serving the same purpose with lesser power.
-            /// </summary>
-            Lesser
-        }
-
+        protected ArrayList _flags;
+        protected RatDataModelAdapter _adapter;
+        
         /// <summary>
         /// The base constructor for this abstract class, which carries forward the requirement to
         /// specify the flaggable object's game ID.
         /// </summary>
         /// <param name="GameID">The game id of this flaggable object, or null if this is a new record.</param>
-        public Flaggable(RatDataModelAdapter Adapter) : base(Adapter) { }
+        public Flaggable(RatDataModelAdapter Adapter)
+        {
+            _adapter = Adapter;
+        }
 
         /// <summary>
         /// Returns a read-only version of the internal flags collection.
         /// </summary>
-        public IReadOnlyCollection<string> Flags
+        public IReadOnlyList<Flag> Flags
         {
-            get { return _flags.AsReadOnly(); }
+            get { return ArrayList.Synchronized(_flags).Cast<Flag>().ToList().AsReadOnly(); }
         }
+
+        public abstract RatDataModelAdapter DataAdapter { get; set; }
 
         public virtual void AddFlag(Flag NewFlag)
         {
-            lock (_flaglock)
-            {
-                _flags.Add(NewFlag.ToString());
-            }
+            if (!ArrayList.Synchronized(_flags).Contains(NewFlag))
+                ArrayList.Synchronized(_flags).Add(NewFlag);
         }
 
-        /// <summary>
-        /// Finds the first flag matching the specified search flag and search mode.
-        /// </summary>
-        /// <param name="SearchFlag"></param>
-        /// <param name="Mode"></param>
-        /// <returns></returns>
-        public virtual string FindFlag(Flag SearchFlag, SearchMode Mode)
+        public virtual bool ContainsFlag(Flag TargetFlag)
         {
-            lock (_flaglock)
-            {
-                string sFlag = SearchFlag.ToString();
-                foreach (string flag in _flags)
-                {
-                    switch (Mode)
-                    {
-                        case SearchMode.Equal:
-                            if (Flag.CompareFlags(flag, sFlag) == Flag.FlagComparison.IdenticalEqual)
-                            {
-                                return flag;
-                            }
-                            break;
-                        case SearchMode.EqualOrGreater:
-                            if (Flag.CompareFlags(flag, sFlag) == Flag.FlagComparison.IdenticalEqual ||
-                                Flag.CompareFlags(flag, sFlag) == Flag.FlagComparison.IdenticalGreater)
-                            {
-                                return flag;
-                            }
-                            break;
-                        case SearchMode.EqualOrLesser:
-                            if (Flag.CompareFlags(flag, sFlag) == Flag.FlagComparison.IdenticalEqual ||
-                                Flag.CompareFlags(flag, sFlag) == Flag.FlagComparison.IdenticalLesser)
-                            {
-                                return flag;
-                            }
-                            break;
-                        case SearchMode.Greater:
-                            if (Flag.CompareFlags(flag, sFlag) == Flag.FlagComparison.IdenticalGreater)
-                            {
-                                return flag;
-                            }
-                            break;
-                        case SearchMode.Lesser:
-                            if (Flag.CompareFlags(flag, sFlag) == Flag.FlagComparison.IdenticalLesser)
-                            {
-                                return flag;
-                            }
-                            break;
-                    }
-                }
-                return null;
-            }
-        }
-
-        public virtual string RemoveFlag(Flag OldFlag)
-        {
-            lock (_flaglock)
-            {
-                string matchflag = FindFlag(OldFlag, SearchMode.Equal);
-                if (matchflag != null && _flags.Remove(matchflag))
-                {
-                    return matchflag;
-                }
-
-                return null;
-            }
+            return ArrayList.Synchronized(_flags).Contains(TargetFlag);
         }
 
         /// <summary>
         /// Retrieves the flags for the specified parent game element and uses them
         /// to populate the flags collection.
         /// </summary>
-        /// <param name="Parent">The parent object that will be used to retrieve
-        /// the associated flags.</param>
-        protected static void RetrieveFlags(GameElement Parent)
+        /// <param name="Target">The target object from which to copy the flags.</param>
+        protected void CopyFlags(GameElement Target)
         {
 
         }
+
+        public virtual Flag RemoveFlag(Flag OldFlag)
+        {
+            if (ArrayList.Synchronized(_flags).Contains(OldFlag))
+            {
+                ArrayList.Synchronized(_flags).Remove(OldFlag);
+                return OldFlag;
+            }
+            return null;
+        }
+
+        public virtual void ReplaceFlag(Flag OldFlag, Flag NewFlag)
+        {
+            if (RemoveFlag(OldFlag) != null)
+            {
+                AddFlag(NewFlag);
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException("The specific flag does not exist in the collection.");
+            }
+        }
+
+        public abstract bool Delete();
+
+        public abstract bool Delete(RatDataModelAdapter Adapter);
+
+        public abstract void LoadFromAdapter(RatDataModelAdapter Adapter);
+
+        public abstract bool Save();
+
+        public abstract bool Save(RatDataModelAdapter Adapter);
     }
 }

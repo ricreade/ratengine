@@ -46,6 +46,19 @@ namespace RatEngine.DataModel.Tagging
             get { return _comp; }
         }
 
+        public override RatDataModelAdapter DataAdapter
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         public override bool Delete()
         {
             throw new NotImplementedException();

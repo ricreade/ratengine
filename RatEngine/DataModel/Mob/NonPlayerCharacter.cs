@@ -48,6 +48,19 @@ namespace RatEngine.DataModel.Mob
         // The key value is the quest + goal name.
         private ConcurrentDictionary<QuestGoal, string> _questgoals;
 
+        public override RatDataModelAdapter DataAdapter
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         /// <summary>
         /// Instantiates a new NonPlayerCharacter object based on the specified unique Game ID.  
         /// If this value is provided, this object will be populated based on the data source.  

@@ -45,6 +45,19 @@ namespace RatEngine.DataModel.Mob
         // Quest rather than QuestGoal.  This reference is a little more appropriate to the player.
         private ConcurrentDictionary<QuestGoal, string> _questgoals;
 
+        public override RatDataModelAdapter DataAdapter
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         /// <summary>
         /// Instantiates a new PlayerCharacter object based on the specified unique Game ID.  
         /// If this value is provided, this object will be populated based on the data source.  

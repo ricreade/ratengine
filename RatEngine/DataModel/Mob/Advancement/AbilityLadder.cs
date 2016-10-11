@@ -33,6 +33,19 @@ namespace RatEngine.DataModel.Mob.Advancement
             get { return _ispcladder; }
         }
 
+        public override RatDataModelAdapter DataAdapter
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         /// <summary>
         /// AbilityLadder
         /// constructor will initialize components and accept DataRow of AbilityLadder to hydrate class  

@@ -18,7 +18,7 @@ namespace RatEngine.DataModel.Inventory
     /// it is technically possible to have a long series of items within items. We will have
     /// to use game logic to prevent that.
     /// </summary>
-    public abstract class Inventoried : Effectable
+    public abstract class Inventoried : GameElement
     {
         /// <summary>
         /// The base constructor for this abstract class, which carries forward the requirement to

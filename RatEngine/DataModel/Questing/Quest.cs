@@ -40,6 +40,19 @@ namespace RatEngine.DataModel.Questing
         // The quest goals associated with this quest.  The key value is the goal name.
         private ConcurrentDictionary<QuestGoal, string> _questgoals;
 
+        public override RatDataModelAdapter DataAdapter
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         /// <summary>
         /// Instantiates a new Quest object based on the specified unique Game ID.  
         /// If this value is provided, this object will be populated based on the data source.  

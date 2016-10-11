@@ -46,6 +46,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="DataModel\IGameElementTemplate.cs" />
+    <Compile Include="DataModel\ITemplated.cs" />
     <Compile Include="DataModel\Tagging\Effectable.cs" />
     <Compile Include="DataModel\Tagging\EffectContext.cs" />
     <Compile Include="DataModel\Tagging\EffectTemplate.cs" />
@@ -76,6 +78,7 @@
     <Compile Include="DataModel\Questing\QuestManager.cs" />
     <Compile Include="DataModel\RecordManager.cs" />
     <Compile Include="DataModel\Tagging\FlagTemplate.cs" />
+    <Compile Include="DataModel\Tagging\Trait.cs" />
     <Compile Include="DataModel\UserAccount\User.cs" />
     <Compile Include="DataModel\World\Realm.cs" />
     <Compile Include="DataModel\World\Region.cs" />
@@ -84,6 +87,7 @@
     <Compile Include="DataSource\ConnectionUtils.cs" />
     <Compile Include="DataSource\DataConnection.cs" />
     <Compile Include="DataSource\DataParameter.cs" />
+    <Compile Include="DataSource\IDataObject.cs" />
     <Compile Include="DataSource\IDataResultSet.cs" />
     <Compile Include="DataSource\RatDataModelAdapter.cs" />
     <Compile Include="DataSource\SqlDataConnection.cs" />
@@ -99,6 +103,7 @@
     <Compile Include="Engine\Instruction\InstructionSyntax.cs" />
     <Compile Include="Engine\Command\InvalidCommandStringException.cs" />
     <Compile Include="Engine\Instruction\SystemInstruction.cs" />
+    <Compile Include="ITemplatedBase.cs" />
     <Compile Include="OperationFailedException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">

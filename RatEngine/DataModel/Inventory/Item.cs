@@ -74,6 +74,19 @@ namespace RatEngine.DataModel.Inventory
             get { return _iscontainer; }
         }
 
+        public override RatDataModelAdapter DataAdapter
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         /// <summary>
         /// AddItem
         /// This method adds an Item to this Item's inventory, if it is a container.  This method

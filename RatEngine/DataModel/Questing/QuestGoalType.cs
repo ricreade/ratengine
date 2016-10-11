@@ -24,6 +24,19 @@ namespace RatEngine.DataModel.Questing
         /// is a new record.</param>
         public QuestGoalType(RatDataModelAdapter Adapter) : base(Adapter) { }
 
+        public override RatDataModelAdapter DataAdapter
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         public override bool Delete()
         {
             throw new NotImplementedException();

@@ -24,6 +24,19 @@ namespace RatEngine.DataModel.Mob
         /// <param name="GameID">The game id of this BodySlot object, or null if this is a new record.</param>
         public BodySlot(RatDataModelAdapter Adapter) : base(Adapter) { }
 
+        public override RatDataModelAdapter DataAdapter
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         public override bool Delete()
         {
             throw new NotImplementedException();

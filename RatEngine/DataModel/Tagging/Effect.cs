@@ -15,29 +15,21 @@ namespace RatEngine.DataModel.Tagging
     /// discrete set of flags.  This this effect is applied to a target, that
     /// target gains those flags.
     /// </summary>
-    public class Effect : Flaggable
+    public class Effect : IDataObject
     {
-        public enum Component
+        private EffectTemplate _template;
+        private RatDataModelAdapter _adapter;
+
+        public EffectTemplate Template
         {
-            /// <summary>
-            /// The effect damage.
-            /// </summary>
-            Damage,
+            get { return _template; }
+        }
 
-            /// <summary>
-            /// The effect duration.
-            /// </summary>
-            Duration,
+        public RatDataModelAdapter DataAdapter
+        {
+            get { return _adapter; }
 
-            /// <summary>
-            /// The effect's applied level.
-            /// </summary>
-            Level,
-
-            /// <summary>
-            /// No component is specified.
-            /// </summary>
-            None
+            set { _adapter = value; }
         }
 
         /// <summary>
@@ -46,14 +38,18 @@ namespace RatEngine.DataModel.Tagging
         /// this value.
         /// </summary>
         /// <param name="GameID">The game id of this effect object, or null if this is a new record.</param>
-        public Effect(RatDataModelAdapter Adapter) : base(Adapter) { }
+        public Effect(RatDataModelAdapter Adapter)
+        {
+            _adapter = Adapter;
+        }
 
-        public override bool Delete()
+
+        public bool Delete()
         {
             throw new NotImplementedException();
         }
 
-        public override bool Delete(RatDataModelAdapter Adapter)
+        public bool Delete(RatDataModelAdapter Adapter)
         {
             throw new NotImplementedException();
         }
@@ -63,17 +59,17 @@ namespace RatEngine.DataModel.Tagging
         //    throw new NotImplementedException();
         //}
 
-        public override void LoadFromAdapter(RatDataModelAdapter Adapter)
+        public void LoadFromAdapter(RatDataModelAdapter Adapter)
         {
             throw new NotImplementedException();
         }
 
-        public override bool Save()
+        public bool Save()
         {
             throw new NotImplementedException();
         }
 
-        public override bool Save(RatDataModelAdapter Adapter)
+        public bool Save(RatDataModelAdapter Adapter)
         {
             throw new NotImplementedException();
         }

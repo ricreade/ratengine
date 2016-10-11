@@ -18,7 +18,7 @@ namespace RatEngine.DataModel.World
     /// receive when another user enters or leaves a room.
     /// </summary>
     [DataContract]
-    public class Transition : Effectable
+    public class Transition : GameElement
     {
         // Database field names.
         public struct Fields
@@ -137,6 +137,19 @@ namespace RatEngine.DataModel.World
         public string Keyword
         {
             get { return _kywrd; }
+        }
+
+        public override RatDataModelAdapter DataAdapter
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
         }
 
         public override bool Delete()
