@@ -4,6 +4,7 @@ using System.Collections.Concurrent;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -19,6 +20,8 @@ namespace RatEngine.Engine.Command
     /// input commands must match a syntax value to be considered valid.  This class contains a
     /// SystemInstruction collection to tell the system what to do when a valid syntax is found.
     /// </summary>
+    [Serializable]
+    [DataContract(IsReference = true)]
     public class KeywordSyntax : GameElement
     {
         // Database field names.

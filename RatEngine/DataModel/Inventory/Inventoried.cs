@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Concurrent;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,6 +19,8 @@ namespace RatEngine.DataModel.Inventory
     /// it is technically possible to have a long series of items within items. We will have
     /// to use game logic to prevent that.
     /// </summary>
+    [Serializable]
+    [DataContract(IsReference = true)]
     public abstract class Inventoried : GameElement
     {
         /// <summary>

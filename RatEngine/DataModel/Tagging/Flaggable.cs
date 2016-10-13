@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Concurrent;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,6 +19,8 @@ namespace RatEngine.DataModel.Tagging
     /// flags associated with them.  This class uses the ConcurrentDictionary
     /// type to support fast lookup and thread safety.
     /// </summary>
+    [Serializable]
+    [DataContract(IsReference = true)]
     public abstract class Flaggable : IDataObject
     {
         protected ArrayList _flags;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,6 +15,8 @@ namespace RatEngine.DataModel.UserAccount
     /// provide a means to identify players who are using two characters at once - something that
     /// is usually frowned upon.
     /// </summary>
+    [Serializable]
+    [DataContract(IsReference = true)]
     public class User : GameElement
     {
         // The user id of the player.  This value remains constant to identify the player.  It may

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Concurrent;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,6 +17,8 @@ namespace RatEngine.DataModel.Tagging
     /// This abstract class represents a game object that can be affected by an
     /// Ability.
     /// </summary>
+    [Serializable]
+    [DataContract(IsReference = true)]
     public abstract class Effectable : Flaggable
     {
         // The list of Effects associated with the derived object.

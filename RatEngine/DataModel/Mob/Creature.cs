@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Concurrent;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,6 +18,8 @@ namespace RatEngine.DataModel.Mob
     /// Describes a game object that is capable of engaging in combat and moving in the game
     /// world.  PlayerCharacter and NonPlayerCharacter derive from this class.
     /// </summary>
+    [Serializable]
+    [DataContract(IsReference = true)]
     public abstract class Creature : Inventoried
     {
         // The Combatant's current character level.

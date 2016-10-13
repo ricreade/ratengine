@@ -4,6 +4,7 @@ using System.Collections.Concurrent;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,6 +21,8 @@ namespace RatEngine.DataModel.Mob.Advancement
     /// action a PC or NPC can use to manipulate other entities in game.  Abilities
     /// are also keywords and are referenced by the Keyword class.
     /// </summary>
+    [Serializable]
+    [DataContract(IsReference = true)]
     public class Ability : GameElement
     {
         // Database field names.

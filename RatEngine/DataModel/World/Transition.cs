@@ -17,7 +17,8 @@ namespace RatEngine.DataModel.World
     /// transitions may not be easy to use.  Transition properties define the descriptions users
     /// receive when another user enters or leaves a room.
     /// </summary>
-    [DataContract]
+    [Serializable]
+    [DataContract(IsReference = true)]
     public class Transition : GameElement
     {
         // Database field names.

@@ -19,7 +19,8 @@ namespace RatEngine.DataModel.World
     /// Realm.  This provides a way to introduce versions of the same game at different difficulties
     /// or completely different games using the same engine.
     /// </summary>
-    [DataContract]
+    [Serializable]
+    [DataContract(IsReference = true)]
     public class Realm : GameElement
     {
         // A collection of all Regions in the Realm.

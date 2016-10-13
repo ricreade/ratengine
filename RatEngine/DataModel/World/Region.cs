@@ -18,7 +18,8 @@ namespace RatEngine.DataModel.World
     /// This class largely serves as a way to organize Rooms into groups so they can be easily
     /// categorized.  It also allows Rooms from different Regions to share the same name.
     /// </summary>
-    [DataContract]
+    [Serializable]
+    [DataContract(IsReference = true)]
     public class Region : GameElement
     {
         // A collection of all Rooms in this Region.  The key is the Room name.

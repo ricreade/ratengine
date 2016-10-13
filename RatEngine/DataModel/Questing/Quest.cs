@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Concurrent;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,6 +15,8 @@ namespace RatEngine.DataModel.Questing
     /// accomplish a story plotline.  Quests are created as service startup and remain
     /// available for all players for the duration of the application instance.
     /// </summary>
+    [Serializable]
+    [DataContract(IsReference = true)]
     class Quest : GameElement
     {
         // The minimum level a player has to have before undertaking this quest.  No

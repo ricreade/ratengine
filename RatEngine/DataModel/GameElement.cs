@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,6 +18,8 @@ namespace RatEngine.DataModel
     /// This provides a common set of properties for all game elements to more easily
     /// support commands like "Look".
     /// </summary>
+    [Serializable]
+    [DataContract(IsReference = true)]
     public abstract class GameElement : Effectable, IDataObject
     {
         protected int _id;
@@ -38,6 +41,7 @@ namespace RatEngine.DataModel
         /// <summary>
         /// The database primary key.
         /// </summary>
+        [DataMember]
         public int ID
         {
             get { return _id; }
@@ -46,6 +50,7 @@ namespace RatEngine.DataModel
         /// <summary>
         /// The unique game identifier for this game object.
         /// </summary>
+        [DataMember]
         public Guid GameID
         {
             get { return _gameid; }
@@ -54,6 +59,7 @@ namespace RatEngine.DataModel
         /// <summary>
         /// The name of this game object.
         /// </summary>
+        [DataMember]
         public string Name
         {
             get { return _name; }
@@ -63,6 +69,7 @@ namespace RatEngine.DataModel
         /// <summary>
         /// The description of this game object.
         /// </summary>
+        [DataMember]
         public string Description
         {
             get { return _descr; }

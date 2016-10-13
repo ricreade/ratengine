@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/RatEngine.DataModel" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/RatEngine.DataModel" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:49409/RatGameService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:import schemaLocation="http://localhost:49409/RatGameService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/RatEngine.DataModel.Tagging" />
+  <xs:complexType name="GameElement">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q1="http://schemas.datacontract.org/2004/07/RatEngine.DataModel.Tagging" base="q1:Effectable">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="GameID" type="ser:guid" />
+          <xs:element minOccurs="0" name="ID" type="xs:int" />
+          <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="GameElement" nillable="true" type="tns:GameElement" />
+</xs:schema>

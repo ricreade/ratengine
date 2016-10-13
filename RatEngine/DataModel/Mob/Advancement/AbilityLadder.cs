@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Concurrent;
 using System.Data;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,6 +17,8 @@ namespace RatEngine.DataModel.Mob.Advancement
     /// can learn.  A PlayerCharacter can only learn abilities from a PC ladder progression.
     /// An NPC can have whatever ladders the game designers see fit.
     /// </summary>
+    [Serializable]
+    [DataContract(IsReference = true)]
     public class AbilityLadder : GameElement
     {
         // A collection of abilities for this ladder.  The key is the ability name.

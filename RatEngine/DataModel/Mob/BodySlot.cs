@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,6 +15,8 @@ namespace RatEngine.DataModel.Mob
     /// slot, though some have more than one optional slot (left hand or right hand for 
     /// rings, for example) or no body slot at all (such as potions).
     /// </summary>
+    [Serializable]
+    [DataContract(IsReference = true)]
     public class BodySlot : GameElement
     {
         /// <summary>

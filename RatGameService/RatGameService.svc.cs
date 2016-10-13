@@ -16,27 +16,19 @@ namespace RatGameService
     // NOTE: In order to launch WCF Test Client for testing this service, please select Service1.svc or Service1.svc.cs at the Solution Explorer and start debugging.
     public class RatGameService: IRatGameService
     {
-        public string GetData(int value)
-        {
-            return string.Format("You entered: {0}", value);
-        }
-
-        public CompositeType GetDataUsingDataContract(CompositeType composite)
-        {
-            if (composite == null)
-            {
-                throw new ArgumentNullException("composite");
-            }
-            if (composite.BoolValue)
-            {
-                composite.StringValue += "Suffix";
-            }
-            return composite;
-        }
-
         public List<Realm> GetRealmList()
         {
-            throw new NotImplementedException();
+            Realm realm = null;
+            List<Realm> realms = new List<Realm>();
+            RatDataModelAdapter adapter = new RatDataModelAdapter();
+            adapter.Retrieve(RatDataModelType.Realm, new List<DataParameter>());
+            for (int i = 0; i < adapter.ResultSet.RecordCount; i++)
+            {
+                adapter.ResultSet.MoveToRecord(i);
+                realm = new Realm(adapter);
+                realms.Add(realm);
+            }
+            return realms;
         }
     }
 }

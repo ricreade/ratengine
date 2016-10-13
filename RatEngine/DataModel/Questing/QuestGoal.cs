@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,7 +19,9 @@ namespace RatEngine.DataModel.Questing
     /// they receive an object copy of the goal via a copy constructor so the goal can
     /// be marked complete specifically for that player.
     /// </summary>
-    class QuestGoal : GameElement
+    [Serializable]
+    [DataContract(IsReference = true)]
+    public class QuestGoal : GameElement
     {
         // The quest associated with this goal.  The copy constructor should reference the
         // same quest object as the original goal object.

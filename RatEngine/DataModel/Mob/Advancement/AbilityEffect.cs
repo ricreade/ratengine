@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,6 +17,8 @@ namespace RatEngine.DataModel.Mob.Advancement
     /// associated the ability and all of its effects (and flags) with the target
     /// such that durations and level of the effect can be applied.
     /// </summary>
+    [Serializable]
+    [DataContract(IsReference = true)]
     public class AbilityEffect : GameElement
     {
         // This is the Ability that was used.  This Ability contains references to

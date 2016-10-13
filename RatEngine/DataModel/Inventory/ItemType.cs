@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,6 +14,8 @@ namespace RatEngine.DataModel.Inventory
     /// Represents a specific type of item defined in the game.  These are general
     /// categories for convenient reference.
     /// </summary>
+    [Serializable]
+    [DataContract(IsReference = true)]
     public class ItemType : GameElement
     {
         public ItemType(RatDataModelAdapter Adapter) : base(Adapter) { }

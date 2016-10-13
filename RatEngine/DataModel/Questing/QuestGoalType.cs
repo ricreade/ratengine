@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,7 +14,9 @@ namespace RatEngine.DataModel.Questing
     /// 'retrieve an item', 'talk to an npc', or just about anything else.
     /// This class provide no additional information beyond the base class.
     /// </summary>
-    class QuestGoalType : GameElement
+    [Serializable]
+    [DataContract(IsReference = true)]
+    public class QuestGoalType : GameElement
     {
         /// <summary>
         /// Instantiates a new QuestGoalType object based on the specified unique Game ID.  

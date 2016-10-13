@@ -67,7 +67,11 @@ namespace RatEngine.DataSource
 
         public void MoveToRecord(int Position)
         {
-            throw new NotImplementedException();
+            if (IsEmpty() || Position < 0 || Position >= RecordCount)
+            {
+                throw new ApplicationException("Requested record out of range.");
+            }
+            _recordnumber = Position;
         }
     }
 }

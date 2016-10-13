@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="63c09e12-1941-45ad-a660-773b780a67af" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.Generic.List`1" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:49409/RatGameService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="RatGameService.xsd" MetadataType="Schema" ID="217d7430-029f-4212-a597-cbd9c26b9d01" SourceId="1" SourceUrl="http://localhost:49409/RatGameService.svc?xsd=xsd3" />
+    <MetadataFile FileName="RatGameService1.xsd" MetadataType="Schema" ID="d7e18e05-991b-4d38-9c1c-3efd88dedc98" SourceId="1" SourceUrl="http://localhost:49409/RatGameService.svc?xsd=xsd2" />
+    <MetadataFile FileName="RatGameService2.xsd" MetadataType="Schema" ID="d8397679-4019-4140-8bbc-1ef3ffb99bba" SourceId="1" SourceUrl="http://localhost:49409/RatGameService.svc?xsd=xsd5" />
+    <MetadataFile FileName="RatGameService3.xsd" MetadataType="Schema" ID="f9e916bb-02d7-4c6f-82b1-0fbc8a387b1b" SourceId="1" SourceUrl="http://localhost:49409/RatGameService.svc?xsd=xsd4" />
+    <MetadataFile FileName="RatGameService4.xsd" MetadataType="Schema" ID="fade3b51-fc22-435b-b961-6ea66726272c" SourceId="1" SourceUrl="http://localhost:49409/RatGameService.svc?xsd=xsd6" />
+    <MetadataFile FileName="RatGameService.disco" MetadataType="Disco" ID="eda0b72d-4fda-4ee8-a77b-17b34b16d3c6" SourceId="1" SourceUrl="http://localhost:49409/RatGameService.svc?disco" />
+    <MetadataFile FileName="RatGameService5.xsd" MetadataType="Schema" ID="bd39e4d0-1606-4194-97ee-2ceba1387ba0" SourceId="1" SourceUrl="http://localhost:49409/RatGameService.svc?xsd=xsd1" />
+    <MetadataFile FileName="RatGameService.wsdl" MetadataType="Wsdl" ID="8fd121a5-07e8-40be-bb17-6fd720f3e072" SourceId="1" SourceUrl="http://localhost:49409/RatGameService.svc?wsdl" />
+    <MetadataFile FileName="RatGameService6.xsd" MetadataType="Schema" ID="e3e847e7-b8ad-47c3-81af-f30b51a75f44" SourceId="1" SourceUrl="http://localhost:49409/RatGameService.svc?xsd=xsd0" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

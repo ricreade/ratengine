@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,7 +14,9 @@ namespace RatEngine.DataModel.Tagging
     /// class are intended to be instantiated at server startup and will remain in memory
     /// for the lifetime of the application instance.
     /// </summary>
-    class FlagComparison : GameElement
+    [Serializable]
+    [DataContract(IsReference = true)]
+    public class FlagComparison : GameElement
     {
         // The flag representing the attacker.  This is the flag that should be
         // the response to _flagto.

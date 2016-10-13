@@ -36,6 +36,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -53,10 +55,24 @@
     <Compile Include="frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmRealms.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmRealms.Designer.cs">
+      <DependentUpon>frmRealms.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\RatGameServiceData\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmRealms.resx">
+      <DependentUpon>frmRealms.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -77,9 +93,55 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Service References\RatGameServiceData\RatGameEditor.RatGameServiceData.Realm.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RatGameServiceData\RatGameService.wsdl" />
+    <None Include="Service References\RatGameServiceData\RatGameService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RatGameServiceData\RatGameService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RatGameServiceData\RatGameService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RatGameServiceData\RatGameService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RatGameServiceData\RatGameService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RatGameServiceData\RatGameService5.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RatGameServiceData\RatGameService6.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\RatGameServiceData\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\RatGameServiceData\RatGameService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\RatGameServiceData\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\RatGameServiceData\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\RatGameServiceData\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

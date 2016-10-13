@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -11,6 +12,8 @@ using RatEngine.DataSource;
 
 namespace RatEngine.Engine.Instruction
 {
+    [Serializable]
+    [DataContract(IsReference = true)]
     public class InstructionSyntax : GameElement
     {
         // Database field names.

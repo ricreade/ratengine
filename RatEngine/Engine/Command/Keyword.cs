@@ -4,6 +4,7 @@ using System.Collections.Concurrent;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -25,6 +26,8 @@ namespace RatEngine.Engine.Command
     /// server start up and thereafter does not change while the service is running.  Its values
     /// are read only.
     /// </summary>
+    [Serializable]
+    [DataContract(IsReference = true)]
     public class Keyword : GameElement
     {
         // Database field names.

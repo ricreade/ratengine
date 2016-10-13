@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/RatEngine.DataModel.World" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/RatEngine.DataModel.World" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:49409/RatGameService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/RatEngine.DataModel" />
+  <xs:import schemaLocation="http://localhost:49409/RatGameService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/RatEngine.DataModel.Mob" />
+  <xs:import schemaLocation="http://localhost:49409/RatGameService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/RatEngine.DataModel.Inventory" />
+  <xs:complexType name="ArrayOfRealm">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Realm" nillable="true" type="tns:Realm" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfRealm" nillable="true" type="tns:ArrayOfRealm" />
+  <xs:complexType name="Realm">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q1="http://schemas.datacontract.org/2004/07/RatEngine.DataModel" base="q1:GameElement">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Regions" nillable="true" type="tns:ArrayOfRegion" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Realm" nillable="true" type="tns:Realm" />
+  <xs:complexType name="ArrayOfRegion">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Region" nillable="true" type="tns:Region" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfRegion" nillable="true" type="tns:ArrayOfRegion" />
+  <xs:complexType name="Region">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q2="http://schemas.datacontract.org/2004/07/RatEngine.DataModel" base="q2:GameElement">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Realm" nillable="true" type="tns:Realm" />
+          <xs:element minOccurs="0" name="Rooms" nillable="true" type="tns:ArrayOfRoom" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Region" nillable="true" type="tns:Region" />
+  <xs:complexType name="ArrayOfRoom">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Room" nillable="true" type="tns:Room" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfRoom" nillable="true" type="tns:ArrayOfRoom" />
+  <xs:complexType name="Room">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q3="http://schemas.datacontract.org/2004/07/RatEngine.DataModel.Inventory" base="q3:Inventoried">
+        <xs:sequence>
+          <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/RatEngine.DataModel.Mob" minOccurs="0" name="Creatures" nillable="true" type="q4:ArrayOfCreature" />
+          <xs:element minOccurs="0" name="Region" nillable="true" type="tns:Region" />
+          <xs:element minOccurs="0" name="Transitions" nillable="true" type="tns:ArrayOfTransition" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Room" nillable="true" type="tns:Room" />
+  <xs:complexType name="ArrayOfTransition">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Transition" nillable="true" type="tns:Transition" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTransition" nillable="true" type="tns:ArrayOfTransition" />
+  <xs:complexType name="Transition">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q5="http://schemas.datacontract.org/2004/07/RatEngine.DataModel" base="q5:GameElement">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="DescriptionFrom" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="DescriptionTo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Keyword" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="RoomFrom" nillable="true" type="tns:Room" />
+          <xs:element minOccurs="0" name="RoomTo" nillable="true" type="tns:Room" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Transition" nillable="true" type="tns:Transition" />
+</xs:schema>

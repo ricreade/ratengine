@@ -8,11 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using RatGameEditor.RatGameServiceData;
+
 namespace RatGameEditor
 {
-    public partial class frmMain : Form
+    public partial class frmRealms : Form
     {
-        public frmMain()
+        public frmRealms()
         {
             InitializeComponent();
             ListRealms();
@@ -20,13 +22,13 @@ namespace RatGameEditor
 
         private void ListRealms()
         {
+            RatGameServiceClient client = new RatGameServiceClient();
+            List<Realm> realms = client.GetRealmList();
 
-        }
-
-        private void tsmiViewWorldRealm_Click(object sender, EventArgs e)
-        {
-            frmRealms frm = new frmRealms();
-            frm.Show();
+            foreach (Realm r in realms)
+            {
+                lvRealms.Items.Add(r.Name);
+            }
         }
     }
 }

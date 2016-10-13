@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,6 +19,8 @@ namespace RatEngine.Engine.Instruction
     /// decisions to make.  Objects of this class are hydrated at service start up and are 
     /// read only thereafter.
     /// </summary>
+    [Serializable]
+    [DataContract(IsReference = true)]
     public class SystemInstruction : GameElement
     {
         // Database field names.
