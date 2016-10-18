@@ -46,6 +46,7 @@ namespace RatEngine.DataModel.Inventory
         /// <summary>
         /// Returns a read-only view of the inventory.
         /// </summary>
+        [DataMember]
         public IReadOnlyCollection<Item> Inventory
         {
             get { return _inv.Values.ToList().AsReadOnly(); }

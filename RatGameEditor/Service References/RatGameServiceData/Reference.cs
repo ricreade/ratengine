@@ -84,7 +84,29 @@ namespace RatGameEditor.RatGameServiceData {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(RatGameEditor.RatGameServiceData.Room))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(RatGameEditor.RatGameServiceData.Transition))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(RatGameEditor.RatGameServiceData.Realm))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<RatGameEditor.RatGameServiceData.Realm>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<RatGameEditor.RatGameServiceData.Region>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<RatGameEditor.RatGameServiceData.Room>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<RatGameEditor.RatGameServiceData.Transition>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(RatGameEditor.RatGameServiceData.Flaggable))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<RatGameEditor.RatGameServiceData.Creature>))]
     public partial class Effectable : RatGameEditor.RatGameServiceData.Flaggable {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private object EffectsField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public object Effects {
+            get {
+                return this.EffectsField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.EffectsField, value) != true)) {
+                    this.EffectsField = value;
+                    this.RaisePropertyChanged("Effects");
+                }
+            }
+        }
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -209,7 +231,34 @@ namespace RatGameEditor.RatGameServiceData {
     [System.SerializableAttribute()]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(RatGameEditor.RatGameServiceData.Creature))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(RatGameEditor.RatGameServiceData.Room))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(RatGameEditor.RatGameServiceData.GameElement))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<RatGameEditor.RatGameServiceData.Realm>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(RatGameEditor.RatGameServiceData.Realm))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<RatGameEditor.RatGameServiceData.Region>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(RatGameEditor.RatGameServiceData.Region))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<RatGameEditor.RatGameServiceData.Room>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<RatGameEditor.RatGameServiceData.Transition>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(RatGameEditor.RatGameServiceData.Transition))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(RatGameEditor.RatGameServiceData.Effectable))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(RatGameEditor.RatGameServiceData.Flaggable))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<RatGameEditor.RatGameServiceData.Creature>))]
     public partial class Inventoried : RatGameEditor.RatGameServiceData.GameElement {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private object InventoryField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public object Inventory {
+            get {
+                return this.InventoryField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.InventoryField, value) != true)) {
+                    this.InventoryField = value;
+                    this.RaisePropertyChanged("Inventory");
+                }
+            }
+        }
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]

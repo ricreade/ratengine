@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Concurrent;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -24,6 +25,8 @@ namespace RatEngine.DataModel.Mob
     /// inactive flag on itself and drop whatever inventory it is carrying as a
     /// container.  When it respawns, it obtains new inventory and removes the flag.
     /// </summary>
+    [Serializable]
+    [DataContract(IsReference = true)]
     public class NonPlayerCharacter : Creature
     {
         // Indicates whether this NPC should attack PCs on sight.

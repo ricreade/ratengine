@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,6 +19,8 @@ namespace RatEngine.DataModel.Inventory
     /// class derives from Inventoried.  The IsContainer property determines whether an
     /// Item's inventory is available.
     /// </summary>
+    [Serializable]
+    [DataContract(IsReference = true)]
     public class Item : Inventoried
     {
         // The general classification for this item.
@@ -69,6 +72,7 @@ namespace RatEngine.DataModel.Inventory
         /// <param name="GameID">The game id of this Item object, or null if this is a new record.</param>
         public Item(RatDataModelAdapter Adapter) : base(Adapter) { }
 
+        [DataMember]
         public bool IsContainer
         {
             get { return _iscontainer; }

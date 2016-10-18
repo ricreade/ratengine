@@ -4,7 +4,9 @@
   <xs:complexType name="Inventoried">
     <xs:complexContent mixed="false">
       <xs:extension xmlns:q1="http://schemas.datacontract.org/2004/07/RatEngine.DataModel" base="q1:GameElement">
-        <xs:sequence />
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Inventory" nillable="true" type="xs:anyType" />
+        </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>

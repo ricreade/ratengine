@@ -21,7 +21,8 @@ namespace RatEngine.DataModel.World
     /// via Rooms, NPCs encounter the players via Rooms, and Items exist only via Rooms.  The network
     /// of rooms provides the gameplay structure for the MUD.
     /// </summary>
-    [DataContract]
+    [Serializable]
+    [DataContract(IsReference = true)]
     public class Room : Inventoried
     {
         

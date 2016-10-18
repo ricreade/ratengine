@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,6 +12,8 @@ namespace RatEngine.DataModel.Mob.Advancement
     /// This class represents a PC's or NPC's current number of levels with a particular
     /// ladder.
     /// </summary>
+    [Serializable]
+    [DataContract(IsReference = true)]
     public class LadderLevel
     {
         // The AbilityLadder at issue.

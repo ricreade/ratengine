@@ -4,7 +4,9 @@
   <xs:complexType name="Effectable">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:Flaggable">
-        <xs:sequence />
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Effects" nillable="true" type="xs:anyType" />
+        </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>

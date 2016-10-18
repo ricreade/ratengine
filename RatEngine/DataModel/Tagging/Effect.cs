@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,6 +16,8 @@ namespace RatEngine.DataModel.Tagging
     /// discrete set of flags.  This this effect is applied to a target, that
     /// target gains those flags.
     /// </summary>
+    [Serializable]
+    [DataContract(IsReference = true)]
     public class Effect : IDataObject
     {
         private EffectTemplate _template;

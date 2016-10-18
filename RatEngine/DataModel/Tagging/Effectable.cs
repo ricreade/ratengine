@@ -34,6 +34,7 @@ namespace RatEngine.DataModel.Tagging
         /// <summary>
         /// Returns a read-only view of the Effects collection.
         /// </summary>
+        [DataMember]
         public IReadOnlyCollection<Effect> Effects
         {
             get { return _effects.Values.ToList().AsReadOnly(); }

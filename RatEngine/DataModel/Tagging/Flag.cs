@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,6 +14,8 @@ namespace RatEngine.DataModel.Tagging
     /// This class defines a specific tag associated with some other game object
     /// that defines how that game object interacts with other game objects.
     /// </summary>
+    [Serializable]
+    [DataContract(IsReference = true)]
     public class Flag : IDataObject
     {
         private Tuple<string, Byte[]> _data;
@@ -29,6 +32,7 @@ namespace RatEngine.DataModel.Tagging
             _adapter = Adapter;
         }
 
+        [DataMember]
         public FlagTemplate Template
         {
             get { return _template; }

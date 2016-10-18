@@ -4,6 +4,7 @@ using System.Collections.Concurrent;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,6 +22,8 @@ namespace RatEngine.DataModel.Mob
     /// reaching the application service are processed through this class because all commands
     /// are executed from the perspective of the player.
     /// </summary>
+    [Serializable]
+    [DataContract(IsReference = true)]
     public class PlayerCharacter : Creature
     {
         // The character's current xp count.  The total number of ladder levels available for
