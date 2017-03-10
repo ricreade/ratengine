@@ -39,6 +39,13 @@ namespace RatEngine.DataModel.World
             LoadFromAdapter(_adapter);
         }
 
+        public Realm(string name, string description) : base(null)
+        {
+            Name = name;
+            Description = description;
+            _regions = new ConcurrentDictionary<Guid, Region>();
+        }
+
         [DataMember]
         public IEnumerable<Region> Regions
         {

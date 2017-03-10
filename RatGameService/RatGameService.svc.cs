@@ -18,6 +18,7 @@ namespace RatGameService
     {
         public List<Realm> GetRealmList()
         {
+
             Realm realm = null;
             List<Realm> realms = new List<Realm>();
             RatDataModelAdapter adapter = new RatDataModelAdapter();
@@ -28,7 +29,23 @@ namespace RatGameService
                 realm = new Realm(adapter);
                 realms.Add(realm);
             }
+            //return new List<Realm>() { new Realm("Test Realm", "My test realm") };
             return realms;
+        }
+
+        public List<string> GetRealmNames()
+        {
+            Realm realm = null;
+            List<Realm> realms = new List<Realm>();
+            RatDataModelAdapter adapter = new RatDataModelAdapter();
+            adapter.Retrieve(RatDataModelType.Realm, new List<DataParameter>());
+            for (int i = 0; i < adapter.ResultSet.RecordCount; i++)
+            {
+                adapter.ResultSet.MoveToRecord(i);
+                realm = new Realm(adapter);
+                realms.Add(realm);
+            }
+            return realms.ConvertAll(item => item.Name);
         }
     }
 }

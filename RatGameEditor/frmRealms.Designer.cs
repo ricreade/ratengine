@@ -31,10 +31,10 @@
             this.msMain = new System.Windows.Forms.MenuStrip();
             this.tsmiNew = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiEdit = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiSearch = new System.Windows.Forms.ToolStripMenuItem();
             this.lvRealms = new System.Windows.Forms.ListView();
             this.ssMain = new System.Windows.Forms.StatusStrip();
             this.tssStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.tsmiSearch = new System.Windows.Forms.ToolStripMenuItem();
             this.msMain.SuspendLayout();
             this.ssMain.SuspendLayout();
             this.SuspendLayout();
@@ -63,14 +63,22 @@
             this.tsmiEdit.Size = new System.Drawing.Size(39, 20);
             this.tsmiEdit.Text = "Edit";
             // 
+            // tsmiSearch
+            // 
+            this.tsmiSearch.Name = "tsmiSearch";
+            this.tsmiSearch.Size = new System.Drawing.Size(54, 20);
+            this.tsmiSearch.Text = "Search";
+            // 
             // lvRealms
             // 
             this.lvRealms.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvRealms.FullRowSelect = true;
             this.lvRealms.Location = new System.Drawing.Point(0, 24);
             this.lvRealms.Name = "lvRealms";
             this.lvRealms.Size = new System.Drawing.Size(690, 350);
             this.lvRealms.TabIndex = 1;
             this.lvRealms.UseCompatibleStateImageBehavior = false;
+            this.lvRealms.View = System.Windows.Forms.View.Details;
             // 
             // ssMain
             // 
@@ -87,12 +95,6 @@
             this.tssStatus.Name = "tssStatus";
             this.tssStatus.Size = new System.Drawing.Size(42, 17);
             this.tssStatus.Text = "Ready.";
-            // 
-            // tsmiSearch
-            // 
-            this.tsmiSearch.Name = "tsmiSearch";
-            this.tsmiSearch.Size = new System.Drawing.Size(54, 20);
-            this.tsmiSearch.Text = "Search";
             // 
             // frmRealms
             // 

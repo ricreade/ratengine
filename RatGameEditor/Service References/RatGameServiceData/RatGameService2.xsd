@@ -5,10 +5,26 @@
     <xs:complexContent mixed="false">
       <xs:extension xmlns:q1="http://schemas.datacontract.org/2004/07/RatEngine.DataModel" base="q1:GameElement">
         <xs:sequence>
-          <xs:element minOccurs="0" name="Inventory" nillable="true" type="xs:anyType" />
+          <xs:element minOccurs="0" name="Inventory" nillable="true" type="tns:ArrayOfItem" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="Inventoried" nillable="true" type="tns:Inventoried" />
+  <xs:complexType name="ArrayOfItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Item" nillable="true" type="tns:Item" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfItem" nillable="true" type="tns:ArrayOfItem" />
+  <xs:complexType name="Item">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Inventoried">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="IsContainer" type="xs:boolean" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Item" nillable="true" type="tns:Item" />
 </xs:schema>

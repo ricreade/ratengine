@@ -9,6 +9,7 @@
       <xsd:import schemaLocation="http://localhost:49409/RatGameService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/RatEngine.DataModel.Tagging" />
       <xsd:import schemaLocation="http://localhost:49409/RatGameService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/RatEngine.DataModel.Inventory" />
       <xsd:import schemaLocation="http://localhost:49409/RatGameService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/RatEngine.DataModel.Mob" />
+      <xsd:import schemaLocation="http://localhost:49409/RatGameService.svc?xsd=xsd7" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IRatGameService_GetRealmList_InputMessage">
@@ -17,16 +18,35 @@
   <wsdl:message name="IRatGameService_GetRealmList_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetRealmListResponse" />
   </wsdl:message>
+  <wsdl:message name="IRatGameService_GetRealmNames_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetRealmNames" />
+  </wsdl:message>
+  <wsdl:message name="IRatGameService_GetRealmNames_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetRealmNamesResponse" />
+  </wsdl:message>
   <wsdl:portType name="IRatGameService">
     <wsdl:operation name="GetRealmList">
       <wsdl:input wsaw:Action="http://tempuri.org/IRatGameService/GetRealmList" message="tns:IRatGameService_GetRealmList_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IRatGameService/GetRealmListResponse" message="tns:IRatGameService_GetRealmList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRealmNames">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRatGameService/GetRealmNames" message="tns:IRatGameService_GetRealmNames_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRatGameService/GetRealmNamesResponse" message="tns:IRatGameService_GetRealmNames_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IRatGameService" type="tns:IRatGameService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="GetRealmList">
       <soap:operation soapAction="http://tempuri.org/IRatGameService/GetRealmList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRealmNames">
+      <soap:operation soapAction="http://tempuri.org/IRatGameService/GetRealmNames" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

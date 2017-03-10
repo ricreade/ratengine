@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/RatEngine.DataModel.Mob" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/RatEngine.DataModel.Mob" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:49409/RatGameService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/RatEngine.DataModel.World" />
   <xs:import schemaLocation="http://localhost:49409/RatGameService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/RatEngine.DataModel.Inventory" />
   <xs:complexType name="ArrayOfCreature">
     <xs:sequence>
@@ -10,7 +11,9 @@
   <xs:complexType name="Creature">
     <xs:complexContent mixed="false">
       <xs:extension xmlns:q1="http://schemas.datacontract.org/2004/07/RatEngine.DataModel.Inventory" base="q1:Inventoried">
-        <xs:sequence />
+        <xs:sequence>
+          <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/RatEngine.DataModel.World" minOccurs="0" name="Location" nillable="true" type="q2:Room" />
+        </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>

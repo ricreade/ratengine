@@ -28,6 +28,7 @@
     <MetadataFile FileName="RatGameService1.xsd" MetadataType="Schema" ID="d7e18e05-991b-4d38-9c1c-3efd88dedc98" SourceId="1" SourceUrl="http://localhost:49409/RatGameService.svc?xsd=xsd2" />
     <MetadataFile FileName="RatGameService2.xsd" MetadataType="Schema" ID="d8397679-4019-4140-8bbc-1ef3ffb99bba" SourceId="1" SourceUrl="http://localhost:49409/RatGameService.svc?xsd=xsd5" />
     <MetadataFile FileName="RatGameService3.xsd" MetadataType="Schema" ID="f9e916bb-02d7-4c6f-82b1-0fbc8a387b1b" SourceId="1" SourceUrl="http://localhost:49409/RatGameService.svc?xsd=xsd4" />
+    <MetadataFile FileName="RatGameService7.xsd" MetadataType="Schema" ID="202b0706-81fd-4868-8845-2155035b9632" SourceId="1" SourceUrl="http://localhost:49409/RatGameService.svc?xsd=xsd7" />
     <MetadataFile FileName="RatGameService4.xsd" MetadataType="Schema" ID="fade3b51-fc22-435b-b961-6ea66726272c" SourceId="1" SourceUrl="http://localhost:49409/RatGameService.svc?xsd=xsd6" />
     <MetadataFile FileName="RatGameService.disco" MetadataType="Disco" ID="eda0b72d-4fda-4ee8-a77b-17b34b16d3c6" SourceId="1" SourceUrl="http://localhost:49409/RatGameService.svc?disco" />
     <MetadataFile FileName="RatGameService5.xsd" MetadataType="Schema" ID="bd39e4d0-1606-4194-97ee-2ceba1387ba0" SourceId="1" SourceUrl="http://localhost:49409/RatGameService.svc?xsd=xsd1" />

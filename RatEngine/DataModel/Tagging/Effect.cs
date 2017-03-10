@@ -23,9 +23,11 @@ namespace RatEngine.DataModel.Tagging
         private EffectTemplate _template;
         private RatDataModelAdapter _adapter;
 
+        [DataMember]
         public EffectTemplate Template
         {
             get { return _template; }
+            set { _template = value; }
         }
 
         public RatDataModelAdapter DataAdapter

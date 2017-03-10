@@ -20,7 +20,7 @@ namespace RatEngine.DataModel
     /// </summary>
     [Serializable]
     [DataContract(IsReference = true)]
-    public abstract class GameElement : Effectable, IDataObject
+    public abstract class GameElement : Effectable
     {
         protected int _id;
         protected Guid _gameid;
@@ -45,6 +45,7 @@ namespace RatEngine.DataModel
         public int ID
         {
             get { return _id; }
+            set { _id = value; }
         }
 
         /// <summary>
@@ -54,6 +55,7 @@ namespace RatEngine.DataModel
         public Guid GameID
         {
             get { return _gameid; }
+            set { _gameid = value; }
         }
 
         /// <summary>

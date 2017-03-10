@@ -138,6 +138,9 @@
     <None Include="Service References\RatGameServiceData\configuration.svcinfo" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Service References\RatGameServiceData\RatGameService7.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\RatGameServiceData\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

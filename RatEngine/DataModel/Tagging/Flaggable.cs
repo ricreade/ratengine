@@ -34,14 +34,16 @@ namespace RatEngine.DataModel.Tagging
         public Flaggable(RatDataModelAdapter Adapter)
         {
             _adapter = Adapter;
+            _flags = new ArrayList();
         }
 
         /// <summary>
         /// Returns a read-only version of the internal flags collection.
         /// </summary>
-        public IReadOnlyList<Flag> Flags
+        [DataMember]
+        public IEnumerable<Flag> Flags
         {
-            get { return ArrayList.Synchronized(_flags).Cast<Flag>().ToList().AsReadOnly(); }
+            get { return ArrayList.Synchronized(_flags).Cast<Flag>(); }
         }
 
         public abstract RatDataModelAdapter DataAdapter { get; set; }

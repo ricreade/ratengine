@@ -29,15 +29,18 @@ namespace RatEngine.DataModel.Tagging
         /// specify the effectable object's game ID.
         /// </summary>
         /// <param name="GameID">The game id of this effectable object, or null if this is a new record.</param>
-        public Effectable(RatDataModelAdapter Adapter) : base(Adapter) { }
+        public Effectable(RatDataModelAdapter Adapter) : base(Adapter)
+        {
+            _effects = new ConcurrentDictionary<string, Effect>();
+        }
 
         /// <summary>
         /// Returns a read-only view of the Effects collection.
         /// </summary>
         [DataMember]
-        public IReadOnlyCollection<Effect> Effects
+        public IEnumerable<Effect> Effects
         {
-            get { return _effects.Values.ToList().AsReadOnly(); }
+            get { return _effects.Values; }
         }
 
         /// <summary>

@@ -23,11 +23,26 @@ namespace RatGameEditor
         private void ListRealms()
         {
             RatGameServiceClient client = new RatGameServiceClient();
-            List<Realm> realms = client.GetRealmList();
-
-            foreach (Realm r in realms)
+            ListViewItem lvi;
+            lvRealms.Clear();
+            lvRealms.Columns.Clear();
+            lvRealms.Columns.Add(new ColumnHeader() { Text = "Name" });
+            lvRealms.Columns.Add("Description");
+            try
             {
-                lvRealms.Items.Add(r.Name);
+                //List<string> realms = client.GetRealmNames();
+                List<Realm> realms = client.GetRealmList();
+                foreach (Realm r in realms)
+                {
+                    lvi = new ListViewItem(r.Name);
+                    lvi.SubItems.Add(r.Description);
+                    lvRealms.Items.Add(lvi);
+                    
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(string.Format("Failed to retrieve realms.\n\n{0}", ex.Message));
             }
         }
     }

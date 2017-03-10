@@ -92,6 +92,7 @@ namespace RatEngine.DataModel.Mob
             set { _lvl = value; }
         }
 
+        [DataMember]
         public Room Location
         {
             get { return _location; }

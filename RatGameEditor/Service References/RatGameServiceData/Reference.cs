@@ -44,6 +44,7 @@ namespace RatGameEditor.RatGameServiceData {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(RatGameEditor.RatGameServiceData.GameElement))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(RatGameEditor.RatGameServiceData.Region))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(RatGameEditor.RatGameServiceData.Inventoried))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(RatGameEditor.RatGameServiceData.Item))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(RatGameEditor.RatGameServiceData.Creature))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(RatGameEditor.RatGameServiceData.Room))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(RatGameEditor.RatGameServiceData.Transition))]
@@ -53,6 +54,9 @@ namespace RatGameEditor.RatGameServiceData {
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Collections.Generic.List<RatGameEditor.RatGameServiceData.Flag> FlagsField;
+        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -60,6 +64,19 @@ namespace RatGameEditor.RatGameServiceData {
             }
             set {
                 this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<RatGameEditor.RatGameServiceData.Flag> Flags {
+            get {
+                return this.FlagsField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FlagsField, value) != true)) {
+                    this.FlagsField = value;
+                    this.RaisePropertyChanged("Flags");
+                }
             }
         }
         
@@ -80,23 +97,18 @@ namespace RatGameEditor.RatGameServiceData {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(RatGameEditor.RatGameServiceData.GameElement))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(RatGameEditor.RatGameServiceData.Region))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(RatGameEditor.RatGameServiceData.Inventoried))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(RatGameEditor.RatGameServiceData.Item))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(RatGameEditor.RatGameServiceData.Creature))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(RatGameEditor.RatGameServiceData.Room))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(RatGameEditor.RatGameServiceData.Transition))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(RatGameEditor.RatGameServiceData.Realm))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<RatGameEditor.RatGameServiceData.Realm>))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<RatGameEditor.RatGameServiceData.Region>))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<RatGameEditor.RatGameServiceData.Room>))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<RatGameEditor.RatGameServiceData.Transition>))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(RatGameEditor.RatGameServiceData.Flaggable))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<RatGameEditor.RatGameServiceData.Creature>))]
     public partial class Effectable : RatGameEditor.RatGameServiceData.Flaggable {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private object EffectsField;
+        private System.Collections.Generic.List<RatGameEditor.RatGameServiceData.Effect> EffectsField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public object Effects {
+        public System.Collections.Generic.List<RatGameEditor.RatGameServiceData.Effect> Effects {
             get {
                 return this.EffectsField;
             }
@@ -115,6 +127,7 @@ namespace RatGameEditor.RatGameServiceData {
     [System.SerializableAttribute()]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(RatGameEditor.RatGameServiceData.Region))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(RatGameEditor.RatGameServiceData.Inventoried))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(RatGameEditor.RatGameServiceData.Item))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(RatGameEditor.RatGameServiceData.Creature))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(RatGameEditor.RatGameServiceData.Room))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(RatGameEditor.RatGameServiceData.Transition))]
@@ -229,26 +242,16 @@ namespace RatGameEditor.RatGameServiceData {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="Inventoried", Namespace="http://schemas.datacontract.org/2004/07/RatEngine.DataModel.Inventory", IsReference=true)]
     [System.SerializableAttribute()]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(RatGameEditor.RatGameServiceData.Item))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(RatGameEditor.RatGameServiceData.Creature))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(RatGameEditor.RatGameServiceData.Room))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(RatGameEditor.RatGameServiceData.GameElement))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<RatGameEditor.RatGameServiceData.Realm>))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(RatGameEditor.RatGameServiceData.Realm))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<RatGameEditor.RatGameServiceData.Region>))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(RatGameEditor.RatGameServiceData.Region))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<RatGameEditor.RatGameServiceData.Room>))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<RatGameEditor.RatGameServiceData.Transition>))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(RatGameEditor.RatGameServiceData.Transition))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(RatGameEditor.RatGameServiceData.Effectable))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(RatGameEditor.RatGameServiceData.Flaggable))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<RatGameEditor.RatGameServiceData.Creature>))]
     public partial class Inventoried : RatGameEditor.RatGameServiceData.GameElement {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private object InventoryField;
+        private System.Collections.Generic.List<RatGameEditor.RatGameServiceData.Item> InventoryField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public object Inventory {
+        public System.Collections.Generic.List<RatGameEditor.RatGameServiceData.Item> Inventory {
             get {
                 return this.InventoryField;
             }
@@ -263,9 +266,48 @@ namespace RatGameEditor.RatGameServiceData {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Item", Namespace="http://schemas.datacontract.org/2004/07/RatEngine.DataModel.Inventory", IsReference=true)]
+    [System.SerializableAttribute()]
+    public partial class Item : RatGameEditor.RatGameServiceData.Inventoried {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IsContainerField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsContainer {
+            get {
+                return this.IsContainerField;
+            }
+            set {
+                if ((this.IsContainerField.Equals(value) != true)) {
+                    this.IsContainerField = value;
+                    this.RaisePropertyChanged("IsContainer");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="Creature", Namespace="http://schemas.datacontract.org/2004/07/RatEngine.DataModel.Mob", IsReference=true)]
     [System.SerializableAttribute()]
     public partial class Creature : RatGameEditor.RatGameServiceData.Inventoried {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private RatGameEditor.RatGameServiceData.Room LocationField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public RatGameEditor.RatGameServiceData.Room Location {
+            get {
+                return this.LocationField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.LocationField, value) != true)) {
+                    this.LocationField = value;
+                    this.RaisePropertyChanged("Location");
+                }
+            }
+        }
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -410,6 +452,242 @@ namespace RatGameEditor.RatGameServiceData {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Flag", Namespace="http://schemas.datacontract.org/2004/07/RatEngine.DataModel.Tagging", IsReference=true)]
+    [System.SerializableAttribute()]
+    public partial class Flag : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private RatGameEditor.RatGameServiceData.FlagTemplate TemplateField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public RatGameEditor.RatGameServiceData.FlagTemplate Template {
+            get {
+                return this.TemplateField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TemplateField, value) != true)) {
+                    this.TemplateField = value;
+                    this.RaisePropertyChanged("Template");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Effect", Namespace="http://schemas.datacontract.org/2004/07/RatEngine.DataModel.Tagging", IsReference=true)]
+    [System.SerializableAttribute()]
+    public partial class Effect : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private RatGameEditor.RatGameServiceData.EffectTemplate TemplateField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public RatGameEditor.RatGameServiceData.EffectTemplate Template {
+            get {
+                return this.TemplateField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TemplateField, value) != true)) {
+                    this.TemplateField = value;
+                    this.RaisePropertyChanged("Template");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="FlagTemplate", Namespace="http://schemas.datacontract.org/2004/07/RatEngine.DataModel.Tagging", IsReference=true)]
+    [System.SerializableAttribute()]
+    public partial class FlagTemplate : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private RatGameEditor.RatGameServiceData.FlagDataType DataTypeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ValueMaskField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public RatGameEditor.RatGameServiceData.FlagDataType DataType {
+            get {
+                return this.DataTypeField;
+            }
+            set {
+                if ((this.DataTypeField.Equals(value) != true)) {
+                    this.DataTypeField = value;
+                    this.RaisePropertyChanged("DataType");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ValueMask {
+            get {
+                return this.ValueMaskField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ValueMaskField, value) != true)) {
+                    this.ValueMaskField = value;
+                    this.RaisePropertyChanged("ValueMask");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="FlagDataType", Namespace="http://schemas.datacontract.org/2004/07/RatEngine.DataModel.Tagging")]
+    public enum FlagDataType : int {
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        String = 0,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Integer = 1,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Decimal = 2,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Boolean = 3,
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="EffectTemplate", Namespace="http://schemas.datacontract.org/2004/07/RatEngine.DataModel.Tagging", IsReference=true)]
+    [System.SerializableAttribute()]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(RatGameEditor.RatGameServiceData.GameElement))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<RatGameEditor.RatGameServiceData.Realm>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(RatGameEditor.RatGameServiceData.Realm))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<RatGameEditor.RatGameServiceData.Region>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(RatGameEditor.RatGameServiceData.Region))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<RatGameEditor.RatGameServiceData.Room>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(RatGameEditor.RatGameServiceData.Room))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<RatGameEditor.RatGameServiceData.Transition>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(RatGameEditor.RatGameServiceData.Transition))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(RatGameEditor.RatGameServiceData.Inventoried))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<RatGameEditor.RatGameServiceData.Item>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(RatGameEditor.RatGameServiceData.Item))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(RatGameEditor.RatGameServiceData.Effectable))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(RatGameEditor.RatGameServiceData.Flaggable))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<RatGameEditor.RatGameServiceData.Flag>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(RatGameEditor.RatGameServiceData.Flag))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(RatGameEditor.RatGameServiceData.FlagTemplate))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(RatGameEditor.RatGameServiceData.FlagDataType))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<RatGameEditor.RatGameServiceData.Effect>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(RatGameEditor.RatGameServiceData.Effect))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<string>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<RatGameEditor.RatGameServiceData.Creature>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(RatGameEditor.RatGameServiceData.Creature))]
+    public partial class EffectTemplate : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private object FlagsField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public object Flags {
+            get {
+                return this.FlagsField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FlagsField, value) != true)) {
+                    this.FlagsField = value;
+                    this.RaisePropertyChanged("Flags");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="RatGameServiceData.IRatGameService")]
     public interface IRatGameService {
@@ -419,6 +697,12 @@ namespace RatGameEditor.RatGameServiceData {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRatGameService/GetRealmList", ReplyAction="http://tempuri.org/IRatGameService/GetRealmListResponse")]
         System.Threading.Tasks.Task<System.Collections.Generic.List<RatGameEditor.RatGameServiceData.Realm>> GetRealmListAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRatGameService/GetRealmNames", ReplyAction="http://tempuri.org/IRatGameService/GetRealmNamesResponse")]
+        System.Collections.Generic.List<string> GetRealmNames();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRatGameService/GetRealmNames", ReplyAction="http://tempuri.org/IRatGameService/GetRealmNamesResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.List<string>> GetRealmNamesAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -454,6 +738,14 @@ namespace RatGameEditor.RatGameServiceData {
         
         public System.Threading.Tasks.Task<System.Collections.Generic.List<RatGameEditor.RatGameServiceData.Realm>> GetRealmListAsync() {
             return base.Channel.GetRealmListAsync();
+        }
+        
+        public System.Collections.Generic.List<string> GetRealmNames() {
+            return base.Channel.GetRealmNames();
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<string>> GetRealmNamesAsync() {
+            return base.Channel.GetRealmNamesAsync();
         }
     }
 }

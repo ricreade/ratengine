@@ -5,16 +5,72 @@
     <xs:complexContent mixed="false">
       <xs:extension base="tns:Flaggable">
         <xs:sequence>
-          <xs:element minOccurs="0" name="Effects" nillable="true" type="xs:anyType" />
+          <xs:element minOccurs="0" name="Effects" nillable="true" type="tns:ArrayOfEffect" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="Effectable" nillable="true" type="tns:Effectable" />
   <xs:complexType name="Flaggable">
-    <xs:sequence />
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Flags" nillable="true" type="tns:ArrayOfFlag" />
+    </xs:sequence>
     <xs:attribute ref="ser:Id" />
     <xs:attribute ref="ser:Ref" />
   </xs:complexType>
   <xs:element name="Flaggable" nillable="true" type="tns:Flaggable" />
+  <xs:complexType name="ArrayOfFlag">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Flag" nillable="true" type="tns:Flag" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfFlag" nillable="true" type="tns:ArrayOfFlag" />
+  <xs:complexType name="Flag">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Template" nillable="true" type="tns:FlagTemplate" />
+    </xs:sequence>
+    <xs:attribute ref="ser:Id" />
+    <xs:attribute ref="ser:Ref" />
+  </xs:complexType>
+  <xs:element name="Flag" nillable="true" type="tns:Flag" />
+  <xs:complexType name="FlagTemplate">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DataType" type="tns:FlagDataType" />
+      <xs:element minOccurs="0" name="ValueMask" nillable="true" type="xs:string" />
+    </xs:sequence>
+    <xs:attribute ref="ser:Id" />
+    <xs:attribute ref="ser:Ref" />
+  </xs:complexType>
+  <xs:element name="FlagTemplate" nillable="true" type="tns:FlagTemplate" />
+  <xs:simpleType name="FlagDataType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="String" />
+      <xs:enumeration value="Integer" />
+      <xs:enumeration value="Decimal" />
+      <xs:enumeration value="Boolean" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="FlagDataType" nillable="true" type="tns:FlagDataType" />
+  <xs:complexType name="ArrayOfEffect">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Effect" nillable="true" type="tns:Effect" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfEffect" nillable="true" type="tns:ArrayOfEffect" />
+  <xs:complexType name="Effect">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Template" nillable="true" type="tns:EffectTemplate" />
+    </xs:sequence>
+    <xs:attribute ref="ser:Id" />
+    <xs:attribute ref="ser:Ref" />
+  </xs:complexType>
+  <xs:element name="Effect" nillable="true" type="tns:Effect" />
+  <xs:complexType name="EffectTemplate">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Flags" nillable="true" type="xs:anyType" />
+    </xs:sequence>
+    <xs:attribute ref="ser:Id" />
+    <xs:attribute ref="ser:Ref" />
+  </xs:complexType>
+  <xs:element name="EffectTemplate" nillable="true" type="tns:EffectTemplate" />
 </xs:schema>

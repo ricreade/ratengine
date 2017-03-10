@@ -16,7 +16,9 @@ namespace RatGameService
     {
         [OperationContract]
         List<Realm> GetRealmList();
-        
+
+        [OperationContract]
+        List<string> GetRealmNames();
     }
     
 }
