@@ -104,7 +104,7 @@ namespace RatEngine.DataModel
 
             try
             {
-                pc = new PlayerCharacter(null);
+                pc = new PlayerCharacter();
                 _players.TryAdd(pc.ID.ToString(), pc);
             }
             catch (Exception ex)
@@ -131,7 +131,7 @@ namespace RatEngine.DataModel
                     }
                 }
             }
-            return new PlayerCharacter(null);
+            return new PlayerCharacter();
         }
 
         /// <summary>

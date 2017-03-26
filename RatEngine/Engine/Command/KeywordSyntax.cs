@@ -59,7 +59,7 @@ namespace RatEngine.Engine.Command
         /// <param name="Row">[DataRow] The database record containing the data used to hydrate
         /// this object.</param>
         /// <param name="Keyword">[Keyword] The keyword object to which this syntax belongs.</param>
-        public KeywordSyntax(RatDataModelAdapter Adapter, Keyword Keyword) : base(Adapter)
+        public KeywordSyntax(Keyword Keyword) 
         {
             InitializeComponents();
 
@@ -116,33 +116,33 @@ namespace RatEngine.Engine.Command
             get { return new List<SystemInstruction>(_instructions.Select(item => item.Value)); }
         }
 
-        public override RatDataModelAdapter DataAdapter
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
+        //public override RatDataModelAdapter DataAdapter
+        //{
+        //    get
+        //    {
+        //        throw new NotImplementedException();
+        //    }
 
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
+        //    set
+        //    {
+        //        throw new NotImplementedException();
+        //    }
+        //}
 
         /// <summary>
         /// Delete
         /// Deletes this syntax from the database.
         /// </summary>
         /// <returns>[bool] True if the delete operation was successful, otherwise false.</returns>
-        public override bool Delete()
-        {
-            throw new NotImplementedException();
-        }
+        //public override bool Delete()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public override bool Delete(RatDataModelAdapter Adapter)
-        {
-            throw new NotImplementedException();
-        }
+        //public override bool Delete(RatDataModelAdapter Adapter)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         /// <summary>
         /// GetArgumentString
@@ -219,10 +219,10 @@ namespace RatEngine.Engine.Command
                 "initialized.");
         }
 
-        public override void LoadFromAdapter(RatDataModelAdapter Adapter)
-        {
-            throw new NotImplementedException();
-        }
+        //public override void LoadFromAdapter(RatDataModelAdapter Adapter)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         /// <summary>
         /// LoadDataRow
@@ -271,7 +271,7 @@ namespace RatEngine.Engine.Command
             for (int i = 0; i < a.ResultSet.RecordCount; i++)
             {
                 a.ResultSet.MoveToRecord(i);
-                SystemInstruction si = new SystemInstruction(a, this);
+                SystemInstruction si = new SystemInstruction(this);
                 _instructions.TryAdd(si.GameID, si);
             }
             //List<SqlParameter> p = new List<SqlParameter>();
@@ -310,14 +310,14 @@ namespace RatEngine.Engine.Command
         /// syntax.
         /// </summary>
         /// <returns></returns>
-        public override bool Save()
-        {
-            throw new NotImplementedException();
-        }
+        //public override bool Save()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public override bool Save(RatDataModelAdapter Adapter)
-        {
-            throw new NotImplementedException();
-        }
+        //public override bool Save(RatDataModelAdapter Adapter)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

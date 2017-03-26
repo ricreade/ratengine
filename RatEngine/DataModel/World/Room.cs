@@ -55,16 +55,16 @@ namespace RatEngine.DataModel.World
         /// </summary>
         /// <param name="Row">[DataRow] The database record from which to hydrate the Room.</param>
         /// <param name="MapRegion">[Region] The Region for this room.</param>
-        public Room(RatDataModelAdapter Adapter, Region MapRegion) : base(Adapter)
+        public Room(Region region)
         {
             InitializeComponents();
 
-            if (MapRegion != null)
-                _region = MapRegion;
+            if (region != null)
+                _region = region;
             else
                 throw new NullReferenceException("The region of a room cannot be null.");
 
-            LoadFromAdapter(_adapter);
+            //LoadFromAdapter(_adapter);
 
             //if (Row != null)
             //    LoadDataRow(Row);
@@ -92,32 +92,35 @@ namespace RatEngine.DataModel.World
         public Region Region
         {
             get { return _region; }
+            set { }
         }
 
         [DataMember]
         public IEnumerable<Creature> Creatures
         {
             get { return _creatures.Select(item => item.Value); }
+            set { }
         }
 
         [DataMember]
         public IEnumerable<Transition> Transitions
         {
             get { return _transitions.Select(item => item.Value); }
+            set { }
         }
 
-        public override RatDataModelAdapter DataAdapter
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
+        //public override RatDataModelAdapter DataAdapter
+        //{
+        //    get
+        //    {
+        //        throw new NotImplementedException();
+        //    }
 
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
+        //    set
+        //    {
+        //        throw new NotImplementedException();
+        //    }
+        //}
 
         /// <summary>
         /// AddCombatant
@@ -152,15 +155,15 @@ namespace RatEngine.DataModel.World
             //throw new OperationFailedException("Cannot add null Combatant to room.");
         }
 
-        public override bool Delete()
-        {
-            throw new NotImplementedException();
-        }
+        //public override bool Delete()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public override bool Delete(RatDataModelAdapter Adapter)
-        {
-            throw new NotImplementedException();
-        }
+        //public override bool Delete(RatDataModelAdapter Adapter)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         /// <summary>
         /// GetElement
@@ -190,11 +193,12 @@ namespace RatEngine.DataModel.World
             }
 
             // Search the Item collection
-            if (_inv.ContainsKey(ElementName))
+            Item itm;
+            if ((itm = _inventory.Find(item => item.Name.ToLower().Contains(ElementName))) != null)
             {
-                return _inv[ElementName];
+                return itm;
             }
-
+            
             // The element was not found.
             return null;
         }
@@ -254,15 +258,15 @@ namespace RatEngine.DataModel.World
             _transitions = new ConcurrentDictionary<Guid, Transition>();
         }
 
-        public override void LoadFromAdapter(RatDataModelAdapter Adapter)
-        {
-            if (Adapter != null && Adapter.LastRetrievedModel == RatDataModelType.Room)
-            {
-                _id = Adapter.ResultSet.GetValue<int>(RatDataModelAdapter.RoomFields.ID);
-                _name = Adapter.ResultSet.GetValue<string>(RatDataModelAdapter.RoomFields.NAME);
-                _descr = Adapter.ResultSet.GetValue<string>(RatDataModelAdapter.RoomFields.DESCRIPTION);
-            }
-        }
+        //public override void LoadFromAdapter(RatDataModelAdapter Adapter)
+        //{
+        //    if (Adapter != null && Adapter.LastRetrievedModel == RatDataModelType.Room)
+        //    {
+        //        _id = Adapter.ResultSet.GetValue<int>(RatDataModelAdapter.RoomFields.ID);
+        //        _name = Adapter.ResultSet.GetValue<string>(RatDataModelAdapter.RoomFields.NAME);
+        //        _descr = Adapter.ResultSet.GetValue<string>(RatDataModelAdapter.RoomFields.DESCRIPTION);
+        //    }
+        //}
 
         /// <summary>
         /// LoadDataRow
@@ -334,7 +338,7 @@ namespace RatEngine.DataModel.World
             for (int i = 0; i < a.ResultSet.RecordCount; i++)
             {
                 a.ResultSet.MoveToRecord(i);
-                Transition t = new Transition(a, this);
+                Transition t = new Transition(this);
                 _transitions.TryAdd(t.GameID, t);
             }
             //List<SqlParameter> p = new List<SqlParameter>();
@@ -419,14 +423,14 @@ namespace RatEngine.DataModel.World
             }
         }
 
-        public override bool Save()
-        {
-            throw new NotImplementedException();
-        }
+        //public override bool Save()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public override bool Save(RatDataModelAdapter Adapter)
-        {
-            throw new NotImplementedException();
-        }
+        //public override bool Save(RatDataModelAdapter Adapter)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

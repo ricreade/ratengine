@@ -16,9 +16,9 @@ namespace RatEngine.DataModel.Tagging
         private int _multiplicity;
         private string _settings;
 
-        public FlagContext(FlagTemplate ControlledTemplate)
+        public FlagContext(FlagTemplate template)
         {
-            _controlledtemplate = ControlledTemplate;
+            _controlledtemplate = template;
         }
 
         public bool IsRequired

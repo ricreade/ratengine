@@ -16,20 +16,20 @@ namespace RatEngine.DataModel.Tagging
     /// </summary>
     [Serializable]
     [DataContract(IsReference = true)]
-    public class Flag : IDataObject
+    public class Flag : GameElement // : IDataObject
     {
-        private Tuple<string, Byte[]> _data;
+        private Tuple<string, byte[]> _data;
         private FlagTemplate _template;
-        private RatDataModelAdapter _adapter;
+        //private RatDataModelAdapter _adapter;
         
         /// <summary>
         /// Instantiates a declarative flag.
         /// </summary>
         /// <param name="GameID">The game id of this flag object, or null if this is a new record.</param>
         /// <param name="Name">The name of the flag.</param>
-        public Flag(RatDataModelAdapter Adapter)
+        public Flag()
         {
-            _adapter = Adapter;
+            
         }
 
         [DataMember]
@@ -38,36 +38,36 @@ namespace RatEngine.DataModel.Tagging
             get { return _template; }
         }
 
-        public RatDataModelAdapter DataAdapter
-        {
-            get { return _adapter; }
+        //public RatDataModelAdapter DataAdapter
+        //{
+        //    get { return _adapter; }
 
-            set { _adapter = value; }
-        }
+        //    set { _adapter = value; }
+        //}
 
-        public bool Delete()
-        {
-            throw new NotImplementedException();
-        }
+        //public bool Delete()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public bool Delete(RatDataModelAdapter Adapter)
-        {
-            throw new NotImplementedException();
-        }
+        //public bool Delete(RatDataModelAdapter Adapter)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public void LoadFromAdapter(RatDataModelAdapter Adapter)
-        {
-            throw new NotImplementedException();
-        }
+        //public void LoadFromAdapter(RatDataModelAdapter Adapter)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public bool Save()
-        {
-            throw new NotImplementedException();
-        }
+        //public bool Save()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public bool Save(RatDataModelAdapter Adapter)
-        {
-            throw new NotImplementedException();
-        }
+        //public bool Save(RatDataModelAdapter Adapter)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

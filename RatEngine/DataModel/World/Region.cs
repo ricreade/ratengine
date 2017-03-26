@@ -33,17 +33,17 @@ namespace RatEngine.DataModel.World
         /// the adapter is not null and contains data for Regions, the new object is hydrated
         /// using its internal result set.
         /// </summary>
-        public Region(RatDataModelAdapter Adapter, Realm ContainingRealm) : base(Adapter)
+        public Region(Realm realm)
         {
             //instantiate _rooms variable
             _rooms = new ConcurrentDictionary<string, Room>();
 
-            if (ContainingRealm != null)
-                _realm = ContainingRealm;
+            if (realm != null)
+                _realm = realm;
             else
-                throw new NullReferenceException("The region of a room cannot be null.");
+                throw new NullReferenceException("The realm of a region cannot be null.");
 
-            LoadFromAdapter(_adapter);
+            //LoadFromAdapter(_adapter);
 
         }
 
@@ -51,46 +51,48 @@ namespace RatEngine.DataModel.World
         public Realm Realm
         {
             get { return _realm; }
+            set { }
         }
 
         [DataMember]
         public IEnumerable<Room> Rooms
         {
             get { return _rooms.Select(item => item.Value); }
+            set { }
         }
 
-        public override RatDataModelAdapter DataAdapter
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
+        //public override RatDataModelAdapter DataAdapter
+        //{
+        //    get
+        //    {
+        //        throw new NotImplementedException();
+        //    }
 
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
+        //    set
+        //    {
+        //        throw new NotImplementedException();
+        //    }
+        //}
 
-        public override bool Delete()
-        {
-            throw new NotImplementedException();
-        }
+        //public override bool Delete()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public override bool Delete(RatDataModelAdapter Adapter)
-        {
-            throw new NotImplementedException();
-        }
+        //public override bool Delete(RatDataModelAdapter Adapter)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public override void LoadFromAdapter(RatDataModelAdapter Adapter)
-        {
-            if (Adapter != null && Adapter.LastRetrievedModel == RatDataModelType.Region)
-            {
-                _id = Adapter.ResultSet.GetValue<int>(RatDataModelAdapter.RegionFields.ID);
-                _name = Adapter.ResultSet.GetValue<string>(RatDataModelAdapter.RegionFields.NAME);
-                _descr = Adapter.ResultSet.GetValue<string>(RatDataModelAdapter.RegionFields.DESCRIPTION);
-            }
-        }
+        //public override void LoadFromAdapter(RatDataModelAdapter Adapter)
+        //{
+        //    if (Adapter != null && Adapter.LastRetrievedModel == RatDataModelType.Region)
+        //    {
+        //        _id = Adapter.ResultSet.GetValue<int>(RatDataModelAdapter.RegionFields.ID);
+        //        _name = Adapter.ResultSet.GetValue<string>(RatDataModelAdapter.RegionFields.NAME);
+        //        _descr = Adapter.ResultSet.GetValue<string>(RatDataModelAdapter.RegionFields.DESCRIPTION);
+        //    }
+        //}
         
         /// <summary>
         /// LoadRooms
@@ -156,14 +158,14 @@ namespace RatEngine.DataModel.World
             }
         }
 
-        public override bool Save()
-        {
-            throw new NotImplementedException();
-        }
+        //public override bool Save()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public override bool Save(RatDataModelAdapter Adapter)
-        {
-            throw new NotImplementedException();
-        }
+        //public override bool Save(RatDataModelAdapter Adapter)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

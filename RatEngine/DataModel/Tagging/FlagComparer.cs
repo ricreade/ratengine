@@ -39,7 +39,7 @@ namespace RatEngine.DataModel.Tagging
         /// <param name="Defender">[Flaggable] The object with flags to be countered.</param>
         /// <returns>[string] The string error of the first uncounterd flag, or an empty
         /// string if no uncountered flags were found.</returns>
-        public static string CompareFlags(IList<Flag> Flags, Flaggable Challenger, Flaggable Defender)
+        public static string CompareFlags(IList<Flag> Flags, GameElement Challenger, GameElement Defender)
         {
             return "";
         }

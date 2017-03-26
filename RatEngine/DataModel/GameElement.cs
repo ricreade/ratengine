@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 using RatEngine.DataModel.Tagging;
 using RatEngine.DataSource;
+using RatEngine.Engine.Command;
 
 namespace RatEngine.DataModel
 {
@@ -20,32 +21,45 @@ namespace RatEngine.DataModel
     /// </summary>
     [Serializable]
     [DataContract(IsReference = true)]
-    public abstract class GameElement : Effectable
+    public abstract class GameElement : IComparable
     {
         protected int _id;
         protected Guid _gameid;
         protected string _name;
         protected string _descr;
+        protected List<Flag> _flags;
+        protected List<Effect> _effects;
+        protected List<CommandListener> _listeners;
         
-        /// <summary>
-        /// The base constructor for a GameElement.  All instances deriving from GameElement
-        /// must specify a unique GameID value.  If this is a new record to be saved to the
-        /// database, specify null for this value.
-        /// </summary>
-        /// <param name="GameID"></param>
-        public GameElement(RatDataModelAdapter Adapter) : base(Adapter)
+        public GameElement()
         {
-            _adapter = Adapter;
+            _flags = new List<Flag>();
+            _effects = new List<Effect>();
+            _listeners = new List<CommandListener>();
         }
 
         /// <summary>
-        /// The database primary key.
+        /// The description of this game object.
         /// </summary>
         [DataMember]
-        public int ID
+        public string Description
         {
-            get { return _id; }
-            set { _id = value; }
+            get { return _descr; }
+            set { _descr = value; }
+        }
+
+        [DataMember]
+        public virtual List<Effect> Effects
+        {
+            get { return _effects; }
+            set { }
+        }
+
+        [DataMember]
+        public virtual List<Flag> Flags
+        {
+            get { return _flags; }
+            set { }
         }
 
         /// <summary>
@@ -59,6 +73,16 @@ namespace RatEngine.DataModel
         }
 
         /// <summary>
+        /// The database primary key.
+        /// </summary>
+        [DataMember]
+        public int ID
+        {
+            get { return _id; }
+            set { _id = value; }
+        }
+        
+        /// <summary>
         /// The name of this game object.
         /// </summary>
         [DataMember]
@@ -68,41 +92,9 @@ namespace RatEngine.DataModel
             set { _name = value; }
         }
 
-        /// <summary>
-        /// The description of this game object.
-        /// </summary>
-        [DataMember]
-        public string Description
+        public int CompareTo(object obj)
         {
-            get { return _descr; }
-            set { _descr = value; }
-        }
-
-        /// <summary>
-        /// Deletes this record from the data source.
-        /// </summary>
-        /// <returns>True if the delete operation was successful.</returns>
-        public override bool Delete()
-        {
-            return Delete(_adapter);
-        }
-
-        /// <summary>
-        /// Hydrates the data object using the specified adapter.
-        /// </summary>
-        /// <param name="Adapter">The data adapter to use to hydrate this object.</param>
-        public override void LoadFromAdapter(RatDataModelAdapter Adapter)
-        {
-            _gameid = Adapter.ResultSet.GetValue<Guid>(RatDataModelAdapter.GameRegistryFields.GAME_ID);
-        }
-
-        /// <summary>
-        /// Inserts or updates this record at the data source.
-        /// </summary>
-        /// <returns>True if the save operation was successful.</returns>
-        public override bool Save()
-        {
-            return Save(_adapter);
+            return ((IComparable)_gameid).CompareTo(obj);
         }
     }
 }

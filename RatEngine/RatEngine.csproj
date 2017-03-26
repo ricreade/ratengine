@@ -31,11 +31,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
@@ -87,12 +96,17 @@
     <Compile Include="DataSource\ConnectionUtils.cs" />
     <Compile Include="DataSource\DataConnection.cs" />
     <Compile Include="DataSource\DataParameter.cs" />
+    <Compile Include="DataSource\GameDataObject.cs" />
     <Compile Include="DataSource\IDataObject.cs" />
     <Compile Include="DataSource\IDataResultSet.cs" />
+    <Compile Include="DataSource\IRatDataModelAdapter.cs" />
     <Compile Include="DataSource\RatDataModelAdapter.cs" />
+    <Compile Include="DataSource\RatDataModelAdapterFactory.cs" />
     <Compile Include="DataSource\SqlDataConnection.cs" />
     <Compile Include="DataSource\SqlDataResultSet.cs" />
+    <Compile Include="Engine\Command\CommandListener.cs" />
     <Compile Include="Engine\Command\CommandUtils.cs" />
+    <Compile Include="Engine\Command\GameCommand.cs" />
     <Compile Include="Engine\Command\InvalidCommandSyntaxException.cs" />
     <Compile Include="Engine\Command\InvalidTargetException.cs" />
     <Compile Include="Engine\Command\Keyword.cs" />

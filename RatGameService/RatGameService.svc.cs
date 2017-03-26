@@ -26,7 +26,7 @@ namespace RatGameService
             for (int i = 0; i < adapter.ResultSet.RecordCount; i++)
             {
                 adapter.ResultSet.MoveToRecord(i);
-                realm = new Realm(adapter);
+                realm = new Realm();
                 realms.Add(realm);
             }
             //return new List<Realm>() { new Realm("Test Realm", "My test realm") };
@@ -42,7 +42,7 @@ namespace RatGameService
             for (int i = 0; i < adapter.ResultSet.RecordCount; i++)
             {
                 adapter.ResultSet.MoveToRecord(i);
-                realm = new Realm(adapter);
+                realm = new Realm();
                 realms.Add(realm);
             }
             return realms.ConvertAll(item => item.Name);

@@ -67,53 +67,53 @@ namespace RatEngine.DataModel.Questing
         // If NPC communication is associated with this goal.
         private string _npccomplete;
 
-        public override RatDataModelAdapter DataAdapter
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
+        //public override RatDataModelAdapter DataAdapter
+        //{
+        //    get
+        //    {
+        //        throw new NotImplementedException();
+        //    }
 
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
+        //    set
+        //    {
+        //        throw new NotImplementedException();
+        //    }
+        //}
 
         // Copy Constructor to support a player-specific copy of the goal.
-        public QuestGoal(QuestGoal Goal, RatDataModelAdapter Adapter) : base(Adapter)
+        public QuestGoal(QuestGoal Goal)
         {
 
         }
 
-        public override bool Delete()
-        {
-            throw new NotImplementedException();
-        }
+        //public override bool Delete()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public override bool Delete(RatDataModelAdapter Adapter)
-        {
-            throw new NotImplementedException();
-        }
+        //public override bool Delete(RatDataModelAdapter Adapter)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         //public override void LoadDataRow(System.Data.DataRow Row)
         //{
         //    throw new NotImplementedException();
         //}
 
-        public override void LoadFromAdapter(RatDataModelAdapter Adapter)
-        {
-            throw new NotImplementedException();
-        }
+        //public override void LoadFromAdapter(RatDataModelAdapter Adapter)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public override bool Save()
-        {
-            throw new NotImplementedException();
-        }
+        //public override bool Save()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public override bool Save(RatDataModelAdapter Adapter)
-        {
-            throw new NotImplementedException();
-        }
+        //public override bool Save(RatDataModelAdapter Adapter)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

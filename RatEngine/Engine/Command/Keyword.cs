@@ -31,29 +31,29 @@ namespace RatEngine.Engine.Command
     public class Keyword : GameElement
     {
         // Database field names.
-        public struct Fields
-        {
-            public const string ID = "ID";
-            public const string NAME = "Name";
-            //public const string DESCRIPTION = "Description";
-            public const string ALIAS = "Alias";
-            public const string HELP = "HelpText";
-        }
+        //public struct Fields
+        //{
+        //    public const string ID = "ID";
+        //    public const string NAME = "Name";
+        //    //public const string DESCRIPTION = "Description";
+        //    public const string ALIAS = "Alias";
+        //    public const string HELP = "HelpText";
+        //}
 
-        // Database stored procedures.
-        public struct StoredProcedures
-        {
-            public const string SELECT = "";
-            public const string SELECT_ALL = "mspGetKeyWords";
-            public const string DELETE = "";
-            public const string INSERT = "";
-            public const string UPDATE = "";
-        }
+        //// Database stored procedures.
+        //public struct StoredProcedures
+        //{
+        //    public const string SELECT = "";
+        //    public const string SELECT_ALL = "mspGetKeyWords";
+        //    public const string DELETE = "";
+        //    public const string INSERT = "";
+        //    public const string UPDATE = "";
+        //}
 
-        public struct SPArguments
-        {
-            public const string ID = "@KeywordID";
-        }
+        //public struct SPArguments
+        //{
+        //    public const string ID = "@KeywordID";
+        //}
 
         /// <summary>
         /// Constructor.  This constructor provides a means to hydrate the Keyword object from
@@ -61,7 +61,7 @@ namespace RatEngine.Engine.Command
         /// NullReferenceException.
         /// </summary>
         /// <param name="Row">[DataRow] The database record from which to hydrate the Room.</param>
-        public Keyword(RatDataModelAdapter Adapter) : base(Adapter)
+        public Keyword() 
         {
             InitializeComponents();
 
@@ -81,62 +81,63 @@ namespace RatEngine.Engine.Command
 
         // A collection of the available syntaxes for this keyword.  The command string must validate
         // against one of these syntaxes to be considered valid.  The key is the syntax name.
-        private ConcurrentDictionary<Guid, KeywordSyntax> _syntaxes;
+        //private ConcurrentDictionary<Guid, KeywordSyntax> _syntaxes;
+        private List<KeywordSyntax> _syntaxes;
 
         // The string to provide the user when the help command is executed with this keyword as an
         // argument.
-        private string _help;
+        //private string _help;
 
         // An alternate keyword string for this keyword.
-        private string _alias;
+        //private string _alias;
 
         // All abilities are also keywords.  This connection provides the application with a way to
         // associate the use of an ability with the target if the effect has a duration greater than
         // instantaneous.  It also identifies keywords as abilities.  This value is null if the keyword
         // is not an ability.
-        private Ability _ability;
+        //private Ability _ability;
 
         // A collection of flags that can oppose this keyword.
-        private ConcurrentDictionary<string, Flag> _associatedflags;
+        //private ConcurrentDictionary<string, Flag> _associatedflags;
 
-        public string Alias
-        {
-            get { return _alias; }
-        }
+        //public string Alias
+        //{
+        //    get { return _alias; }
+        //}
 
-        public string Help
-        {
-            get { return _help; }
-        }
+        //public string Help
+        //{
+        //    get { return _help; }
+        //}
 
-        public Ability Ability
-        {
-            get { return _ability; }
-        }
+        //public Ability Ability
+        //{
+        //    get { return _ability; }
+        //}
 
-        public override RatDataModelAdapter DataAdapter
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
+        //public override RatDataModelAdapter DataAdapter
+        //{
+        //    get
+        //    {
+        //        throw new NotImplementedException();
+        //    }
 
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
+        //    set
+        //    {
+        //        throw new NotImplementedException();
+        //    }
+        //}
 
-        public override bool Delete()
-        {
-            RecordManager rm = new RecordManager();
-            return rm.SendWriteRequest(StoredProcedures.DELETE, null) > 0;
-        }
+        //public override bool Delete()
+        //{
+        //    RecordManager rm = new RecordManager();
+        //    return rm.SendWriteRequest(StoredProcedures.DELETE, null) > 0;
+        //}
 
-        public override bool Delete(RatDataModelAdapter Adapter)
-        {
-            throw new NotImplementedException();
-        }
+        //public override bool Delete(RatDataModelAdapter Adapter)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         /// <summary>
         /// ExecuteCommandString
@@ -158,7 +159,7 @@ namespace RatEngine.Engine.Command
                 // Send syntax and all other references to an instruction manager to
                 // execute instructions.
                 InstructionManager im = new InstructionManager();
-                t = im.ExecuteInstructions(CommandString, this, ks, _associatedflags.Select(item => item.Value), Player);
+                //t = im.ExecuteInstructions(CommandString, this, ks, _associatedflags.Select(item => item.Value), Player);
 
                 // Pause the task in case an exception will be thrown.
                 t.Wait();
@@ -181,6 +182,22 @@ namespace RatEngine.Engine.Command
             return t;
         }
 
+        public void ExecuteCommand(GameCommand command)
+        {
+            KeywordSyntax syntax = null;
+
+            try
+            {
+                syntax = GetSyntax(command.CommandString);
+                InstructionManager manager = new InstructionManager();
+                // execute syntax instructions.
+            }
+            catch (InvalidCommandSyntaxException ex)
+            {
+                return;
+            }
+        }
+
         /// <summary>
         /// GetSyntax
         /// Returns the appropriate KeywordSyntax object for the specified input command
@@ -191,7 +208,7 @@ namespace RatEngine.Engine.Command
         /// command string.</returns>
         public KeywordSyntax GetSyntax(string CommandString)
         {
-            foreach (KeywordSyntax ks in _syntaxes.Select(item => item.Value))
+            foreach (KeywordSyntax ks in _syntaxes)
             {
                 if (ks.IsSyntaxMatch(CommandString))
                     return ks;
@@ -205,9 +222,19 @@ namespace RatEngine.Engine.Command
         /// </summary>
         public void InitializeComponents()
         {
-            _syntaxes = new ConcurrentDictionary<Guid, KeywordSyntax>();
-            _associatedflags = new ConcurrentDictionary<string, Flag>();
-            _ability = null;
+            _syntaxes = new List<KeywordSyntax>(); //new ConcurrentDictionary<Guid, KeywordSyntax>();
+            //_associatedflags = new ConcurrentDictionary<string, Flag>();
+            //_ability = null;
+        }
+
+        public bool IsMatch(string command)
+        {
+            foreach (KeywordSyntax syntax in _syntaxes)
+            {
+                if (syntax.IsSyntaxMatch(command))
+                    return true;
+            }
+            return false;
         }
 
         /// <summary>
@@ -215,34 +242,34 @@ namespace RatEngine.Engine.Command
         /// Loads the Ability object (if any) related to this Keyword.  This provides a link
         /// to the Ability so that its properties can be applied when the keyword is invoked.
         /// </summary>
-        private void LoadAbility()
-        {
-            List<SqlParameter> p = new List<SqlParameter>();
-            p.Add(new SqlParameter(Ability.SPArguments.ID, _id));
-            RecordManager rm = new RecordManager();
-            DataTable dt = null;
+        //private void LoadAbility()
+        //{
+        //    List<SqlParameter> p = new List<SqlParameter>();
+        //    p.Add(new SqlParameter(Ability.SPArguments.ID, _id));
+        //    RecordManager rm = new RecordManager();
+        //    DataTable dt = null;
 
-            try
-            {
-                dt = rm.SendReadRequest(Ability.StoredProcedures.SELECT, p);
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
+        //    try
+        //    {
+        //        dt = rm.SendReadRequest(Ability.StoredProcedures.SELECT, p);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw;
+        //    }
 
-            if (dt.Rows.Count > 0)
-            {
-                try
-                {
-                    //_ability = new Ability(null, dt.Rows[0]);
-                }
-                catch (Exception ex)
-                {
-                    throw;
-                }
-            }
-        }
+        //    if (dt.Rows.Count > 0)
+        //    {
+        //        try
+        //        {
+        //            //_ability = new Ability(null, dt.Rows[0]);
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            throw;
+        //        }
+        //    }
+        //}
 
         /// <summary>
         /// LoadAssociatedFlags
@@ -250,15 +277,15 @@ namespace RatEngine.Engine.Command
         /// a command invoking this keyword can be successfully executed.
         /// Note: Flag checks are not yet implemented.
         /// </summary>
-        private void LoadAssociatedFlags()
-        {
+        //private void LoadAssociatedFlags()
+        //{
 
-        }
+        //}
 
-        public override void LoadFromAdapter(RatDataModelAdapter Adapter)
-        {
-            throw new NotImplementedException();
-        }
+        //public override void LoadFromAdapter(RatDataModelAdapter Adapter)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         /// <summary>
         /// LoadDataRow
@@ -298,8 +325,9 @@ namespace RatEngine.Engine.Command
             for (int i = 0; i < a.ResultSet.RecordCount; i++)
             {
                 a.ResultSet.MoveToRecord(i);
-                KeywordSyntax ks = new KeywordSyntax(a, this);
-                _syntaxes.TryAdd(ks.GameID, ks);
+                KeywordSyntax ks = new KeywordSyntax(this);
+                _syntaxes.Add(ks);
+                //_syntaxes.TryAdd(ks.GameID, ks);
             }
             //List<SqlParameter> p = new List<SqlParameter>();
             //p.Add(new SqlParameter(SPArguments.ID, _id));
@@ -339,23 +367,23 @@ namespace RatEngine.Engine.Command
         /// a new keyword.
         /// </summary>
         /// <returns>[bool] True if the save operation was successful, otherwise false.</returns>
-        public override bool Save()
-        {
-            RecordManager rm = new RecordManager();
-            if (_id > 0)
-            {
-                return rm.SendWriteRequest(StoredProcedures.UPDATE, null) > 0;
-            }
-            else
-            {
-                _id = rm.SendWriteRequest(StoredProcedures.INSERT, null);
-                return _id > 0;
-            }
-        }
+        //public override bool Save()
+        //{
+        //    RecordManager rm = new RecordManager();
+        //    if (_id > 0)
+        //    {
+        //        return rm.SendWriteRequest(StoredProcedures.UPDATE, null) > 0;
+        //    }
+        //    else
+        //    {
+        //        _id = rm.SendWriteRequest(StoredProcedures.INSERT, null);
+        //        return _id > 0;
+        //    }
+        //}
 
-        public override bool Save(RatDataModelAdapter Adapter)
-        {
-            throw new NotImplementedException();
-        }
+        //public override bool Save(RatDataModelAdapter Adapter)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

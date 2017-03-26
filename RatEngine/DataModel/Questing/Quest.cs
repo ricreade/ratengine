@@ -17,7 +17,7 @@ namespace RatEngine.DataModel.Questing
     /// </summary>
     [Serializable]
     [DataContract(IsReference = true)]
-    class Quest : GameElement
+    public class Quest : GameElement
     {
         // The minimum level a player has to have before undertaking this quest.  No
         // goals should become available until the player satisfies this requirement.
@@ -43,18 +43,18 @@ namespace RatEngine.DataModel.Questing
         // The quest goals associated with this quest.  The key value is the goal name.
         private ConcurrentDictionary<QuestGoal, string> _questgoals;
 
-        public override RatDataModelAdapter DataAdapter
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
+        //public override RatDataModelAdapter DataAdapter
+        //{
+        //    get
+        //    {
+        //        throw new NotImplementedException();
+        //    }
 
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
+        //    set
+        //    {
+        //        throw new NotImplementedException();
+        //    }
+        //}
 
         /// <summary>
         /// Instantiates a new Quest object based on the specified unique Game ID.  
@@ -63,36 +63,36 @@ namespace RatEngine.DataModel.Questing
         /// </summary>
         /// <param name="GameID">The game id of this Quest object, or null if this 
         /// is a new record.</param>
-        public Quest(RatDataModelAdapter Adapter) : base(Adapter) { }
+        public Quest() { }
 
-        public override bool Delete()
-        {
-            throw new NotImplementedException();
-        }
+        //public override bool Delete()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public override bool Delete(RatDataModelAdapter Adapter)
-        {
-            throw new NotImplementedException();
-        }
+        //public override bool Delete(RatDataModelAdapter Adapter)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         //public override void LoadDataRow(System.Data.DataRow Row)
         //{
         //    throw new NotImplementedException();
         //}
 
-        public override void LoadFromAdapter(RatDataModelAdapter Adapter)
-        {
-            throw new NotImplementedException();
-        }
+        //public override void LoadFromAdapter(RatDataModelAdapter Adapter)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public override bool Save()
-        {
-            throw new NotImplementedException();
-        }
+        //public override bool Save()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public override bool Save(RatDataModelAdapter Adapter)
-        {
-            throw new NotImplementedException();
-        }
+        //public override bool Save(RatDataModelAdapter Adapter)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

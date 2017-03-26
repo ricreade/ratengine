@@ -47,7 +47,7 @@ namespace RatEngine.Engine.Instruction
         /// object.
         /// </summary>
         /// <param name="Row">[DataRow] The record data used to hydrate this object.</param>
-        public InstructionSyntax(RatDataModelAdapter Adapter) : base(Adapter)
+        public InstructionSyntax() 
         {
             //if (Row != null)
             //{
@@ -94,28 +94,28 @@ namespace RatEngine.Engine.Instruction
             get { return _regex; }
         }
 
-        public override RatDataModelAdapter DataAdapter
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
+        //public override RatDataModelAdapter DataAdapter
+        //{
+        //    get
+        //    {
+        //        throw new NotImplementedException();
+        //    }
 
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
+        //    set
+        //    {
+        //        throw new NotImplementedException();
+        //    }
+        //}
 
-        public override bool Delete()
-        {
-            throw new NotImplementedException();
-        }
+        //public override bool Delete()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public override bool Delete(RatDataModelAdapter Adapter)
-        {
-            throw new NotImplementedException();
-        }
+        //public override bool Delete(RatDataModelAdapter Adapter)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         /// <summary>
         /// GetArgumentString
@@ -253,10 +253,10 @@ namespace RatEngine.Engine.Instruction
         //    }
         //}
 
-        public override void LoadFromAdapter(RatDataModelAdapter Adapter)
-        {
-            throw new NotImplementedException();
-        }
+        //public override void LoadFromAdapter(RatDataModelAdapter Adapter)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         /// <summary>
         /// Save
@@ -264,14 +264,14 @@ namespace RatEngine.Engine.Instruction
         /// database if this is a new syntax.
         /// </summary>
         /// <returns>[bool] True if the save was successful, otherwise false.</returns>
-        public override bool Save()
-        {
-            throw new NotImplementedException();
-        }
+        //public override bool Save()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public override bool Save(RatDataModelAdapter Adapter)
-        {
-            throw new NotImplementedException();
-        }
+        //public override bool Save(RatDataModelAdapter Adapter)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

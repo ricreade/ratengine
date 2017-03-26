@@ -22,42 +22,42 @@ namespace RatEngine.DataModel.World
     public class Transition : GameElement
     {
         // Database field names.
-        public struct Fields
-        {
-            public const string ID = "ID";
-            public const string NAME = "Name";
-            public const string DESC = "Description";
-            public const string DESCFROM = "descriptionFrom";
-            public const string DESCTO = "descriptionTo";
-            public const string KEYWORD = "KeyWord";
-            public const string ROOM_FROM = "fkRoomFrom";
-            public const string ROOM_TO = "fkRoomTo";
-        }
+        //public struct Fields
+        //{
+        //    public const string ID = "ID";
+        //    public const string NAME = "Name";
+        //    public const string DESC = "Description";
+        //    public const string DESCFROM = "descriptionFrom";
+        //    public const string DESCTO = "descriptionTo";
+        //    public const string KEYWORD = "KeyWord";
+        //    public const string ROOM_FROM = "fkRoomFrom";
+        //    public const string ROOM_TO = "fkRoomTo";
+        //}
 
-        // Database stored procedures.
-        public struct StoredProcedures
-        {
-            public const string SELECT = "";
-            public const string SELECTALL = "mspGetRoomTransitions";
-            public const string DELETE = "";
-            public const string INSERT = "";
-            public const string UPDATE = "";
-        }
+        //// Database stored procedures.
+        //public struct StoredProcedures
+        //{
+        //    public const string SELECT = "";
+        //    public const string SELECTALL = "mspGetRoomTransitions";
+        //    public const string DELETE = "";
+        //    public const string INSERT = "";
+        //    public const string UPDATE = "";
+        //}
 
-        public struct SPArguments
-        {
-            public const string ID = "@RoomID";
-        }
+        //public struct SPArguments
+        //{
+        //    public const string ID = "@RoomID";
+        //}
 
         /// <summary>
         /// Constructor
         /// This default constructor is provided for simple testing purposes.  It is not used in
         /// production.
         /// </summary>
-        public Transition(Room OriginatingRoom, RatDataModelAdapter Adapter) : base(Adapter)
-        {
-            InitializeComponents();
-        }
+        //public Transition(Room OriginatingRoom) 
+        //{
+        //    InitializeComponents();
+        //}
 
         /// <summary>
         /// Constructor
@@ -67,13 +67,13 @@ namespace RatEngine.DataModel.World
         /// Throws a NullReferenceException if a null value is passed for Row.
         /// </summary>
         /// <param name="Row">[DataRow] The record from which to initialize this Transition.</param>
-        /// <param name="StartingRoom">[Room] The room used to access this Transition.</param>
-        public Transition(RatDataModelAdapter Adapter, Room StartingRoom) : base(Adapter)
+        /// <param name="room">[Room] The room used to access this Transition.</param>
+        public Transition(Room room)
         {
             InitializeComponents();
 
-            if (StartingRoom != null)
-                _roomfrom = StartingRoom;
+            if (room != null)
+                _roomfrom = room;
             else
                 throw new NullReferenceException("The starting room of a transition cannot be null.");
 
@@ -101,14 +101,14 @@ namespace RatEngine.DataModel.World
 
         // The string description players in RoomFrom will receive when they see someone leave through
         // this transition.
-        private string _descriptfrom;
+        //private string _descriptfrom;
 
-        // The string description players in RoomTo will receive when they see someone enter from
-        // this transition.
-        private string _descriptto;
+        //// The string description players in RoomTo will receive when they see someone enter from
+        //// this transition.
+        //private string _descriptto;
 
         // The keyword a player must use with the move command to enter this transition.
-        private string _kywrd;
+        //private string _kywrd;
 
         [DataMember]
         public Room RoomFrom
@@ -122,56 +122,56 @@ namespace RatEngine.DataModel.World
             get { return _roomto; }
         }
 
-        [DataMember]
-        public string DescriptionFrom
-        {
-            get { return _descriptfrom; }
-        }
+        //[DataMember]
+        //public string DescriptionFrom
+        //{
+        //    get { return _descriptfrom; }
+        //}
 
-        [DataMember]
-        public string DescriptionTo
-        {
-            get { return _descriptto; }
-        }
+        //[DataMember]
+        //public string DescriptionTo
+        //{
+        //    get { return _descriptto; }
+        //}
 
-        [DataMember]
-        public string Keyword
-        {
-            get { return _kywrd; }
-        }
+        //[DataMember]
+        //public string Keyword
+        //{
+        //    get { return _kywrd; }
+        //}
 
-        public override RatDataModelAdapter DataAdapter
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
+        //public override RatDataModelAdapter DataAdapter
+        //{
+        //    get
+        //    {
+        //        throw new NotImplementedException();
+        //    }
 
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
+        //    set
+        //    {
+        //        throw new NotImplementedException();
+        //    }
+        //}
 
-        public override bool Delete()
-        {
-            throw new NotImplementedException();
-        }
+        //public override bool Delete()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public override bool Delete(RatDataModelAdapter Adapter)
-        {
-            throw new NotImplementedException();
-        }
+        //public override bool Delete(RatDataModelAdapter Adapter)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         public void InitializeComponents()
         {
 
         }
 
-        public override void LoadFromAdapter(RatDataModelAdapter Adapter)
-        {
-            throw new NotImplementedException();
-        }
+        //public override void LoadFromAdapter(RatDataModelAdapter Adapter)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         /// <summary>
         /// LoadDataRow
@@ -257,14 +257,14 @@ namespace RatEngine.DataModel.World
             }
         }
 
-        public override bool Save()
-        {
-            throw new NotImplementedException();
-        }
+        //public override bool Save()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public override bool Save(RatDataModelAdapter Adapter)
-        {
-            throw new NotImplementedException();
-        }
+        //public override bool Save(RatDataModelAdapter Adapter)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

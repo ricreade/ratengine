@@ -23,40 +23,40 @@ namespace RatEngine.DataModel.Inventory
     [DataContract(IsReference = true)]
     public class Item : Inventoried
     {
-        // The general classification for this item.
-        protected ItemType _type;
+        //// The general classification for this item.
+        //protected ItemType _type;
 
-        // If this Item can be wielded as a weapon, the average damage it deals.
-        protected double _avgdmg;
+        //// If this Item can be wielded as a weapon, the average damage it deals.
+        //protected double _avgdmg;
 
-        // If this Item can be worn as armor, the average defense bonus it provides.
-        protected double _avgdef;
+        //// If this Item can be worn as armor, the average defense bonus it provides.
+        //protected double _avgdef;
 
-        // The degree of variance that the average damage and defense values can have.
-        // A weapon that deals the same damage every time has a variance of 0.  A weapon
-        // that can deal between 50% and 150% of its average has variance of 0.5.
-        protected double _variance;
+        //// The degree of variance that the average damage and defense values can have.
+        //// A weapon that deals the same damage every time has a variance of 0.  A weapon
+        //// that can deal between 50% and 150% of its average has variance of 0.5.
+        //protected double _variance;
 
-        // The body slot that this item occupies, if any.  This property might require some
-        // rethink to support items that have more than one optional body slot (or example,
-        // rings can be worn on either hand, swords can be swung by either hand, etc).
-        protected BodySlot _slot;
+        //// The body slot that this item occupies, if any.  This property might require some
+        //// rethink to support items that have more than one optional body slot (or example,
+        //// rings can be worn on either hand, swords can be swung by either hand, etc).
+        //protected BodySlot _slot;
 
-        // The minimum strength value required to wield, wear, or use this item.
-        protected int _minstr;
+        //// The minimum strength value required to wield, wear, or use this item.
+        //protected int _minstr;
 
-        // The minimum dexterity value required to wield, wear, or use this item.
-        protected int _mindex;
+        //// The minimum dexterity value required to wield, wear, or use this item.
+        //protected int _mindex;
 
-        // The minimum intelligence value required to wield, wear, or use this item.
-        protected int _minint;
+        //// The minimum intelligence value required to wield, wear, or use this item.
+        //protected int _minint;
 
-        // If this Item is a weapon, whether it must be wielded two-handed (i.e. without a shield)
-        protected bool _istwohand;
+        //// If this Item is a weapon, whether it must be wielded two-handed (i.e. without a shield)
+        //protected bool _istwohand;
 
-        // If this Item can be used as an offensive weapon (which might include some potions),
-        // the average likelihood that it will hit.
-        protected double _accur;
+        //// If this Item can be used as an offensive weapon (which might include some potions),
+        //// the average likelihood that it will hit.
+        //protected double _accur;
 
         // If this item can be equipped, whether this has been done.
         protected bool _isequipped;
@@ -70,26 +70,7 @@ namespace RatEngine.DataModel.Inventory
         /// record, specify null for this value.
         /// </summary>
         /// <param name="GameID">The game id of this Item object, or null if this is a new record.</param>
-        public Item(RatDataModelAdapter Adapter) : base(Adapter) { }
-
-        [DataMember]
-        public bool IsContainer
-        {
-            get { return _iscontainer; }
-        }
-
-        public override RatDataModelAdapter DataAdapter
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
+        public Item() { }
 
         /// <summary>
         /// AddItem
@@ -105,34 +86,74 @@ namespace RatEngine.DataModel.Inventory
                 base.AddItem(NewItem);
         }
 
-        public override bool Delete()
+        public override List<Item> Inventory
         {
-            throw new NotImplementedException();
+            get
+            {
+                if (IsContainer)
+                    return base.Inventory;
+                return null;
+            }
+            set { }
         }
 
-        public override bool Delete(RatDataModelAdapter Adapter)
+        [DataMember]
+        public bool IsContainer
         {
-            throw new NotImplementedException();
+            get { return _iscontainer; }
+            set { }
         }
 
-        public override void LoadFromAdapter(RatDataModelAdapter Adapter)
+        [DataMember]
+        public bool IsEquipped
         {
-            throw new NotImplementedException();
+            get { return _isequipped; }
+            set { }
         }
+
+        //public override RatDataModelAdapter DataAdapter
+        //{
+        //    get
+        //    {
+        //        throw new NotImplementedException();
+        //    }
+
+        //    set
+        //    {
+        //        throw new NotImplementedException();
+        //    }
+        //}
+
+        
+
+        //public override bool Delete()
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //public override bool Delete(RatDataModelAdapter Adapter)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //public override void LoadFromAdapter(RatDataModelAdapter Adapter)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         //public override void LoadDataRow(System.Data.DataRow Row)
         //{
         //    throw new NotImplementedException();
         //}
 
-        public override bool Save()
-        {
-            throw new NotImplementedException();
-        }
+        //public override bool Save()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public override bool Save(RatDataModelAdapter Adapter)
-        {
-            throw new NotImplementedException();
-        }
+        //public override bool Save(RatDataModelAdapter Adapter)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

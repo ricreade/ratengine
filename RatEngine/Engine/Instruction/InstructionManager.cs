@@ -381,10 +381,10 @@ namespace RatEngine.Engine.Instruction
                                 resp += ResultSet.GameObj.Name + (endline ? NEW_LINE : "");
                                 break;
                             case "roomfrom":
-                                resp += ((Transition)ResultSet.GameObj).DescriptionFrom + (endline ? NEW_LINE : "");
+                                //resp += ((Transition)ResultSet.GameObj).DescriptionFrom + (endline ? NEW_LINE : "");
                                 break;
                             case "roomto":
-                                resp += ((Transition)ResultSet.GameObj).DescriptionTo + (endline ? NEW_LINE : "");
+                                //resp += ((Transition)ResultSet.GameObj).DescriptionTo + (endline ? NEW_LINE : "");
                                 break;
                         }
                         break;
@@ -867,7 +867,7 @@ namespace RatEngine.Engine.Instruction
         /// <param name="Result">[string] Any failure messages resulting from the flag check.  An empty
         /// string is considered a success.</param>
         /// <returns>[bool] True if the instruction executed successfully, otherwise false.</returns>
-        private bool CompareFlags(IEnumerable<Flag> FlagsToCheck, Flaggable From, Flaggable To, out string Result)
+        private bool CompareFlags(IEnumerable<Flag> FlagsToCheck, GameElement From, GameElement To, out string Result)
         {
             Result = "";
             return false;

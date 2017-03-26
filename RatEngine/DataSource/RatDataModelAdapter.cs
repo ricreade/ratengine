@@ -12,16 +12,7 @@ using RatEngine.DataModel.World;
 
 namespace RatEngine.DataSource
 {
-    public enum RatDataModelType
-    {
-        Keyword,
-        KeywordSyntax,
-        Realm,
-        Region,
-        Room,
-        SystemInstruction,
-        Transition
-    }
+    
 
     /// <summary>
     /// Utility class to support data handling between the data source and the

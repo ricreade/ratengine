@@ -21,10 +21,10 @@ namespace RatEngine.DataModel.World.Tests
             Guid gameId = Guid.Empty;
 
             RatDataModelAdapter adapter = new RatDataModelAdapter();
-            Realm r = new Realm(adapter);
+            Realm r = new Realm();
             r.Name = newName;
             r.Description = newDescription;
-            r.Save();
+            //r.Save();
 
             realmId = r.ID;
             gameId = r.GameID;
@@ -32,12 +32,12 @@ namespace RatEngine.DataModel.World.Tests
             Assert.IsTrue(realmId > 0);
             Assert.IsTrue(gameId != Guid.Empty);
 
-            r.Delete();
+            //r.Delete();
 
             Assert.IsTrue(adapter.ReturnValue > 0);
 
             adapter.Retrieve(RatDataModelType.Realm, new List<DataParameter>() { new DataParameter(RatDataModelAdapter.RealmParameters.ID, realmId) });
-            r = new Realm(adapter);
+            r = new Realm();
         }
 
         [TestMethod()]
@@ -67,14 +67,14 @@ namespace RatEngine.DataModel.World.Tests
             gameId = realm.GameID;
 
             realm.Name = newName;
-            realm.Save();
+            //realm.Save();
 
             realm = GetTestRealm();
             Assert.AreEqual(newName, realm.Name);
             Assert.AreEqual(realmId, realm.ID);
             Assert.AreEqual(gameId, realm.GameID);
             realm.Name = oldName;
-            realm.Save();
+            //realm.Save();
 
             realm = GetTestRealm();
             Assert.AreEqual(oldName, realm.Name);
@@ -87,7 +87,7 @@ namespace RatEngine.DataModel.World.Tests
             RatDataModelAdapter adapter = new RatDataModelAdapter();
             adapter.Retrieve(RatDataModelType.Realm, new List<DataParameter>() { new DataParameter(RatDataModelAdapter.RealmParameters.ID, testId) });
 
-            return new Realm(adapter);
+            return new Realm();
         }
     }
 }

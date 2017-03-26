@@ -18,10 +18,11 @@ namespace RatEngine.DataModel.Tagging
     /// </summary>
     [Serializable]
     [DataContract(IsReference = true)]
-    public class Effect : IDataObject
+    public class Effect : GameElement //: IDataObject
     {
         private EffectTemplate _template;
-        private RatDataModelAdapter _adapter;
+
+        //private RatDataModelAdapter _adapter;
 
         [DataMember]
         public EffectTemplate Template
@@ -30,12 +31,12 @@ namespace RatEngine.DataModel.Tagging
             set { _template = value; }
         }
 
-        public RatDataModelAdapter DataAdapter
-        {
-            get { return _adapter; }
+        //public RatDataModelAdapter DataAdapter
+        //{
+        //    get { return _adapter; }
 
-            set { _adapter = value; }
-        }
+        //    set { _adapter = value; }
+        //}
 
         /// <summary>
         /// Constructs a simple Effect object.  If the unique Game ID property is specified, the effect
@@ -43,40 +44,40 @@ namespace RatEngine.DataModel.Tagging
         /// this value.
         /// </summary>
         /// <param name="GameID">The game id of this effect object, or null if this is a new record.</param>
-        public Effect(RatDataModelAdapter Adapter)
+        public Effect()
         {
-            _adapter = Adapter;
+            
         }
 
 
-        public bool Delete()
-        {
-            throw new NotImplementedException();
-        }
+        //public bool Delete()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public bool Delete(RatDataModelAdapter Adapter)
-        {
-            throw new NotImplementedException();
-        }
+        //public bool Delete(RatDataModelAdapter Adapter)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         //public override void LoadDataRow(System.Data.DataRow Row)
         //{
         //    throw new NotImplementedException();
         //}
 
-        public void LoadFromAdapter(RatDataModelAdapter Adapter)
-        {
-            throw new NotImplementedException();
-        }
+        //public void LoadFromAdapter(RatDataModelAdapter Adapter)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public bool Save()
-        {
-            throw new NotImplementedException();
-        }
+        //public bool Save()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public bool Save(RatDataModelAdapter Adapter)
-        {
-            throw new NotImplementedException();
-        }
+        //public bool Save(RatDataModelAdapter Adapter)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

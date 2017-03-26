@@ -51,7 +51,7 @@ namespace RatEngine.DataModel.Mob.Advancement
             public const string ID = "Id";
         }
 
-        public Ability(RatDataModelAdapter Adapter) : base(Adapter)
+        public Ability() 
         {
             InitializeComponents();
             //if (Row != null)
@@ -122,33 +122,33 @@ namespace RatEngine.DataModel.Mob.Advancement
             get { return _level; }
         }
 
-        public override RatDataModelAdapter DataAdapter
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
+        //public override RatDataModelAdapter DataAdapter
+        //{
+        //    get
+        //    {
+        //        throw new NotImplementedException();
+        //    }
 
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
+        //    set
+        //    {
+        //        throw new NotImplementedException();
+        //    }
+        //}
 
         /// <summary>
         /// Delete
         /// Deletes the record from the database represented by this object.
         /// </summary>
         /// <returns>[bool] True if the delete operation was successful, otherwise false.</returns>
-        public override bool Delete()
-        {
-            throw new NotImplementedException();
-        }
+        //public override bool Delete()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public override bool Delete(RatDataModelAdapter Adapter)
-        {
-            throw new NotImplementedException();
-        }
+        //public override bool Delete(RatDataModelAdapter Adapter)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         /// <summary>
         /// InitializeComponents
@@ -165,7 +165,7 @@ namespace RatEngine.DataModel.Mob.Advancement
         /// the dataRow and fill the Construct Fields and the variables
         /// </summary>
         /// <param name="Row">[DataRow] The database record containing data supporting this class.</param>
-        public Ability(AbilityLadder ladder, RatDataModelAdapter Adapter) : base(Adapter)
+        public Ability(AbilityLadder ladder)
         {
             InitializeComponents();
 
@@ -245,7 +245,7 @@ namespace RatEngine.DataModel.Mob.Advancement
                     //create AbilityEffect
                     try
                     {
-                        newAbilityEffect = new AbilityEffect(null);//TODO: change parameters to what they need to be after Room class is implemented
+                        newAbilityEffect = new AbilityEffect();//TODO: change parameters to what they need to be after Room class is implemented
                         //add newRoom to _room list
                         //_effects.TryAdd(newAbilityEffect.Name, newAbilityEffect);
                     }
@@ -262,19 +262,19 @@ namespace RatEngine.DataModel.Mob.Advancement
             }
         }
 
-        public override void LoadFromAdapter(RatDataModelAdapter Adapter)
-        {
-            throw new NotImplementedException();
-        }
+        //public override void LoadFromAdapter(RatDataModelAdapter Adapter)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public override bool Save()
-        {
-            throw new NotImplementedException();
-        }
+        //public override bool Save()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public override bool Save(RatDataModelAdapter Adapter)
-        {
-            throw new NotImplementedException();
-        }
+        //public override bool Save(RatDataModelAdapter Adapter)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

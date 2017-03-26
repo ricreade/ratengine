@@ -70,7 +70,7 @@ namespace RatEngine.Engine.Command
             for (int i = 0; i < a.ResultSet.RecordCount; i++)
             {
                 a.ResultSet.MoveToRecord(i);
-                Keyword k = new Keyword(a);
+                Keyword k = new Keyword();
                 _keywords.TryAdd(k.GameID, k);
             }
             //RecordManager rm = new RecordManager();

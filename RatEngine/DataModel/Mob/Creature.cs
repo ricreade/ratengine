@@ -23,31 +23,31 @@ namespace RatEngine.DataModel.Mob
     public abstract class Creature : Inventoried
     {
         // The Combatant's current character level.
-        protected int _lvl;
+        //protected int _lvl;
 
         // The current Room location in the game map.
         protected Room _location;
 
         // The maximum possible hit points.
-        protected int _hpmax;
+        //protected int _hpmax;
 
-        // The current total hit points.
-        protected int _hpcurr;
+        //// The current total hit points.
+        //protected int _hpcurr;
 
-        // The maximum possible magic points.
-        protected int _mpmax;
+        //// The maximum possible magic points.
+        //protected int _mpmax;
 
-        // The current total magic points.
-        protected int _mpcurr;
+        //// The current total magic points.
+        //protected int _mpcurr;
 
-        // The Combatant's strength score.
-        protected int _str;
+        //// The Combatant's strength score.
+        //protected int _str;
 
-        // The Combatant's dexterity score.
-        protected int _dex;
+        //// The Combatant's dexterity score.
+        //protected int _dex;
 
-        // The Combatant's intelligence score.
-        protected int _int;
+        //// The Combatant's intelligence score.
+        //protected int _int;
 
         // A simple attack move that all Combatant's know to support the "Kill" command.
         //private Ability _simpleattack;
@@ -60,37 +60,37 @@ namespace RatEngine.DataModel.Mob
         /// specify the combatant object's game ID.
         /// </summary>
         /// <param name="GameID">The game id of this combatant object, or null if this is a new record.</param>
-        public Creature(RatDataModelAdapter Adapter) : base(Adapter) { }
+        public Creature() { }
 
-        public int CurrentHP
-        {
-            get { return _hpcurr; }
-            set { _hpcurr = value; }
-        }
+        //public int CurrentHP
+        //{
+        //    get { return _hpcurr; }
+        //    set { _hpcurr = value; }
+        //}
 
-        public int CurrentMP
-        {
-            get { return _mpcurr; }
-            set { _mpcurr = value; }
-        }
+        //public int CurrentMP
+        //{
+        //    get { return _mpcurr; }
+        //    set { _mpcurr = value; }
+        //}
 
-        public int Dexterity
-        {
-            get { return _dex; }
-            set { _dex = value; }
-        }
+        //public int Dexterity
+        //{
+        //    get { return _dex; }
+        //    set { _dex = value; }
+        //}
 
-        public int Intelligence
-        {
-            get { return _int; }
-            set { _int = value; }
-        }
+        //public int Intelligence
+        //{
+        //    get { return _int; }
+        //    set { _int = value; }
+        //}
 
-        public int Level
-        {
-            get { return _lvl; }
-            set { _lvl = value; }
-        }
+        //public int Level
+        //{
+        //    get { return _lvl; }
+        //    set { _lvl = value; }
+        //}
 
         [DataMember]
         public Room Location
@@ -99,26 +99,26 @@ namespace RatEngine.DataModel.Mob
             set { _location = value; }
         }
 
-        public int MaximumHP
-        {
-            get { return _hpmax; }
-            set { _hpmax = value; }
-        }
+        //public int MaximumHP
+        //{
+        //    get { return _hpmax; }
+        //    set { _hpmax = value; }
+        //}
 
-        public int MaximumMP
-        {
-            get { return _mpmax; }
-            set { _mpmax = value; }
-        }
+        //public int MaximumMP
+        //{
+        //    get { return _mpmax; }
+        //    set { _mpmax = value; }
+        //}
 
-        public int Strength
-        {
-            get { return _str; }
-            set { _str = value; }
-        }
+        //public int Strength
+        //{
+        //    get { return _str; }
+        //    set { _str = value; }
+        //}
 
         // The various stat types provided in this class to support stat modifications.
-        public enum StatType { HPMaximum, HPCurrent, MPMaximum, MPCurrent, Strength, Dexterity, Intelligence };
+        //public enum StatType { HPMaximum, HPCurrent, MPMaximum, MPCurrent, Strength, Dexterity, Intelligence };
 
         /// <summary>
         /// AdjustStat
@@ -130,10 +130,10 @@ namespace RatEngine.DataModel.Mob
         /// </summary>
         /// <param name="Type">[StatType] The stat to be modifed by this method.</param>
         /// <param name="Value">[int] The magnitude of change to make to the stat.</param>
-        public void AdjustStat(StatType Type, int Value)
-        {
-            throw new NotImplementedException();
-        }
+        //public void AdjustStat(StatType Type, int Value)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         /// <summary>
         /// CalculateDamage
@@ -144,10 +144,10 @@ namespace RatEngine.DataModel.Mob
         /// <param name="Ability">[Ability] The Ability dealing the damage.</param>
         /// <returns>[int] The amount of damage dealt.  This value is positive for damage points
         /// and negative for healing points.</returns>
-        public int CalculateDamage(Advancement.Ability Ability)
-        {
-            throw new NotImplementedException();
-        }
+        //public int CalculateDamage(Advancement.Ability Ability)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         /// <summary>
         /// GetLadder
@@ -174,10 +174,10 @@ namespace RatEngine.DataModel.Mob
         /// classes to provide their own implementation.
         /// </summary>
         /// <param name="Target">[Combatant] The Combatant targetted with the Kill command.</param>
-        public virtual void Kill(Creature Target)
-        {
-            throw new NotImplementedException();
-        }
+        //public virtual void Kill(Creature Target)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         /// <summary>
         /// Move
@@ -217,9 +217,9 @@ namespace RatEngine.DataModel.Mob
         /// <param name="Source">[Combatant] The Combatant who used the ability against this
         /// Combatant.</param>
         /// <returns>[bool] True if the attack was prevented, otherwise false.</returns>
-        public bool TryDefend(Advancement.Ability Ability, Creature Source)
-        {
-            throw new NotImplementedException();
-        }
+        //public bool TryDefend(Advancement.Ability Ability, Creature Source)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

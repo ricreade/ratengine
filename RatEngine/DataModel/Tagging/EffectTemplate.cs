@@ -11,12 +11,12 @@ namespace RatEngine.DataModel.Tagging
     [DataContract(IsReference = true)]
     public class EffectTemplate
     {
-        private List<FlagContext> _flags;
+        private List<FlagContext> _flagdefs;
 
         [DataMember]
-        public IReadOnlyList<FlagContext> Flags
+        public List<FlagContext> FlagDefinitions
         {
-            get { return _flags.AsReadOnly(); }
+            get { return _flagdefs; }
         }
 
         public bool IsConforming(Effect Element)

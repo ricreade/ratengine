@@ -30,39 +30,39 @@ namespace RatEngine.DataModel.Mob
     public class NonPlayerCharacter : Creature
     {
         // Indicates whether this NPC should attack PCs on sight.
-        private bool _ishostile;
+        //private bool _ishostile;
 
-        // Indicates whether this NPC should ever leave its starting room.  This is
-        // primarily intended for non-hostile NPCs that players would expect to always
-        // find in the same place, such as shopkeepers.  A hostile plant would also
-        // be expected to stay put.  Most hostile NPCs are designed to be mobile.
-        private bool _ismobile;
+        //// Indicates whether this NPC should ever leave its starting room.  This is
+        //// primarily intended for non-hostile NPCs that players would expect to always
+        //// find in the same place, such as shopkeepers.  A hostile plant would also
+        //// be expected to stay put.  Most hostile NPCs are designed to be mobile.
+        //private bool _ismobile;
 
-        // Indicates whether this NPC qualifies as a trainer.  This property might be
-        // better set as a flag.
-        private bool _istrainer;
+        //// Indicates whether this NPC qualifies as a trainer.  This property might be
+        //// better set as a flag.
+        //private bool _istrainer;
 
-        // Indicates whether this NPC is associated with a specific quest goal.
-        // NPCs where this property is true should pay extra attention to any command
-        // string actions receied from a PC.
-        private bool _isgoalnpc;
+        //// Indicates whether this NPC is associated with a specific quest goal.
+        //// NPCs where this property is true should pay extra attention to any command
+        //// string actions receied from a PC.
+        //private bool _isgoalnpc;
 
         // If the preceding property is true, the goals with which this NPC is related.
         // The key value is the quest + goal name.
         private ConcurrentDictionary<QuestGoal, string> _questgoals;
 
-        public override RatDataModelAdapter DataAdapter
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
+        //public override RatDataModelAdapter DataAdapter
+        //{
+        //    get
+        //    {
+        //        throw new NotImplementedException();
+        //    }
 
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
+        //    set
+        //    {
+        //        throw new NotImplementedException();
+        //    }
+        //}
 
         /// <summary>
         /// Instantiates a new NonPlayerCharacter object based on the specified unique Game ID.  
@@ -71,27 +71,27 @@ namespace RatEngine.DataModel.Mob
         /// </summary>
         /// <param name="GameID">The game id of this NonPlayerCharacter object, or null if this 
         /// is a new record.</param>
-        public NonPlayerCharacter(RatDataModelAdapter Adapter) : base(Adapter) { }
+        public NonPlayerCharacter() { }
 
-        public override bool Delete()
-        {
-            throw new NotImplementedException();
-        }
+        //public override bool Delete()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public override bool Delete(RatDataModelAdapter Adapter)
-        {
-            throw new NotImplementedException();
-        }
+        //public override bool Delete(RatDataModelAdapter Adapter)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public override void Kill(Creature Target)
-        {
-            base.Kill(Target);
-        }
+        //public override void Kill(Creature Target)
+        //{
+        //    base.Kill(Target);
+        //}
 
-        public override void LoadFromAdapter(RatDataModelAdapter Adapter)
-        {
-            throw new NotImplementedException();
-        }
+        //public override void LoadFromAdapter(RatDataModelAdapter Adapter)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         //public override void LoadDataRow(System.Data.DataRow Row)
         //{
@@ -118,15 +118,15 @@ namespace RatEngine.DataModel.Mob
             return "";
         }
 
-        public override bool Save()
-        {
-            throw new NotImplementedException();
-        }
+        //public override bool Save()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public override bool Save(RatDataModelAdapter Adapter)
-        {
-            throw new NotImplementedException();
-        }
+        //public override bool Save(RatDataModelAdapter Adapter)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         /// <summary>
         /// Start
@@ -138,9 +138,9 @@ namespace RatEngine.DataModel.Mob
         /// value encloses void because no return value to this method is required.
         /// </summary>
         /// <returns>[Task] The Task return value to issue when this task concludes.</returns>
-        public Task Start()
-        {
-            return null;
-        }
+        //public Task Start()
+        //{
+        //    return null;
+        //}
     }
 }
