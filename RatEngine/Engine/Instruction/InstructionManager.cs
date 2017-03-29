@@ -718,17 +718,17 @@ namespace RatEngine.Engine.Instruction
         /// <returns>[bool] True if the instruction executed successfully, otherwise false.</returns>
         private bool Move(SystemInstruction Instruction, Creature Caller, InstructionResultSet ResultSet)
         {
-            try
-            {
-                Caller.Move((Transition)ResultSet.GameObj);
-            }
-            catch (Exception ex)
-            {
-                ResultSet.NextInstruction = Instruction.NextSeqOnFail;
-                return false;
-            }
+            //try
+            //{
+            //    Caller.Move((Transition)ResultSet.GameObj);
+            //}
+            //catch (Exception ex)
+            //{
+            //    ResultSet.NextInstruction = Instruction.NextSeqOnFail;
+            //    return false;
+            //}
 
-            ResultSet.NextInstruction = Instruction.NextSeqOnSuccess;
+            //ResultSet.NextInstruction = Instruction.NextSeqOnSuccess;
             return true;
         }
 
@@ -989,7 +989,7 @@ namespace RatEngine.Engine.Instruction
                 KeywordSyntax Syntax)
             {
                 Response.Message msg = new Response.Message();
-                msg.CharacterID = Recipient.ID.ToString();
+                //msg.CharacterID = Recipient.ID.ToString();
                 msg.Type = "main";
 
                 switch (RecipientType)

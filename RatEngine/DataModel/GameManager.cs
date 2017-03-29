@@ -105,7 +105,7 @@ namespace RatEngine.DataModel
             try
             {
                 pc = new PlayerCharacter();
-                _players.TryAdd(pc.ID.ToString(), pc);
+                //_players.TryAdd(pc.ID.ToString(), pc);
             }
             catch (Exception ex)
             {
@@ -119,15 +119,15 @@ namespace RatEngine.DataModel
                 {
                     foreach (Room rm in reg.Rooms)
                     {
-                        if (pc.Location.ID == rm.ID)
-                        {
-                            lock (pc.Location)
-                            {
-                                pc.Location = rm;
-                            }
-                            rm.AddCombatant(pc);
-                            return pc;
-                        }
+                        //if (pc.Location.ID == rm.ID)
+                        //{
+                        //    lock (pc.Location)
+                        //    {
+                        //        pc.Location = rm;
+                        //    }
+                        //    rm.AddCombatant(pc);
+                        //    return pc;
+                        //}
                     }
                 }
             }

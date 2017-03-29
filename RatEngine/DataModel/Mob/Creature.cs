@@ -190,21 +190,21 @@ namespace RatEngine.DataModel.Mob
         /// </summary>
         /// <param name="To">[Transition] The transition through which the combatant is moving to
         /// reach the next Room.</param>
-        public void Move(Transition To)
-        {
-            if (To.RoomTo.AddCombatant(this))
-            {
-                if (Location.RemoveCombatant(this))
-                {
-                    lock (Location)
-                    {
-                        Location = To.RoomTo;
-                    }
-                }
-                else
-                    To.RoomTo.RemoveCombatant(this);
-            }
-        }
+        //public void Move(Transition To)
+        //{
+        //    if (To.RoomTo.AddCombatant(this))
+        //    {
+        //        if (Location.RemoveCombatant(this))
+        //        {
+        //            lock (Location)
+        //            {
+        //                Location = To.RoomTo;
+        //            }
+        //        }
+        //        else
+        //            To.RoomTo.RemoveCombatant(this);
+        //    }
+        //}
 
         /// <summary>
         /// TryDefend

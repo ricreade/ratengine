@@ -71,7 +71,7 @@ namespace RatEngine.Engine.Command
             {
                 a.ResultSet.MoveToRecord(i);
                 Keyword k = new Keyword();
-                _keywords.TryAdd(k.GameID, k);
+                _keywords.TryAdd(k.GameElementID, k);
             }
             //RecordManager rm = new RecordManager();
             //DataTable dt = null;

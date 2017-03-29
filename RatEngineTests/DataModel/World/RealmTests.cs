@@ -26,8 +26,8 @@ namespace RatEngine.DataModel.World.Tests
             r.Description = newDescription;
             //r.Save();
 
-            realmId = r.ID;
-            gameId = r.GameID;
+            //realmId = r.ID;
+            //gameId = r.GameID;
 
             Assert.IsTrue(realmId > 0);
             Assert.IsTrue(gameId != Guid.Empty);
@@ -50,7 +50,7 @@ namespace RatEngine.DataModel.World.Tests
             Realm realm = GetTestRealm();
             Assert.AreEqual(expectedName, realm.Name);
             Assert.AreEqual(expectedDescription, realm.Description);
-            Assert.AreEqual(expectedGameId, realm.GameID);
+            //Assert.AreEqual(expectedGameId, realm.GameID);
         }
 
         [TestMethod()]
@@ -63,16 +63,16 @@ namespace RatEngine.DataModel.World.Tests
 
             Realm realm = GetTestRealm();
             oldName = realm.Name;
-            realmId = realm.ID;
-            gameId = realm.GameID;
+            //realmId = realm.ID;
+            //gameId = realm.GameID;
 
             realm.Name = newName;
             //realm.Save();
 
             realm = GetTestRealm();
             Assert.AreEqual(newName, realm.Name);
-            Assert.AreEqual(realmId, realm.ID);
-            Assert.AreEqual(gameId, realm.GameID);
+            //Assert.AreEqual(realmId, realm.ID);
+            //Assert.AreEqual(gameId, realm.GameID);
             realm.Name = oldName;
             //realm.Save();
 

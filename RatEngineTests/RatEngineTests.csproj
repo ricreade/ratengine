@@ -52,6 +52,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="DataModel\Tagging\FlagTests.cs" />
     <Compile Include="DataModel\World\RealmTests.cs" />
     <Compile Include="DataSource\SqlDataConnectionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

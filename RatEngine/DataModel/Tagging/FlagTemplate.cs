@@ -33,24 +33,31 @@ namespace RatEngine.DataModel.Tagging
     [DataContract(IsReference = true)]
     public class FlagTemplate
     {
-        private FlagDataType _datatype;
-        private string _valuemask;
+        protected FlagTemplate() { }
 
-        [DataMember]
-        public FlagDataType DataType
+        public FlagTemplate(FlagDataType dataType, string valueMask)
         {
-            get { return _datatype; }
+            DataType = dataType;
+            ValueMask = valueMask;
         }
 
         [DataMember]
-        public string ValueMask
-        {
-            get { return _valuemask; }
-        }
+        public virtual FlagDataType DataType { get; protected set; }
 
-        public bool IsConforming(Flag Element)
+        [DataMember]
+        public virtual string ValueMask { get; protected set; }
+
+        public virtual bool IsConforming(Flag flag)
         {
-            throw new NotImplementedException();
+            //switch (DataType)
+            //{
+            //    case FlagDataType.Boolean:
+            //        return flag.Data.Length == 1;
+
+            //    case FlagDataType.Decimal:
+            //        return Convert.ToDecimal()
+            //}
+            return false;
         }
     }
 }

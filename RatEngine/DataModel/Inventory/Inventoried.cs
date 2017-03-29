@@ -23,16 +23,7 @@ namespace RatEngine.DataModel.Inventory
     [DataContract(IsReference = true)]
     public abstract class Inventoried : GameElement
     {
-        /// <summary>
-        /// The inventory collection contained by the derived object.  There is no direct
-        /// accessor to this list provided by this class.  Any derived class must provide its own
-        /// This is because derived classes might want to impose restrictions on what items
-        /// are stored here.  For example, a Combatant object might not care whether the stored
-        /// item is a container, but an Item object would not want to allow a container to be
-        /// stored inside it.
-        /// </summary>
-        protected List<Item> _inventory;
-
+        
         /// <summary>
         /// The base constructor for this abstract class, which carries forward the requirement to
         /// specify the inventoried object's game ID.
@@ -40,20 +31,16 @@ namespace RatEngine.DataModel.Inventory
         /// <param name="GameID">The game id of this effectable object, or null if this is a new record.</param>
         public Inventoried()
         {
-            _inventory = new List<Item>();
+            
         }
-
-        
 
         /// <summary>
         /// Returns a read-only view of the inventory.
         /// </summary>
         [DataMember]
-        public virtual List<Item> Inventory
-        {
-            get { return _inventory; }
-            set { }
-        }
+        public virtual List<Item> Inventory { get; protected set; }
+
+
 
         /// <summary>
         /// AddItem
@@ -66,7 +53,11 @@ namespace RatEngine.DataModel.Inventory
         /// <param name="NewItem">[Item] The Item object to be stored.</param>
         public virtual void AddItem(Item item)
         {
-            _inventory.Add(item);
+            if (item != null)
+            {
+                InitializeList(Inventory);
+                Inventory.Add(item);
+            }
         }
 
         /// <summary>
@@ -77,16 +68,23 @@ namespace RatEngine.DataModel.Inventory
         /// </summary>
         /// <param name="ItemKeyword">[string] A keyword string used to identify the item by name.</param>
         /// <returns>[Item] The item returned.  If no match was found, this method returns null.</returns>
-        public virtual Item GetItem(string itemKeyword)
+        public virtual Item FindItem(string itemKeyword)
         {
-            return _inventory.Find(item =>
+            return Inventory.Find(item =>
                 item.Name.ToLower().Contains(itemKeyword.ToLower()) ||
                 item.Description.ToLower().Contains(itemKeyword.ToLower()));
         }
 
+        public virtual Item GetItem(string itemName)
+        {
+            InitializeList(Inventory);
+            return Inventory.Find(
+                item => item.Name.ToLower().Equals(itemName.ToLower()));
+        }
+
         public virtual Item GetItem(Guid guid)
         {
-            return _inventory.Find(item => item.GameID == guid);
+            return Inventory.Find(item => item.GameElementID == guid);
         }
 
         /// <summary>
@@ -97,15 +95,10 @@ namespace RatEngine.DataModel.Inventory
         /// <param name="OldItem">[Item] The Item object to remove.</param>
         /// <returns>[Item] A reference to the removed Item.  If no item was removed, this method
         /// returns null.</returns>
-        public virtual Item RemoveItem(Item item)
+        public virtual bool RemoveItem(Item item)
         {
-            Item removedItem = null;
-            if (_inventory.Contains(item))
-            {
-                removedItem = GetItem(item.GameID);
-                _inventory.Remove(item);
-            }
-            return removedItem;
+            InitializeList(Inventory);
+            return Inventory.Remove(item);
         }
     }
 }

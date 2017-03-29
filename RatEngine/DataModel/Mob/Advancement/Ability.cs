@@ -228,11 +228,11 @@ namespace RatEngine.DataModel.Mob.Advancement
             {
                 //create IList<SqlParam> and sp name for SendReadRequest 
                 IList<SqlParameter> sqlParams = new List<SqlParameter>();
-                SqlParameter abilityID = new SqlParameter("@abilityID", this._id);
+                //SqlParameter abilityID = new SqlParameter("@abilityID", this._id);
                 string spName = StoredProcedures.SELECT;
 
                 //add SqlParam to Ilist
-                sqlParams.Add(abilityID);
+                //sqlParams.Add(abilityID);
 
                 //fill table by calling SendReadRequest
                 dtResults = recordManager.SendReadRequest(spName, sqlParams);

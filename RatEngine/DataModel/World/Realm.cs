@@ -23,8 +23,6 @@ namespace RatEngine.DataModel.World
     [DataContract(IsReference = true)]
     public class Realm : GameElement
     {
-        // A collection of all Regions in the Realm.
-        private ConcurrentDictionary<Guid, Region> _regions;
         private static readonly RatLogger log = LogUtil.Instance.GetLogger(typeof(Realm));
         
         /// <summary>
@@ -34,111 +32,26 @@ namespace RatEngine.DataModel.World
         /// </summary>
         public Realm()
         {
-            //instantiate Dictionary of Regions
-            _regions = new ConcurrentDictionary<Guid, Region>();
-            //LoadFromAdapter(_adapter);
-        }
 
-        //public Realm(string name, string description) : base(null)
-        //{
-        //    Name = name;
-        //    Description = description;
-        //    _regions = new ConcurrentDictionary<Guid, Region>();
-        //}
+        }
 
         [DataMember]
-        public IEnumerable<Region> Regions
+        public virtual List<Region> Regions { get; protected set; }
+
+        public virtual void AddRegion(Region region)
         {
-            get { return _regions.Select(item => item.Value); }
-        }
-
-        //public override RatDataModelAdapter DataAdapter
-        //{
-        //    get
-        //    {
-        //        throw new NotImplementedException();
-        //    }
-
-        //    set
-        //    {
-        //        throw new NotImplementedException();
-        //    }
-        //}
-
-        //public override bool Delete(RatDataModelAdapter Adapter)
-        //{
-        //    try
-        //    {
-        //        Adapter.Delete(RatDataModelType.Realm, new List<DataParameter>() {
-        //            new DataParameter(RatDataModelAdapter.RealmParameters.ID, ID) });
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        log.Error(string.Format("The attempt to delete realm '{0}' failed.", Name), ex);
-        //        return false;
-        //    }
-        //    return true;
-        //}
-
-        //public override void LoadFromAdapter(RatDataModelAdapter Adapter)
-        //{
-        //    if (Adapter != null && Adapter.LastRetrievedModel == RatDataModelType.Realm && Adapter.ResultSet.RecordCount > 0)
-        //    {
-        //        _id = Adapter.ResultSet.GetValue<int>(RatDataModelAdapter.RealmFields.ID);
-        //        _name = Adapter.ResultSet.GetValue<string>(RatDataModelAdapter.RealmFields.NAME);
-        //        _descr = Adapter.ResultSet.GetValue<string>(RatDataModelAdapter.RealmFields.DESCRIPTION);
-        //        base.LoadFromAdapter(Adapter);
-        //    }
-        //}
-
-        /// <summary>
-        /// Loads all regions associated with this realm.
-        /// </summary>
-        public void LoadRegions()
-        {
-            RatDataModelAdapter a = new RatDataModelAdapter();
-            a.Retrieve(RatDataModelType.Region, null);
-
-            for (int i = 0; i < a.ResultSet.RecordCount; i++)
+            if (region != null)
             {
-                a.ResultSet.MoveToRecord(i);
-                Region reg = new Region(this);
-                _regions.TryAdd(reg.GameID, reg);
-            }
-            
-        }
-
-        public void ResolveTransitionReferences()
-        {
-            foreach (Region reg in Regions)
-            {
-                reg.ResolveTransitionReferences();
+                InitializeList(Regions);
+                Regions.Add(region);
             }
         }
 
-        //public override bool Save(RatDataModelAdapter Adapter)
-        //{
-        //    try
-        //    {
-        //        List<DataParameter> parameters = new List<DataParameter>();
-        //        parameters.Add(new DataParameter(RatDataModelAdapter.RealmParameters.NAME, Name));
-        //        parameters.Add(new DataParameter(RatDataModelAdapter.RealmParameters.DESCRIPTION, Description));
-
-        //        if (ID > 0)
-        //        {
-        //            parameters.Add(new DataParameter(RatDataModelAdapter.RealmFields.ID, ID));
-        //        }
-        //        Adapter.Save(RatDataModelType.Realm, parameters);
-        //        _id = Adapter.NewRecordID;
-        //        _gameid = Adapter.NewGameID;
-        //        //LoadFromAdapter(Adapter);
-        //        return ID > 0;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        log.Error(string.Format("The attempt save Realm '{0}' failed.", Name), ex);
-        //        return false;
-        //    }
-        //}
+        public virtual bool RemoveRegion(Region region)
+        {
+            InitializeList(Regions);
+            return Regions.Remove(region);
+        }
+        
     }
 }

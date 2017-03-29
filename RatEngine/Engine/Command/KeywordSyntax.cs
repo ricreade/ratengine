@@ -272,7 +272,7 @@ namespace RatEngine.Engine.Command
             {
                 a.ResultSet.MoveToRecord(i);
                 SystemInstruction si = new SystemInstruction(this);
-                _instructions.TryAdd(si.GameID, si);
+                _instructions.TryAdd(si.GameElementID, si);
             }
             //List<SqlParameter> p = new List<SqlParameter>();
             //p.Add(new SqlParameter(SPArguments.ID, _id));

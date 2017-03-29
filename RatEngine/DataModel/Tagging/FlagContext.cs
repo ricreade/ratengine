@@ -24,16 +24,19 @@ namespace RatEngine.DataModel.Tagging
         public bool IsRequired
         {
             get { return _isrequired; }
+            set { }
         }
 
         public int Multiplicity
         {
             get { return _multiplicity; }
+            set { }
         }
 
         public string Settings
         {
             get { return _settings; }
+            set { }
         }
     }
 }
