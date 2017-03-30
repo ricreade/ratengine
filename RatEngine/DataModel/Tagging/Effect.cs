@@ -11,73 +11,48 @@ using RatEngine.DataSource;
 namespace RatEngine.DataModel.Tagging
 {
     /// <summary>
-    /// Effect
-    /// This class defines a specific game effect that is composed of a
-    /// discrete set of flags.  This this effect is applied to a target, that
-    /// target gains those flags.
+    /// Defines a specific collection of <see cref="Flag"/> values that
+    /// comprise an effect.  
     /// </summary>
+    /// <remarks>Effects are collections of flags that are intended to be 
+    /// interpreted and assigned as a group to inform the application 
+    /// of some quality of the parent element.  Effects may be associated with any
+    /// <see cref="GameElement"/> derived class, except a <see cref="Flag"/> 
+    /// or another <see cref="Effect"/>.  This means they may appear in
+    /// nearly any context.  The effective meaning of an effect is defined by the 
+    /// system instructions applied to a keyword, which means they are entirely
+    /// dependent upon the unique rules of a given game design and have no
+    /// intrinsic meaning.  An effect must have an associated 
+    /// <see cref="EffectTemplate"/> to define how the effect should be 
+    /// constructed.</remarks>
     [Serializable]
     [DataContract(IsReference = true)]
-    public class Effect : GameElement //: IDataObject
+    public class Effect : GameElement
     {
-        private EffectTemplate _template;
-
-        //private RatDataModelAdapter _adapter;
-
-        [DataMember]
-        public EffectTemplate Template
-        {
-            get { return _template; }
-            set { _template = value; }
-        }
-
-        //public RatDataModelAdapter DataAdapter
-        //{
-        //    get { return _adapter; }
-
-        //    set { _adapter = value; }
-        //}
-
-        /// <summary>
-        /// Constructs a simple Effect object.  If the unique Game ID property is specified, the effect
-        /// object is populated from the data source.  If this is a new Effect record, specify null for
-        /// this value.
-        /// </summary>
-        /// <param name="GameID">The game id of this effect object, or null if this is a new record.</param>
+        
         public Effect()
         {
-            
+
         }
 
+        [DataMember]
+        public virtual EffectTemplate Template { get; set; }
 
-        //public bool Delete()
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public override void AddEffect(Effect effect)
+        {
+            return;
+        }
 
-        //public bool Delete(RatDataModelAdapter Adapter)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public virtual bool IsConforming()
+        {
+            if (ReferenceEquals(Template, null))
+                return false;
+            return Template.IsConforming(this);
+        }
 
-        //public override void LoadDataRow(System.Data.DataRow Row)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public void LoadFromAdapter(RatDataModelAdapter Adapter)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public bool Save()
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public bool Save(RatDataModelAdapter Adapter)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public override bool RemoveEffect(Effect effect)
+        {
+            return false;
+        }
     }
 }

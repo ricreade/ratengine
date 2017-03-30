@@ -27,8 +27,12 @@ namespace RatEngine.DataModel.Tagging
     }
 
     /// <summary>
-    /// Identifies the data type and acceptable values for a flag.
+    /// Helper class that identifies the data type and acceptable values for 
+    /// a <see cref="Flag"/> instance.
     /// </summary>
+    /// <remarks>Every flag must have an associated template to tell the 
+    /// application how to interpret its data as the <see cref="Flag"/> 
+    /// instance does not otherwise provide a way to read its value.</remarks>
     [Serializable]
     [DataContract(IsReference = true)]
     public class FlagTemplate
@@ -40,6 +44,9 @@ namespace RatEngine.DataModel.Tagging
             DataType = dataType;
             ValueMask = valueMask;
         }
+
+        [DataMember]
+        public virtual Guid FlagTemplateID { get; protected set; }
 
         [DataMember]
         public virtual FlagDataType DataType { get; protected set; }

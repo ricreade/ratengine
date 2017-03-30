@@ -17,21 +17,9 @@ namespace RatEngine.DataModel.UserAccount
     /// </summary>
     [Serializable]
     [DataContract(IsReference = true)]
-    public class User : GameElement
+    public class User
     {
-        // The user id of the player.  This value remains constant to identify the player.  It may
-        // be obsolete as the GameElement.ID already accomplishes this.
-        private string _userid;
-
-        // The user name of the player.  This is typically the value associated with the 
-        // PlayerCharacter.
-        private string _username;
-
-        // The email of the user in case there is a problem in the game.
-        private string _email;
-
-        // The class diagram has Password as well, but on second thought, that's probably a bad idea.
-
+        
         /// <summary>
         /// Instantiates a new User object based on the specified unique Game ID.  
         /// If this value is provided, this object will be populated based on the data source.  
@@ -41,63 +29,15 @@ namespace RatEngine.DataModel.UserAccount
         /// is a new record.</param>
         public User() { }
 
-        public string UserID
-        {
-            get { return _userid; }
-        }
+        [DataMember]
+        public virtual string UserID { get; protected set; }
 
-        public string UserName
-        {
-            get { return _username; }
-        }
+        [DataMember]
+        public virtual string UserName { get; protected set; }
 
-        public string Email
-        {
-            get { return _email; }
-            set { _email = value; }
-        }
+        [DataMember]
+        public virtual string Email { get; set; }
 
-        //public override RatDataModelAdapter DataAdapter
-        //{
-        //    get
-        //    {
-        //        throw new NotImplementedException();
-        //    }
-
-        //    set
-        //    {
-        //        throw new NotImplementedException();
-        //    }
-        //}
-
-        //public override bool Delete()
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public override bool Delete(RatDataModelAdapter Adapter)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public override void LoadDataRow(System.Data.DataRow Row)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public override void LoadFromAdapter(RatDataModelAdapter Adapter)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public override bool Save()
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public override bool Save(RatDataModelAdapter Adapter)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        
     }
 }
