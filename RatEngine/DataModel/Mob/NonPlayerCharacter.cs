@@ -49,7 +49,7 @@ namespace RatEngine.DataModel.Mob
 
         // If the preceding property is true, the goals with which this NPC is related.
         // The key value is the quest + goal name.
-        private ConcurrentDictionary<QuestGoal, string> _questgoals;
+        private ConcurrentDictionary<QuestTask, string> _questgoals;
 
         //public override RatDataModelAdapter DataAdapter
         //{

@@ -7,92 +7,53 @@ using System.Text;
 using System.Threading.Tasks;
 
 using RatEngine.DataSource;
+using RatEngine.Engine.Command;
 
 namespace RatEngine.DataModel.Questing
 {
     /// <summary>
-    /// This class defines a Quest a player can undertake to gain experience and/or
-    /// accomplish a story plotline.  Quests are created as service startup and remain
-    /// available for all players for the duration of the application instance.
+    /// Defines a game quest or set of tasks.
     /// </summary>
+    /// <remarks>Use the <see cref="Quest"/> structure to define any logical grouping of tasks
+    /// defined by the game.  A quest must have at least one associated <see cref="QuestTask"/>
+    /// because the individual tasks define the specific action(s) the player must perform to
+    /// complete the quest.  The terms and rewards for a quest are determined by the game design
+    /// as configured by the flags and system instructions associated with the quest and its
+    /// tasks.  Quests and quest tasks both respond with command listeners for all state changes.
+    /// The <see cref="GameElement"/> IsListening property is particularly important for these 
+    /// classes as it effectively marks the quest or task open or closed.</remarks>
     [Serializable]
     [DataContract(IsReference = true)]
     public class Quest : GameElement
     {
-        // The minimum level a player has to have before undertaking this quest.  No
-        // goals should become available until the player satisfies this requirement.
-        private int _minlvl;
-
-        // The amount of gold the player will receive for completing this quest.
-        private int _goldaward;
-
-        // The amount of experience the player will receive for completing this quest.
-        private int _xpaward;
-
-        // Whether this quest should be repeatable once they have completed it.  When a
-        // player would initiate the first goal in a quest, the questmanager should 
-        // check whether the player has already obtained the first goal.  In any case,
-        // the player should never initiate the first goal a second time if the last
-        // goal is still open.
-        private bool _isallowrepeat;
-
-        // If the quest is repeatable, the number of minutes in real time the player must
-        // wait before trying to obtain the first goal again.
-        private int _questcooldownminutes;
-
-        // The quest goals associated with this quest.  The key value is the goal name.
-        private ConcurrentDictionary<QuestGoal, string> _questgoals;
-
-        //public override RatDataModelAdapter DataAdapter
-        //{
-        //    get
-        //    {
-        //        throw new NotImplementedException();
-        //    }
-
-        //    set
-        //    {
-        //        throw new NotImplementedException();
-        //    }
-        //}
-
-        /// <summary>
-        /// Instantiates a new Quest object based on the specified unique Game ID.  
-        /// If this value is provided, this object will be populated based on the data source.  
-        /// If this is a new record, specify null for this value.
-        /// </summary>
-        /// <param name="GameID">The game id of this Quest object, or null if this 
-        /// is a new record.</param>
+        
         public Quest() { }
 
-        //public override bool Delete()
-        //{
-        //    throw new NotImplementedException();
-        //}
+        [DataMember]
+        public virtual List<QuestTask> QuestTasks { get; protected set; }
 
-        //public override bool Delete(RatDataModelAdapter Adapter)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public virtual void AddQuestGoal(QuestTask goal)
+        {
+            if (goal != null)
+            {
+                InitializeList(QuestTasks);
+                QuestTasks.Add(goal);
+            }
+        }
 
-        //public override void LoadDataRow(System.Data.DataRow Row)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public override void ProcessCommand(GameCommand command)
+        {
+            base.ProcessCommand(command);
+            foreach(QuestTask task in QuestTasks)
+            {
+                task.ProcessCommand(command);
+            }
+        }
 
-        //public override void LoadFromAdapter(RatDataModelAdapter Adapter)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public override bool Save()
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public override bool Save(RatDataModelAdapter Adapter)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public virtual bool RemoveQuestGoal(QuestTask goal)
+        {
+            InitializeList(QuestTasks);
+            return QuestTasks.Remove(goal);
+        }
     }
 }

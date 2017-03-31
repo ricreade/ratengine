@@ -82,7 +82,7 @@
     <Compile Include="DataModel\Mob\PlayerCharacter.cs" />
     <Compile Include="DataModel\Mob\PlayerNotFoundException.cs" />
     <Compile Include="DataModel\Questing\Quest.cs" />
-    <Compile Include="DataModel\Questing\QuestGoal.cs" />
+    <Compile Include="DataModel\Questing\QuestTask.cs" />
     <Compile Include="DataModel\Questing\QuestGoalType.cs" />
     <Compile Include="DataModel\Questing\QuestManager.cs" />
     <Compile Include="DataModel\RecordManager.cs" />

@@ -66,6 +66,15 @@ namespace RatEngine.DataModel
         public virtual Guid GameElementID { get; protected set; }
 
         /// <summary>
+        /// Indicates whether this element is listening for, and can respond to, 
+        /// commands.  If this property is false, the element will not respond
+        /// to any commands, regardless of the source, though the derived object
+        /// may still be modified by listeners from other instances.
+        /// </summary>
+        [DataMember]
+        public virtual bool IsListening { get; set; }
+
+        /// <summary>
         /// The name of this game object.
         /// </summary>
         [DataMember]
@@ -227,7 +236,7 @@ namespace RatEngine.DataModel
         /// <param name="command">The command to process.</param>
         public virtual void ProcessCommand(GameCommand command)
         {
-            if (command != null && command.CommandString != null && command.Source != null)
+            if (IsListening && command != null && command.CommandString != null && command.Source != null)
             {
                 foreach (CommandListener listener in CommandListeners)
                 {
