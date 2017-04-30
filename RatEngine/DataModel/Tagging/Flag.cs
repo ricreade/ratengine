@@ -36,8 +36,15 @@ namespace RatEngine.DataModel.Tagging
 
         }
 
+        public Flag(string name, string data, FlagTemplate template)
+        {
+            Name = name;
+            Data = data;
+            Template = template;
+        }
+
         [DataMember]
-        public virtual byte[] Data { get; protected set; }
+        public virtual string Data { get; protected set; }
 
         [DataMember]
         public virtual FlagTemplate Template { get; protected set; }
@@ -50,6 +57,11 @@ namespace RatEngine.DataModel.Tagging
         public override void AddFlag(Flag flag)
         {
             return;
+        }
+
+        public virtual Flag Clone()
+        {
+            return new Flag(Name, Data, Template);
         }
 
         public virtual bool IsConforming()

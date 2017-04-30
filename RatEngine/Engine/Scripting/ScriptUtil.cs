@@ -8,7 +8,7 @@ using CSScriptLibrary;
 using RatEngine.Engine.Command;
 using RatEngine.Engine.Instruction;
 
-namespace ScriptingEngine
+namespace RatEngine.Engine.Scripting
 {
     /// <summary>
     /// Singleton class to provide a common interface to the scripting engine.
@@ -61,10 +61,10 @@ namespace ScriptingEngine
         /// Constructs an empty script transaction.
         /// </summary>
         /// <returns>A script transaction instance.</returns>
-        public static IScriptTransaction CreateTransaction()
-        {
-            return new ScriptTransactionInst();
-        }
+        //public static IScriptTransaction CreateTransaction()
+        //{
+        //    return new ScriptTransactionInst();
+        //}
 
         /// <summary>
         /// Constructs a script transaction instance with the specified rollback
@@ -73,12 +73,12 @@ namespace ScriptingEngine
         /// <param name="rollbackOnFail">True to undo all requests if any request
         /// fails.</param>
         /// <returns>A script transaction instance.</returns>
-        public static IScriptTransaction CreateTransaction(GameCommand command, SystemInstruction instruction, bool rollbackOnFail)
-        {
-            ScriptTransactionInst transaction = new ScriptTransactionInst(rollbackOnFail);
-            transaction.AddRequest(CreateRequest(command, instruction));
-            return transaction;
-        }
+        //public static IScriptTransaction CreateTransaction(GameCommand command, SystemInstruction instruction, bool rollbackOnFail)
+        //{
+        //    ScriptTransactionInst transaction = new ScriptTransactionInst(rollbackOnFail);
+        //    transaction.AddRequest(CreateRequest(command, instruction));
+        //    return transaction;
+        //}
 
         /// <summary>
         /// Executes a script request.
@@ -135,10 +135,10 @@ namespace ScriptingEngine
         /// </summary>
         /// <param name="transaction">The transaction to execute.</param>
         /// <returns></returns>
-        public static IScriptResult SubmitTransaction(IScriptTransaction transaction)
-        {
-            return transaction.ExecuteTransaction();
-        }
+        //public static IScriptResult SubmitTransaction(IScriptTransaction transaction)
+        //{
+        //    return transaction.ExecuteTransaction();
+        //}
 
         /// <summary>
         /// Internal class representing an instance of a script result.  This is an
@@ -179,104 +179,104 @@ namespace ScriptingEngine
         /// is an instance class that allows the ScriptUtil to function as a script
         /// transaction factory.
         /// </summary>
-        private class ScriptTransactionInst : IScriptTransaction
-        {
-            private bool _rollback;
-            private Queue<IScriptRequest> _requests;
+        //private class ScriptTransactionInst : IScriptTransaction
+        //{
+        //    private bool _rollback;
+        //    private Queue<IScriptRequest> _requests;
 
-            public ScriptTransactionInst()
-            {
-                _rollback = false;
-                _requests = new Queue<IScriptRequest>();
-            }
+        //    public ScriptTransactionInst()
+        //    {
+        //        _rollback = false;
+        //        _requests = new Queue<IScriptRequest>();
+        //    }
 
-            public ScriptTransactionInst(bool rollbackOnFail)
-            {
-                _rollback = rollbackOnFail;
-                _requests = new Queue<IScriptRequest>();
-            }
+        //    public ScriptTransactionInst(bool rollbackOnFail)
+        //    {
+        //        _rollback = rollbackOnFail;
+        //        _requests = new Queue<IScriptRequest>();
+        //    }
 
-            public bool RollbackOnFail
-            {
-                get { return _rollback; }
-                set { _rollback = value; }
-            }
+        //    public bool RollbackOnFail
+        //    {
+        //        get { return _rollback; }
+        //        set { _rollback = value; }
+        //    }
 
-            public Queue<IScriptRequest> Requests
-            {
-                get { return _requests; }
-            }
+        //    public Queue<IScriptRequest> Requests
+        //    {
+        //        get { return _requests; }
+        //    }
 
-            public bool AddRequest(IScriptRequest request)
-            {
-                try
-                {
-                    _requests.Enqueue(request);
-                    return true;
-                }
-                catch (Exception ex)
-                {
-                    return false;
-                }
-            }
+        //    public bool AddRequest(IScriptRequest request)
+        //    {
+        //        try
+        //        {
+        //            _requests.Enqueue(request);
+        //            return true;
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            return false;
+        //        }
+        //    }
 
-            public IScriptResult ExecuteTransaction()
-            {
-                IScriptRequest request;
-                IScriptResult result = null;
-                bool success = true;
+        //    public IScriptResult ExecuteTransaction()
+        //    {
+        //        IScriptRequest request;
+        //        IScriptResult result = null;
+        //        bool success = true;
                 
-                while (_requests.Count > 0)
-                {
-                    request = _requests.Dequeue();
+        //        while (_requests.Count > 0)
+        //        {
+        //            request = _requests.Dequeue();
 
-                    try
-                    {
-                        result = ExecuteRequest(request);
-                        if (result != null && RollbackOnFail)
-                        {
-                            success &= result.Result == ScriptResult.ResultType.Success;
-                        }
-                        else if (result != null)
-                        {
-                            success &= result.Result == ScriptResult.ResultType.Success;
-                        }
-                        else
-                        {
-                            success = false;
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        success = false;
-                    }
-                }
+        //            try
+        //            {
+        //                result = ExecuteRequest(request);
+        //                if (result != null && RollbackOnFail)
+        //                {
+        //                    success &= result.Result == ScriptResult.ResultType.Success;
+        //                }
+        //                else if (result != null)
+        //                {
+        //                    success &= result.Result == ScriptResult.ResultType.Success;
+        //                }
+        //                else
+        //                {
+        //                    success = false;
+        //                }
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                success = false;
+        //            }
+        //        }
 
-                return CreateResult(success ? ScriptResult.ResultType.Success : ScriptResult.ResultType.Fail, null);
-            }
+        //        return CreateResult(success ? ScriptResult.ResultType.Success : ScriptResult.ResultType.Fail, null);
+        //    }
 
-            public IScriptRequest GetRequest()
-            {
-                if (_requests.Count > 0)
-                    return _requests.Dequeue();
-                return null;
-            }
+        //    public IScriptRequest GetRequest()
+        //    {
+        //        if (_requests.Count > 0)
+        //            return _requests.Dequeue();
+        //        return null;
+        //    }
 
-            public IScriptRequest GetRequest(bool remove)
-            {
-                if (remove)
-                {
-                    if (_requests.Count > 0)
-                        return _requests.Dequeue();
-                    return null;
-                }
-                else
-                {
-                    if (_requests.Count > 0)
-                        return _requests.Peek();
-                    return null;
-                }
-            }
-        }
+        //    public IScriptRequest GetRequest(bool remove)
+        //    {
+        //        if (remove)
+        //        {
+        //            if (_requests.Count > 0)
+        //                return _requests.Dequeue();
+        //            return null;
+        //        }
+        //        else
+        //        {
+        //            if (_requests.Count > 0)
+        //                return _requests.Peek();
+        //            return null;
+        //        }
+        //    }
+        //}
     }
 }

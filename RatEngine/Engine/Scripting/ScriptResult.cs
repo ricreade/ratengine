@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using RatEngine.Engine.Command;
 using RatEngine.Engine.Instruction;
 
-namespace ScriptingEngine
+namespace RatEngine.Engine.Scripting
 {
     /// <summary>
     /// An abstract class to represent the result of a script transaction.

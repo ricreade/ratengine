@@ -80,7 +80,7 @@ namespace RatEngine.DataModel.Mob
                 quest.ProcessCommand(command);
             }
             
-            return command.CommandResponse;
+            return command.ResultSet.ReconcileResponses();
         }
 
         public virtual bool RemoveQuest(Quest quest)

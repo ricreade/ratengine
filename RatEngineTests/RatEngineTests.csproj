@@ -52,6 +52,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="DataModel\GameMessageTests.cs" />
     <Compile Include="DataModel\Tagging\FlagTests.cs" />
     <Compile Include="DataModel\World\RealmTests.cs" />
     <Compile Include="DataSource\SqlDataConnectionTests.cs" />
@@ -62,6 +63,9 @@
       <Project>{F0A48A25-3830-48ED-92ED-C9732339B782}</Project>
       <Name>RatEngine</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

@@ -11,14 +11,14 @@ namespace RatEngine.DataSource.Tests
     [TestClass()]
     public class SqlDataConnectionTests
     {
-        [TestMethod()]
-        public void SqlDataConnectionTest()
-        {
-            SqlDataConnection conn = new SqlDataConnection(ConnectionUtils.Instance().ConnectionString);
-            conn.OpenConnection();
-            conn.CloseConnection();
-            conn.OpenConnection();
-            conn.CloseConnection();
-        }
+        //[TestMethod()]
+        //public void SqlDataConnectionTest()
+        //{
+        //    SqlDataConnection conn = new SqlDataConnection(ConnectionUtils.Instance().ConnectionString);
+        //    conn.OpenConnection();
+        //    conn.CloseConnection();
+        //    conn.OpenConnection();
+        //    conn.CloseConnection();
+        //}
     }
 }

@@ -8,27 +8,29 @@ using System.Threading.Tasks;
 namespace RatEngine.Engine.Command
 {
     /// <summary>
-    /// Response
     /// Contains a collection of all messages to return when a game action is taken.
     /// </summary>
+    /// <remarks></remarks>
     [DataContract(IsReference = true)]
     public class Response
     {
-        /// <summary>
-        /// Constructor
-        /// Initializes the Messages list.
-        /// </summary>
-        public Response()
+        
+        public Response() { }
+
+        [DataMember]
+        public List<Message> Messages { get; protected set; }
+
+        public void AddMessage(Message message)
         {
-            Messages = new List<Message>();
+            if (message != null)
+            {
+                if (Messages == null)
+                    Messages = new List<Message>();
+                Messages.Add(message);
+            }
         }
 
-        // The list of messages to return with this response.
-        [DataMember]
-        public List<Message> Messages;
-
         /// <summary>
-        /// AddResponseMessages
         /// Adds the Message objects stored in the specified Response to
         /// the local Message list.
         /// </summary>
@@ -42,23 +44,30 @@ namespace RatEngine.Engine.Command
         }
 
         /// <summary>
-        /// Message
         /// A specific message to return to a specific user.
         /// </summary>
+        /// <remarks></remarks>
         [DataContract(IsReference = true)]
         public class Message
         {
-            // The text of the message.
+            /// <summary>
+            /// The message text.
+            /// </summary>
             [DataMember]
-            public string Text;
+            public string Text { get; set; }
 
-            // The type of the message to provide context to the client.
+            /// <summary>
+            /// Context information for the message.
+            /// </summary>
             [DataMember]
-            public string Type;
+            public string Type { get; set; }
 
-            // The character id indicating which user should receive this message.
+            /// <summary>
+            /// The player ID representing the player to whom the messages
+            /// should be delivered.
+            /// </summary>
             [DataMember]
-            public string CharacterID;
+            public string CharacterID { get; protected set; }
         }
     }
 }

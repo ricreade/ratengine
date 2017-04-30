@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class FlagEvaluation : IScriptInstance
 {
-    public ScriptResult ProcessRequest(IScriptRequest request)
+    public IScriptResult ProcessRequest(IScriptRequest request)
     {
         return null;
     }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using RatEngine.Engine.Command;
 using RatEngine.Engine.Instruction;
 
-namespace ScriptingEngine
+namespace RatEngine.Engine.Scripting
 {
     /// <summary>
     /// I am planning to eliminate this interface as an abstract class

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ScriptingEngine
+namespace RatEngine.Engine.Scripting
 {
     /// <summary>
     /// Represents an object created from a business script.

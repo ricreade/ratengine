@@ -99,75 +99,75 @@ namespace RatEngine.Engine.Instruction
                 // Create a new task to handle the instruction execution.
                 t = Task.Factory.StartNew<InstructionResultSet>(() =>
                 {
-                    switch (Instruction.GetArgumentString(InstructionSyntax.ArgumentType.Keyword))
-                    {
-                        case "getargname":
-                            GetArgName(CommandString, Instruction, Syntax, ResultSet);
-                            break;
-                        case "get":
-                            GetGameObject(Instruction, Caller, ResultSet);
-                            break;
-                        case "assert":
-                            break;
-                        case "build messages":
-                            ResolveResponseMessages(Instruction, Caller, Syntax, ResultSet);
-                            break;
-                        case "clear":
-                            Clear(Instruction, ResultSet);
-                            break;
-                        case "compflags":
-                            break;
-                        case "addobj":
-                            break;
-                        case "remobj":
-                            break;
-                        case "setcounter":
-                            SetCounter(Instruction, ResultSet);
-                            break;
-                        case "append":
-                            Append(CommandString, Instruction, Syntax, Caller, ResultSet);
-                            break;
-                        case "inccounter":
-                            try
-                            {
-                                ResultSet.LoopCounter++;
-                                ResultSet.NextInstruction = Instruction.NextSeqOnSuccess;
-                            }
-                            catch (Exception ex)
-                            {
-                                ResultSet.NextInstruction = Instruction.NextSeqOnFail;
-                            }
-                            break;
-                        case "checkcounter":
-                            CheckCounter(Instruction, Caller, ResultSet);
-                            break;
-                        case "send":
-                            break;
-                        case "adjstat":
-                            break;
-                        case "invokeaction":
-                            break;
-                        case "checkhit":
-                            break;
-                        case "applydamage":
-                            break;
-                        case "applyflags":
-                            break;
-                        case "asserthasability":
-                            break;
-                        case "move":
-                            Move(Instruction, Caller, ResultSet);
-                            break;
-                        case "setresponsesettings":
-                            SetResponseSettings(Instruction, ResultSet);
-                            break;
-                        case "executecommandstring":
-                            ExecuteCommandString(Instruction, Caller, ResultSet);
-                            break;
-                        default:
-                            throw new OperationFailedException("An unexpected keyword was found in instruction '" +
-                                Instruction.Instruction + "'.");
-                    }
+                    //switch (Instruction.GetArgumentString(InstructionSyntax.ArgumentType.Keyword))
+                    //{
+                    //    case "getargname":
+                    //        GetArgName(CommandString, Instruction, Syntax, ResultSet);
+                    //        break;
+                    //    case "get":
+                    //        GetGameObject(Instruction, Caller, ResultSet);
+                    //        break;
+                    //    case "assert":
+                    //        break;
+                    //    case "build messages":
+                    //        ResolveResponseMessages(Instruction, Caller, Syntax, ResultSet);
+                    //        break;
+                    //    case "clear":
+                    //        Clear(Instruction, ResultSet);
+                    //        break;
+                    //    case "compflags":
+                    //        break;
+                    //    case "addobj":
+                    //        break;
+                    //    case "remobj":
+                    //        break;
+                    //    case "setcounter":
+                    //        SetCounter(Instruction, ResultSet);
+                    //        break;
+                    //    case "append":
+                    //        Append(CommandString, Instruction, Syntax, Caller, ResultSet);
+                    //        break;
+                    //    case "inccounter":
+                    //        try
+                    //        {
+                    //            ResultSet.LoopCounter++;
+                    //            ResultSet.NextInstruction = Instruction.NextSeqOnSuccess;
+                    //        }
+                    //        catch (Exception ex)
+                    //        {
+                    //            ResultSet.NextInstruction = Instruction.NextSeqOnFail;
+                    //        }
+                    //        break;
+                    //    case "checkcounter":
+                    //        CheckCounter(Instruction, Caller, ResultSet);
+                    //        break;
+                    //    case "send":
+                    //        break;
+                    //    case "adjstat":
+                    //        break;
+                    //    case "invokeaction":
+                    //        break;
+                    //    case "checkhit":
+                    //        break;
+                    //    case "applydamage":
+                    //        break;
+                    //    case "applyflags":
+                    //        break;
+                    //    case "asserthasability":
+                    //        break;
+                    //    case "move":
+                    //        Move(Instruction, Caller, ResultSet);
+                    //        break;
+                    //    case "setresponsesettings":
+                    //        SetResponseSettings(Instruction, ResultSet);
+                    //        break;
+                    //    case "executecommandstring":
+                    //        ExecuteCommandString(Instruction, Caller, ResultSet);
+                    //        break;
+                    //    default:
+                    //        throw new OperationFailedException("An unexpected keyword was found in instruction '" +
+                    //            Instruction.Instruction + "'.");
+                    //}
                     return ResultSet;
                 });
             }
@@ -196,27 +196,28 @@ namespace RatEngine.Engine.Instruction
         {
             try
             {
-                if (Instruction.HasArgumentString(InstructionSyntax.ArgumentType.AppendMessage))
-                {
-                    // Append the command string message to the specified resultset string
-                    return Append(CommandString, Instruction, Syntax, ResultSet);
-                }
-                else if (Instruction.HasArgumentString(InstructionSyntax.ArgumentType.AppendValue))
-                {
-                    // Append the value stored in the instruction to the specified resultset string
-                    return Append(Instruction, ResultSet);
-                }
-                else if (Instruction.HasArgumentString(InstructionSyntax.ArgumentType.AppendProperty))
-                {
-                    // Append the specified object property to the specified resultset string
-                    return Append(Instruction, Caller, ResultSet);
-                }
-                else
-                    throw new OperationFailedException("Unknown append type: '" + Instruction.ExpressionSyntax.Syntax + "'.");
+                //if (Instruction.HasArgumentString(InstructionSyntax.ArgumentType.AppendMessage))
+                //{
+                //    // Append the command string message to the specified resultset string
+                //    return Append(CommandString, Instruction, Syntax, ResultSet);
+                //}
+                //else if (Instruction.HasArgumentString(InstructionSyntax.ArgumentType.AppendValue))
+                //{
+                //    // Append the value stored in the instruction to the specified resultset string
+                //    return Append(Instruction, ResultSet);
+                //}
+                //else if (Instruction.HasArgumentString(InstructionSyntax.ArgumentType.AppendProperty))
+                //{
+                //    // Append the specified object property to the specified resultset string
+                //    return Append(Instruction, Caller, ResultSet);
+                //}
+                //else
+                //    throw new OperationFailedException("Unknown append type: '" + Instruction.ExpressionSyntax.Syntax + "'.");
+                return false;
             }
             catch (Exception ex)
             {
-                ResultSet.NextInstruction = Instruction.NextSeqOnFail;
+                //ResultSet.NextInstruction = Instruction.NextSeqOnFail;
                 return false;
             }
         }
@@ -233,30 +234,30 @@ namespace RatEngine.Engine.Instruction
         /// <returns>[bool] True if the instruction executed successfully, otherwise false.</returns>
         private bool Append(string CommandString, SystemInstruction Instruction, KeywordSyntax Syntax, InstructionResultSet ResultSet)
         {
-            try
-            {
-                string trg = Syntax.GetArgumentString(CommandString, KeywordSyntax.ArgumentType.Message);
-                string edl = Instruction.GetArgumentString(InstructionSyntax.ArgumentType.EndLine);
-                string mto = Instruction.GetArgumentString(InstructionSyntax.ArgumentType.To);
+            //try
+            //{
+            //    string trg = Syntax.GetArgumentString(CommandString, KeywordSyntax.ArgumentType.Message);
+            //    string edl = Instruction.GetArgumentString(InstructionSyntax.ArgumentType.EndLine);
+            //    string mto = Instruction.GetArgumentString(InstructionSyntax.ArgumentType.To);
 
-                bool endline = false;
-                if (!Boolean.TryParse(edl, out endline))
-                    throw new OperationFailedException("Boolean conversion failed for '" + edl + "' in '" + Instruction.Instruction + "'.");
+            //    bool endline = false;
+            //    if (!Boolean.TryParse(edl, out endline))
+            //        throw new OperationFailedException("Boolean conversion failed for '" + edl + "' in '" + Instruction.Instruction + "'.");
 
-                // Determine which register property to modify.
-                if (mto == "aggregate")
-                    ResultSet.AggregateString += trg + (endline ? NEW_LINE : "");
-                else if (mto == "standard")
-                    ResultSet.StandardString += trg + (endline ? NEW_LINE : "");
-                else
-                    throw new OperationFailedException("Unknown <to> type in instruction '" + Instruction.Instruction + "'.");
-            }
-            catch (Exception ex)
-            {
-                ResultSet.NextInstruction = Instruction.NextSeqOnFail;
-                return false;
-            }
-            ResultSet.NextInstruction = Instruction.NextSeqOnSuccess;
+            //    // Determine which register property to modify.
+            //    if (mto == "aggregate")
+            //        ResultSet.AggregateString += trg + (endline ? NEW_LINE : "");
+            //    else if (mto == "standard")
+            //        ResultSet.StandardString += trg + (endline ? NEW_LINE : "");
+            //    else
+            //        throw new OperationFailedException("Unknown <to> type in instruction '" + Instruction.Instruction + "'.");
+            //}
+            //catch (Exception ex)
+            //{
+            //    ResultSet.NextInstruction = Instruction.NextSeqOnFail;
+            //    return false;
+            //}
+            //ResultSet.NextInstruction = Instruction.NextSeqOnSuccess;
             return true;
         }
 
@@ -270,32 +271,33 @@ namespace RatEngine.Engine.Instruction
         /// <returns>[bool] True if the instruction executed successfully, otherwise false.</returns>
         private bool Append(SystemInstruction Instruction, InstructionResultSet ResultSet)
         {
-            try
-            {
-                string val = Instruction.GetArgumentString(InstructionSyntax.ArgumentType.Value);
-                string edl = Instruction.GetArgumentString(InstructionSyntax.ArgumentType.EndLine);
-                string mto = Instruction.GetArgumentString(InstructionSyntax.ArgumentType.To);
+            //try
+            //{
+            //    string val = Instruction.GetArgumentString(InstructionSyntax.ArgumentType.Value);
+            //    string edl = Instruction.GetArgumentString(InstructionSyntax.ArgumentType.EndLine);
+            //    string mto = Instruction.GetArgumentString(InstructionSyntax.ArgumentType.To);
 
-                bool endline = false;
-                if (!Boolean.TryParse(edl, out endline))
-                    throw new OperationFailedException("Boolean conversion failed for '" + edl + "' in '" + Instruction.Instruction + "'.");
+            //    bool endline = false;
+            //    if (!Boolean.TryParse(edl, out endline))
+            //        throw new OperationFailedException("Boolean conversion failed for '" + edl + "' in '" + Instruction.Instruction + "'.");
 
-                // Determine which register property to modify.
-                if (mto == "aggregate")
-                    ResultSet.AggregateString += val + (endline ? NEW_LINE : "");
-                else if (mto == "standard")
-                    ResultSet.StandardString += val + (endline ? NEW_LINE : "");
-                else
-                    throw new OperationFailedException("Unknown <to> type in instruction '" + Instruction.Instruction + "'.");
+            //    // Determine which register property to modify.
+            //    if (mto == "aggregate")
+            //        ResultSet.AggregateString += val + (endline ? NEW_LINE : "");
+            //    else if (mto == "standard")
+            //        ResultSet.StandardString += val + (endline ? NEW_LINE : "");
+            //    else
+            //        throw new OperationFailedException("Unknown <to> type in instruction '" + Instruction.Instruction + "'.");
 
-                ResultSet.NextInstruction = Instruction.NextSeqOnSuccess;
-                return true;
-            }
-            catch (Exception ex)
-            {
-                ResultSet.NextInstruction = Instruction.NextSeqOnFail;
-                return false;
-            }
+            //    ResultSet.NextInstruction = Instruction.NextSeqOnSuccess;
+            //    return true;
+            //}
+            //catch (Exception ex)
+            //{
+            //    ResultSet.NextInstruction = Instruction.NextSeqOnFail;
+            //    return false;
+            //}
+            return false;
         }
 
         /// <summary>
@@ -309,113 +311,113 @@ namespace RatEngine.Engine.Instruction
         /// <returns>[bool] True if the instruction executed successfully, otherwise false.</returns>
         private bool Append(SystemInstruction Instruction, Creature Caller, InstructionResultSet ResultSet)
         {
-            string resp = "";
-            string mto = "";
-            string trg = "";
-            string prp = "";
-            string edl = "";
-            bool endline = false;
+            //string resp = "";
+            //string mto = "";
+            //string trg = "";
+            //string prp = "";
+            //string edl = "";
+            //bool endline = false;
 
-            try
-            {
-                trg = Instruction.GetArgumentString(InstructionSyntax.ArgumentType.Target);
-                prp = Instruction.GetArgumentString(InstructionSyntax.ArgumentType.Property);
-                edl = Instruction.GetArgumentString(InstructionSyntax.ArgumentType.EndLine);
-                mto = Instruction.GetArgumentString(InstructionSyntax.ArgumentType.To);
+            //try
+            //{
+            //    trg = Instruction.GetArgumentString(InstructionSyntax.ArgumentType.Target);
+            //    prp = Instruction.GetArgumentString(InstructionSyntax.ArgumentType.Property);
+            //    edl = Instruction.GetArgumentString(InstructionSyntax.ArgumentType.EndLine);
+            //    mto = Instruction.GetArgumentString(InstructionSyntax.ArgumentType.To);
 
-                if (!Boolean.TryParse(edl, out endline))
-                    throw new OperationFailedException("Boolean conversion failed for '" + edl + "' in '" +
-                        Instruction.Instruction + "'.");
+            //    if (!Boolean.TryParse(edl, out endline))
+            //        throw new OperationFailedException("Boolean conversion failed for '" + edl + "' in '" +
+            //            Instruction.Instruction + "'.");
 
-                // Find determine which object to reference and which property to return.
-                // Note: at this time, only properties required for look, move, and say are implemented.
-                switch (trg)
-                {
-                    case "item":
-                        switch (prp)
-                        {
-                            case "name":
-                                resp += ResultSet.GameObj.Name + (endline ? NEW_LINE : "");
-                                break;
-                            case "description":
-                                resp += ResultSet.GameObj.Description + (endline ? NEW_LINE : "");
-                                break;
-                        }
-                        break;
-                    case "combatant":
-                        switch (prp)
-                        {
-                            case "name":
-                                resp += ResultSet.GameObj.Name + (endline ? NEW_LINE : "");
-                                break;
-                        }
-                        break;
-                    case "caller":
-                        switch (prp)
-                        {
-                            case "name":
-                                resp += Caller.Name + (endline ? NEW_LINE : "");
-                                break;
-                        }
-                        break;
-                    case "pc":
-                        switch (prp)
-                        {
-                            case "name":
-                                resp += ResultSet.GameObj.Name + (endline ? NEW_LINE : "");
-                                break;
-                        }
-                        break;
-                    case "npc":
-                        switch (prp)
-                        {
-                            case "name":
-                                resp += ResultSet.GameObj.Name + (endline ? NEW_LINE : "");
-                                break;
-                        }
-                        break;
-                    case "transition":
-                        switch (prp)
-                        {
-                            case "name":
-                                resp += ResultSet.GameObj.Name + (endline ? NEW_LINE : "");
-                                break;
-                            case "roomfrom":
-                                //resp += ((Transition)ResultSet.GameObj).DescriptionFrom + (endline ? NEW_LINE : "");
-                                break;
-                            case "roomto":
-                                //resp += ((Transition)ResultSet.GameObj).DescriptionTo + (endline ? NEW_LINE : "");
-                                break;
-                        }
-                        break;
-                    case "room":
-                        switch (prp)
-                        {
-                            case "name":
-                                resp += Caller.Location.Name + (endline ? NEW_LINE : "");
-                                break;
-                            case "description":
-                                resp += Caller.Location.Description + (endline ? NEW_LINE : "");
-                                break;
-                        }
-                        break;
-                }
-            }
-            catch (Exception ex)
-            {
-                ResultSet.NextInstruction = Instruction.NextSeqOnFail;
-                return false;
-            }
+            //    // Find determine which object to reference and which property to return.
+            //    // Note: at this time, only properties required for look, move, and say are implemented.
+            //    switch (trg)
+            //    {
+            //        case "item":
+            //            switch (prp)
+            //            {
+            //                case "name":
+            //                    resp += ResultSet.GameObj.Name + (endline ? NEW_LINE : "");
+            //                    break;
+            //                case "description":
+            //                    resp += ResultSet.GameObj.Description + (endline ? NEW_LINE : "");
+            //                    break;
+            //            }
+            //            break;
+            //        case "combatant":
+            //            switch (prp)
+            //            {
+            //                case "name":
+            //                    resp += ResultSet.GameObj.Name + (endline ? NEW_LINE : "");
+            //                    break;
+            //            }
+            //            break;
+            //        case "caller":
+            //            switch (prp)
+            //            {
+            //                case "name":
+            //                    resp += Caller.Name + (endline ? NEW_LINE : "");
+            //                    break;
+            //            }
+            //            break;
+            //        case "pc":
+            //            switch (prp)
+            //            {
+            //                case "name":
+            //                    resp += ResultSet.GameObj.Name + (endline ? NEW_LINE : "");
+            //                    break;
+            //            }
+            //            break;
+            //        case "npc":
+            //            switch (prp)
+            //            {
+            //                case "name":
+            //                    resp += ResultSet.GameObj.Name + (endline ? NEW_LINE : "");
+            //                    break;
+            //            }
+            //            break;
+            //        case "transition":
+            //            switch (prp)
+            //            {
+            //                case "name":
+            //                    resp += ResultSet.GameObj.Name + (endline ? NEW_LINE : "");
+            //                    break;
+            //                case "roomfrom":
+            //                    //resp += ((Transition)ResultSet.GameObj).DescriptionFrom + (endline ? NEW_LINE : "");
+            //                    break;
+            //                case "roomto":
+            //                    //resp += ((Transition)ResultSet.GameObj).DescriptionTo + (endline ? NEW_LINE : "");
+            //                    break;
+            //            }
+            //            break;
+            //        case "room":
+            //            switch (prp)
+            //            {
+            //                case "name":
+            //                    resp += Caller.Location.Name + (endline ? NEW_LINE : "");
+            //                    break;
+            //                case "description":
+            //                    resp += Caller.Location.Description + (endline ? NEW_LINE : "");
+            //                    break;
+            //            }
+            //            break;
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    ResultSet.NextInstruction = Instruction.NextSeqOnFail;
+            //    return false;
+            //}
 
-            // Determine which register property to modify.
-            if (mto == "aggregate")
-                ResultSet.AggregateString += resp;
-            else if (mto == "standard")
-                ResultSet.StandardString += resp;
-            else
-                throw new OperationFailedException("Unknown <to> type in instruction '" + Instruction.Instruction + "'.");
+            //// Determine which register property to modify.
+            //if (mto == "aggregate")
+            //    ResultSet.AggregateString += resp;
+            //else if (mto == "standard")
+            //    ResultSet.StandardString += resp;
+            //else
+            //    throw new OperationFailedException("Unknown <to> type in instruction '" + Instruction.Instruction + "'.");
 
-            ResultSet.NextInstruction = Instruction.NextSeqOnSuccess;
+            //ResultSet.NextInstruction = Instruction.NextSeqOnSuccess;
             return true;
         }
 
@@ -433,51 +435,52 @@ namespace RatEngine.Engine.Instruction
         /// <returns>[bool] True if the instruction executed successfully, otherwise false.</returns>
         private bool CheckCounter(SystemInstruction Instruction, Creature Caller, InstructionResultSet ResultSet)
         {
-            try
-            {
-                string trg = Instruction.GetArgumentString(InstructionSyntax.ArgumentType.Target);
-                string prp = Instruction.GetArgumentString(InstructionSyntax.ArgumentType.Property);
+            //try
+            //{
+            //    string trg = Instruction.GetArgumentString(InstructionSyntax.ArgumentType.Target);
+            //    string prp = Instruction.GetArgumentString(InstructionSyntax.ArgumentType.Property);
 
-                // Compare the loop counter to the appropriate collection count and set the next instruction
-                // value based on the result.
-                // Note: at this time, only room counter checks are implemented.
-                switch (trg)
-                {
-                    case "room":
-                        switch (prp)
-                        {
-                            case "transition":
-                                ResultSet.NextInstruction = ResultSet.LoopCounter < Caller.Location.Transitions.Count() ?
-                                    Instruction.NextSeqOnSuccess : Instruction.NextSeqOnFail;
-                                break;
-                            case "item":
-                                ResultSet.NextInstruction = ResultSet.LoopCounter < Caller.Location.Inventory.Count() ?
-                                    Instruction.NextSeqOnSuccess : Instruction.NextSeqOnFail;
-                                break;
-                            case "combatant":
-                                ResultSet.NextInstruction = ResultSet.LoopCounter < Caller.Location.Creatures.Count() ?
-                                    Instruction.NextSeqOnSuccess : Instruction.NextSeqOnFail;
-                                break;
-                            case "pc":
-                                ResultSet.NextInstruction = ResultSet.LoopCounter < Caller.Location.Creatures.OfType<PlayerCharacter>().Count() ?
-                                    Instruction.NextSeqOnSuccess : Instruction.NextSeqOnFail;
-                                break;
-                            case "npc":
-                                ResultSet.NextInstruction = ResultSet.LoopCounter < Caller.Location.Creatures.OfType<NonPlayerCharacter>().Count() ?
-                                    Instruction.NextSeqOnSuccess : Instruction.NextSeqOnFail;
-                                break;
-                            default:
-                                throw new OperationFailedException("Unknown syntax in '" + Instruction.Instruction + "'.");
-                        }
-                        break;
-                }
-            }
-            catch (Exception ex)
-            {
-                ResultSet.NextInstruction = Instruction.NextSeqOnFail;
-            }
+            //    // Compare the loop counter to the appropriate collection count and set the next instruction
+            //    // value based on the result.
+            //    // Note: at this time, only room counter checks are implemented.
+            //    switch (trg)
+            //    {
+            //        case "room":
+            //            switch (prp)
+            //            {
+            //                case "transition":
+            //                    ResultSet.NextInstruction = ResultSet.LoopCounter < Caller.Location.Transitions.Count() ?
+            //                        Instruction.NextSeqOnSuccess : Instruction.NextSeqOnFail;
+            //                    break;
+            //                case "item":
+            //                    ResultSet.NextInstruction = ResultSet.LoopCounter < Caller.Location.Inventory.Count() ?
+            //                        Instruction.NextSeqOnSuccess : Instruction.NextSeqOnFail;
+            //                    break;
+            //                case "combatant":
+            //                    ResultSet.NextInstruction = ResultSet.LoopCounter < Caller.Location.Creatures.Count() ?
+            //                        Instruction.NextSeqOnSuccess : Instruction.NextSeqOnFail;
+            //                    break;
+            //                case "pc":
+            //                    ResultSet.NextInstruction = ResultSet.LoopCounter < Caller.Location.Creatures.OfType<PlayerCharacter>().Count() ?
+            //                        Instruction.NextSeqOnSuccess : Instruction.NextSeqOnFail;
+            //                    break;
+            //                case "npc":
+            //                    ResultSet.NextInstruction = ResultSet.LoopCounter < Caller.Location.Creatures.OfType<NonPlayerCharacter>().Count() ?
+            //                        Instruction.NextSeqOnSuccess : Instruction.NextSeqOnFail;
+            //                    break;
+            //                default:
+            //                    throw new OperationFailedException("Unknown syntax in '" + Instruction.Instruction + "'.");
+            //            }
+            //            break;
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    ResultSet.NextInstruction = Instruction.NextSeqOnFail;
+            //}
 
-            return ResultSet.NextInstruction == Instruction.NextSeqOnSuccess;
+            //return ResultSet.NextInstruction == Instruction.NextSeqOnSuccess;
+            return false;
         }
 
         /// <summary>
@@ -490,29 +493,30 @@ namespace RatEngine.Engine.Instruction
         /// <returns>[bool] True if the instruction executed successfully, otherwise false.</returns>
         private bool Clear(SystemInstruction Instruction, InstructionResultSet ResultSet)
         {
-            try
-            {
-                // Determine which register string to clear.
-                string mto = Instruction.GetArgumentString(InstructionSyntax.ArgumentType.To);
-                switch (mto)
-                {
-                    case "aggregate":
-                        ResultSet.AggregateString = "";
-                        break;
-                    case "standard":
-                        ResultSet.StandardString = "";
-                        break;
-                    default:
-                        throw new OperationFailedException("Unknown syntax in '" + Instruction.Instruction + "'.");
-                }
-                ResultSet.NextInstruction = Instruction.NextSeqOnSuccess;
-                return true;
-            }
-            catch (Exception ex)
-            {
-                ResultSet.NextInstruction = Instruction.NextSeqOnFail;
-                return false;
-            }
+            //try
+            //{
+            //    // Determine which register string to clear.
+            //    string mto = Instruction.GetArgumentString(InstructionSyntax.ArgumentType.To);
+            //    switch (mto)
+            //    {
+            //        case "aggregate":
+            //            ResultSet.AggregateString = "";
+            //            break;
+            //        case "standard":
+            //            ResultSet.StandardString = "";
+            //            break;
+            //        default:
+            //            throw new OperationFailedException("Unknown syntax in '" + Instruction.Instruction + "'.");
+            //    }
+            //    ResultSet.NextInstruction = Instruction.NextSeqOnSuccess;
+            //    return true;
+            //}
+            //catch (Exception ex)
+            //{
+            //    ResultSet.NextInstruction = Instruction.NextSeqOnFail;
+            //    return false;
+            //}
+            return false;
         }
 
         /// <summary>
@@ -528,21 +532,21 @@ namespace RatEngine.Engine.Instruction
         /// <returns>[bool] True if the instruction executed successfully, otherwise false.</returns>
         private bool ExecuteCommandString(SystemInstruction Instruction, Creature Caller, InstructionResultSet ResultSet)
         {
-            Task<Response> t = null;
-            try
-            {
-                string arg = Instruction.GetArgumentString(InstructionSyntax.ArgumentType.Value);
-                Keyword k = KeywordManager.GetKeyword(arg);
-                t = k.ExecuteCommandString(arg, Caller);
-                t.Wait();
-                ResultSet.Response.AddResponseMessages(t.Result);
-            }
-            catch (Exception ex)
-            {
-                ResultSet.NextInstruction = Instruction.NextSeqOnFail;
-                return false;
-            }
-            ResultSet.NextInstruction = Instruction.NextSeqOnSuccess;
+            //Task<Response> t = null;
+            //try
+            //{
+            //    string arg = Instruction.GetArgumentString(InstructionSyntax.ArgumentType.Value);
+            //    Keyword k = KeywordManager.GetKeyword(arg);
+            //    t = k.ExecuteCommandString(arg, Caller);
+            //    t.Wait();
+            //    ResultSet.Response.AddResponseMessages(t.Result);
+            //}
+            //catch (Exception ex)
+            //{
+            //    ResultSet.NextInstruction = Instruction.NextSeqOnFail;
+            //    return false;
+            //}
+            //ResultSet.NextInstruction = Instruction.NextSeqOnSuccess;
             return true;
         }
 
@@ -558,45 +562,46 @@ namespace RatEngine.Engine.Instruction
         /// <returns>[bool] True if the instruction executed successfully, otherwise false.</returns>
         private bool GetArgName(string CommandString, SystemInstruction Instruction, KeywordSyntax Syntax, InstructionResultSet ResultSet)
         {
-            try
-            {
-                string arg = Instruction.GetArgumentString(InstructionSyntax.ArgumentType.Target);
+            //try
+            //{
+            //    string arg = Instruction.GetArgumentString(InstructionSyntax.ArgumentType.Target);
 
-                switch (arg)
-                {
-                    case "target":
-                        ResultSet.ArgumentName = Syntax.GetArgumentString(CommandString, KeywordSyntax.ArgumentType.Target);
-                        break;
+            //    switch (arg)
+            //    {
+            //        case "target":
+            //            ResultSet.ArgumentName = Syntax.GetArgumentString(CommandString, KeywordSyntax.ArgumentType.Target);
+            //            break;
 
-                    case "location":
-                        ResultSet.ArgumentName = Syntax.GetArgumentString(CommandString, KeywordSyntax.ArgumentType.Location);
-                        break;
+            //        case "location":
+            //            ResultSet.ArgumentName = Syntax.GetArgumentString(CommandString, KeywordSyntax.ArgumentType.Location);
+            //            break;
 
-                    case "container":
-                        ResultSet.ArgumentName = Syntax.GetArgumentString(CommandString, KeywordSyntax.ArgumentType.Container);
-                        break;
+            //        case "container":
+            //            ResultSet.ArgumentName = Syntax.GetArgumentString(CommandString, KeywordSyntax.ArgumentType.Container);
+            //            break;
 
-                    case "ability":
-                        ResultSet.ArgumentName = Syntax.GetArgumentString(CommandString, KeywordSyntax.ArgumentType.Ability);
-                        break;
-                }
-            }
-            catch (Exception ex)
-            {
-                ResultSet.NextInstruction = Instruction.NextSeqOnFail;
-                return false;
-            }
+            //        case "ability":
+            //            ResultSet.ArgumentName = Syntax.GetArgumentString(CommandString, KeywordSyntax.ArgumentType.Ability);
+            //            break;
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    ResultSet.NextInstruction = Instruction.NextSeqOnFail;
+            //    return false;
+            //}
 
-            if (ResultSet.ArgumentName.Length > 0)
-            {
-                ResultSet.NextInstruction = Instruction.NextSeqOnSuccess;
-                return true;
-            }
-            else
-            {
-                ResultSet.NextInstruction = Instruction.NextSeqOnFail;
-                return false;
-            }
+            //if (ResultSet.ArgumentName.Length > 0)
+            //{
+            //    ResultSet.NextInstruction = Instruction.NextSeqOnSuccess;
+            //    return true;
+            //}
+            //else
+            //{
+            //    ResultSet.NextInstruction = Instruction.NextSeqOnFail;
+            //    return false;
+            //}
+            return false;
         }
 
         /// <summary>
@@ -611,99 +616,100 @@ namespace RatEngine.Engine.Instruction
         /// <returns>[bool] True if the instruction executed successfully, otherwise false.</returns>
         private bool GetGameObject(SystemInstruction Instruction, Creature Caller, InstructionResultSet ResultSet)
         {
-            try
-            {
-                // Get the instruction arguments that specify the location (container) of the GameElement,
-                // The type of GameElement, and the property (either index or name) to reference.
-                string trg = Instruction.GetArgumentString(InstructionSyntax.ArgumentType.Target);
-                string cnt = Instruction.GetArgumentString(InstructionSyntax.ArgumentType.Container);
-                string prp = Instruction.GetArgumentString(InstructionSyntax.ArgumentType.Property);
+            //try
+            //{
+            //    // Get the instruction arguments that specify the location (container) of the GameElement,
+            //    // The type of GameElement, and the property (either index or name) to reference.
+            //    string trg = Instruction.GetArgumentString(InstructionSyntax.ArgumentType.Target);
+            //    string cnt = Instruction.GetArgumentString(InstructionSyntax.ArgumentType.Container);
+            //    string prp = Instruction.GetArgumentString(InstructionSyntax.ArgumentType.Property);
 
-                // Reference the appropriate object.
-                // Note: Not all possible combinations are represented at this time.  The current implementation
-                // is intended to support only the look, move, and say commands.
-                switch (cnt)
-                {
-                    case "room":
-                        switch (trg)
-                        {
-                            case "item":
-                                switch (prp)
-                                {
-                                    case "name":
-                                        ResultSet.GameObj = Caller.Location.GetItem(ResultSet.ArgumentName);
-                                        break;
-                                    case "index":
-                                        ResultSet.GameObj = Caller.Location.Inventory.ToList()[ResultSet.LoopCounter];
-                                        break;
-                                }
-                                break;
+            //    // Reference the appropriate object.
+            //    // Note: Not all possible combinations are represented at this time.  The current implementation
+            //    // is intended to support only the look, move, and say commands.
+            //    switch (cnt)
+            //    {
+            //        case "room":
+            //            switch (trg)
+            //            {
+            //                case "item":
+            //                    switch (prp)
+            //                    {
+            //                        case "name":
+            //                            ResultSet.GameObj = Caller.Location.GetItem(ResultSet.ArgumentName);
+            //                            break;
+            //                        case "index":
+            //                            ResultSet.GameObj = Caller.Location.Inventory.ToList()[ResultSet.LoopCounter];
+            //                            break;
+            //                    }
+            //                    break;
 
-                            case "pc":
-                                switch (prp)
-                                {
-                                    case "name":
-                                        ResultSet.GameObj = Caller.Location.GetCreature(ResultSet.ArgumentName);
-                                        break;
-                                    case "index":
-                                        ResultSet.GameObj = Caller.Location.Creatures.OfType<PlayerCharacter>().ToList()[ResultSet.LoopCounter];
-                                        break;
-                                }
-                                break;
+            //                case "pc":
+            //                    switch (prp)
+            //                    {
+            //                        case "name":
+            //                            ResultSet.GameObj = Caller.Location.GetCreature(ResultSet.ArgumentName);
+            //                            break;
+            //                        case "index":
+            //                            ResultSet.GameObj = Caller.Location.Creatures.OfType<PlayerCharacter>().ToList()[ResultSet.LoopCounter];
+            //                            break;
+            //                    }
+            //                    break;
 
-                            case "npc":
-                                switch (prp)
-                                {
-                                    case "name":
-                                        ResultSet.GameObj = Caller.Location.GetCreature(ResultSet.ArgumentName);
-                                        break;
-                                    case "index":
-                                        ResultSet.GameObj = Caller.Location.Creatures.OfType<NonPlayerCharacter>().ToList()[ResultSet.LoopCounter];
-                                        break;
-                                }
-                                break;
+            //                case "npc":
+            //                    switch (prp)
+            //                    {
+            //                        case "name":
+            //                            ResultSet.GameObj = Caller.Location.GetCreature(ResultSet.ArgumentName);
+            //                            break;
+            //                        case "index":
+            //                            ResultSet.GameObj = Caller.Location.Creatures.OfType<NonPlayerCharacter>().ToList()[ResultSet.LoopCounter];
+            //                            break;
+            //                    }
+            //                    break;
 
-                            case "combatant":
-                                ResultSet.GameObj = Caller.Location.GetCreature(ResultSet.ArgumentName);
-                                break;
+            //                case "combatant":
+            //                    ResultSet.GameObj = Caller.Location.GetCreature(ResultSet.ArgumentName);
+            //                    break;
 
-                            case "transition":
-                                switch (prp)
-                                {
-                                    case "name":
-                                        ResultSet.GameObj = Caller.Location.GetTransition(ResultSet.ArgumentName);
-                                        break;
-                                    case "index":
-                                        ResultSet.GameObj = Caller.Location.Transitions.ToList()[ResultSet.LoopCounter];
-                                        break;
-                                }
-                                break;
+            //                case "transition":
+            //                    switch (prp)
+            //                    {
+            //                        case "name":
+            //                            ResultSet.GameObj = Caller.Location.GetTransition(ResultSet.ArgumentName);
+            //                            break;
+            //                        case "index":
+            //                            ResultSet.GameObj = Caller.Location.Transitions.ToList()[ResultSet.LoopCounter];
+            //                            break;
+            //                    }
+            //                    break;
 
-                        }
-                        break;
-                    case "inventory":
-                        ResultSet.GameObj = Caller.GetItem(ResultSet.ArgumentName);
-                        break;
-                    case "container":
-                        ResultSet.GameObj = ((Inventoried)ResultSet.GameObj).GetItem(ResultSet.ArgumentName);
-                        break;
-                }
-            }
-            catch (Exception ex)
-            {
-                ResultSet.GameObj = null;
-            }
+            //            }
+            //            break;
+            //        case "inventory":
+            //            ResultSet.GameObj = Caller.GetItem(ResultSet.ArgumentName);
+            //            break;
+            //        case "container":
+            //            ResultSet.GameObj = ((Inventoried)ResultSet.GameObj).GetItem(ResultSet.ArgumentName);
+            //            break;
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    ResultSet.GameObj = null;
+            //}
 
-            if (ResultSet.GameObj != null)
-            {
-                ResultSet.NextInstruction = Instruction.NextSeqOnSuccess;
-                return true;
-            }
-            else
-            {
-                ResultSet.NextInstruction = Instruction.NextSeqOnFail;
-                return false;
-            }
+            //if (ResultSet.GameObj != null)
+            //{
+            //    ResultSet.NextInstruction = Instruction.NextSeqOnSuccess;
+            //    return true;
+            //}
+            //else
+            //{
+            //    ResultSet.NextInstruction = Instruction.NextSeqOnFail;
+            //    return false;
+            //}
+            return false;
         }
 
         /// <summary>
@@ -745,29 +751,30 @@ namespace RatEngine.Engine.Instruction
         private bool ResolveResponseMessages(SystemInstruction Instruction, Creature Caller,
             KeywordSyntax Syntax, InstructionResultSet ResultSet)
         {
-            try
-            {
-                // Build messages for all PlayerCharacter objects in the caller's current room.  Treat
-                // message building for the caller and other PlayerCharacters differently.
-                foreach (PlayerCharacter pc in Caller.Location.Creatures.OfType<PlayerCharacter>())
-                {
-                    if (pc.Equals(Caller))
-                    {
-                        ResultSet.ApplyResponse(Caller, pc, Syntax);
-                    }
-                    else
-                    {
-                        ResultSet.ApplyResponse(Caller, pc, Syntax);
-                    }
-                }
-                ResultSet.NextInstruction = Instruction.NextSeqOnSuccess;
-                return true;
-            }
-            catch (Exception ex)
-            {
-                ResultSet.NextInstruction = Instruction.NextSeqOnFail;
-                return false;
-            }
+            //try
+            //{
+            //    // Build messages for all PlayerCharacter objects in the caller's current room.  Treat
+            //    // message building for the caller and other PlayerCharacters differently.
+            //    foreach (PlayerCharacter pc in Caller.Location.Creatures.OfType<PlayerCharacter>())
+            //    {
+            //        if (pc.Equals(Caller))
+            //        {
+            //            ResultSet.ApplyResponse(Caller, pc, Syntax);
+            //        }
+            //        else
+            //        {
+            //            ResultSet.ApplyResponse(Caller, pc, Syntax);
+            //        }
+            //    }
+            //    ResultSet.NextInstruction = Instruction.NextSeqOnSuccess;
+            //    return true;
+            //}
+            //catch (Exception ex)
+            //{
+            //    ResultSet.NextInstruction = Instruction.NextSeqOnFail;
+            //    return false;
+            //}
+            return false;
         }
 
         /// <summary>
@@ -781,18 +788,19 @@ namespace RatEngine.Engine.Instruction
         /// <returns>[bool] True if the instruction executed successfully, otherwise false.</returns>
         private bool SetCounter(SystemInstruction Instruction, InstructionResultSet ResultSet)
         {
-            int arg = 0;
-            if (Int32.TryParse(Instruction.GetArgumentString(InstructionSyntax.ArgumentType.Value), out arg))
-            {
-                ResultSet.LoopCounter = arg;
-                ResultSet.NextInstruction = Instruction.NextSeqOnSuccess;
-                return true;
-            }
-            else
-            {
-                ResultSet.NextInstruction = Instruction.NextSeqOnFail;
-                return false;
-            }
+            //int arg = 0;
+            //if (Int32.TryParse(Instruction.GetArgumentString(InstructionSyntax.ArgumentType.Value), out arg))
+            //{
+            //    ResultSet.LoopCounter = arg;
+            //    ResultSet.NextInstruction = Instruction.NextSeqOnSuccess;
+            //    return true;
+            //}
+            //else
+            //{
+            //    ResultSet.NextInstruction = Instruction.NextSeqOnFail;
+            //    return false;
+            //}
+            return false;
         }
 
         /// <summary>
@@ -805,27 +813,28 @@ namespace RatEngine.Engine.Instruction
         /// <returns>[bool] True if the instruction executed successfully, otherwise false.</returns>
         private bool SetResponseSettings(SystemInstruction Instruction, InstructionResultSet ResultSet)
         {
-            try
-            {
-                // Get the instruction arguments for each type.
-                string clr = Instruction.GetArgumentString(InstructionSyntax.ArgumentType.Caller);
-                string trg = Instruction.GetArgumentString(InstructionSyntax.ArgumentType.Target);
-                string rm = Instruction.GetArgumentString(InstructionSyntax.ArgumentType.Room);
-                string othr = Instruction.GetArgumentString(InstructionSyntax.ArgumentType.Other);
+            //try
+            //{
+            //    // Get the instruction arguments for each type.
+            //    string clr = Instruction.GetArgumentString(InstructionSyntax.ArgumentType.Caller);
+            //    string trg = Instruction.GetArgumentString(InstructionSyntax.ArgumentType.Target);
+            //    string rm = Instruction.GetArgumentString(InstructionSyntax.ArgumentType.Room);
+            //    string othr = Instruction.GetArgumentString(InstructionSyntax.ArgumentType.Other);
 
-                // Set the register settings.
-                ResultSet.Settings.Caller = GetResponseType(clr);
-                ResultSet.Settings.Target = GetResponseType(trg);
-                ResultSet.Settings.Room = GetResponseType(rm);
-                ResultSet.Settings.Other = GetResponseType(othr);
-            }
-            catch (Exception ex)
-            {
-                ResultSet.NextInstruction = Instruction.NextSeqOnFail;
-                return false;
-            }
-            ResultSet.NextInstruction = Instruction.NextSeqOnSuccess;
-            return true;
+            //    // Set the register settings.
+            //    ResultSet.Settings.Caller = GetResponseType(clr);
+            //    ResultSet.Settings.Target = GetResponseType(trg);
+            //    ResultSet.Settings.Room = GetResponseType(rm);
+            //    ResultSet.Settings.Other = GetResponseType(othr);
+            //}
+            //catch (Exception ex)
+            //{
+            //    ResultSet.NextInstruction = Instruction.NextSeqOnFail;
+            //    return false;
+            //}
+            //ResultSet.NextInstruction = Instruction.NextSeqOnSuccess;
+            //return true;
+            return false;
         }
 
         /// <summary>

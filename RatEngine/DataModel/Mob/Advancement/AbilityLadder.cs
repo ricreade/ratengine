@@ -35,19 +35,7 @@ namespace RatEngine.DataModel.Mob.Advancement
         {
             get { return _ispcladder; }
         }
-
-        //public override RatDataModelAdapter DataAdapter
-        //{
-        //    get
-        //    {
-        //        throw new NotImplementedException();
-        //    }
-
-        //    set
-        //    {
-        //        throw new NotImplementedException();
-        //    }
-        //}
+        
 
         /// <summary>
         /// AbilityLadder
@@ -58,35 +46,6 @@ namespace RatEngine.DataModel.Mob.Advancement
         {
 
         }
-
-        //public override bool Delete()
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public override bool Delete(RatDataModelAdapter Adapter)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public override void LoadDataRow(System.Data.DataRow Row)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public override void LoadFromAdapter(RatDataModelAdapter Adapter)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public override bool Save()
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public override bool Save(RatDataModelAdapter Adapter)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        
     }
 }

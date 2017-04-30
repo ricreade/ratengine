@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using RatEngine.Engine.Command;
 using RatEngine.Engine.Instruction;
 
-namespace ScriptingEngine
+namespace RatEngine.Engine.Scripting
 {
     /// <summary>
     /// Interface for a single specific request to be submitted to a script.

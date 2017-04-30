@@ -90,12 +90,21 @@
     <Compile Include="Scripting.native.cs" />
     <Compile Include="ScriptResult.cs" />
     <Compile Include="scripts\flagEvaluation.cs" />
+    <Compile Include="scripts\getCaller.cs" />
+    <Compile Include="scripts\getRoom.cs" />
     <Compile Include="ScriptTransaction.cs" />
     <Compile Include="ScriptUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RatEngine\RatEngine.csproj">
+      <Project>{f0a48a25-3830-48ed-92ed-c9732339b782}</Project>
+      <Name>RatEngine</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

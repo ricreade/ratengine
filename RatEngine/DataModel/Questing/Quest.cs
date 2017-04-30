@@ -29,31 +29,42 @@ namespace RatEngine.DataModel.Questing
         
         public Quest() { }
 
+        public Quest(string name)
+        {
+            Name = name;
+        }
+
         [DataMember]
         public virtual List<QuestTask> QuestTasks { get; protected set; }
 
-        public virtual void AddQuestGoal(QuestTask goal)
+        [DataMember]
+        public virtual QuestTemplate Template { get; set; }
+
+        public virtual void AddQuestTask(QuestTask task)
         {
-            if (goal != null)
+            if (task != null)
             {
                 InitializeList(QuestTasks);
-                QuestTasks.Add(goal);
+                QuestTasks.Add(task);
             }
         }
 
-        public override void ProcessCommand(GameCommand command)
+        public override IEnumerable<Task> ProcessCommand(GameCommand command)
         {
-            base.ProcessCommand(command);
+            List<Task> operations = new List<Task>();
+            operations.AddRange(base.ProcessCommand(command));
+            
             foreach(QuestTask task in QuestTasks)
             {
-                task.ProcessCommand(command);
+                operations.AddRange(task.ProcessCommand(command));
             }
+            return operations;
         }
 
-        public virtual bool RemoveQuestGoal(QuestTask goal)
+        public virtual bool RemoveQuestTask(QuestTask task)
         {
             InitializeList(QuestTasks);
-            return QuestTasks.Remove(goal);
+            return QuestTasks.Remove(task);
         }
     }
 }

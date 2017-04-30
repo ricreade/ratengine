@@ -234,15 +234,13 @@ namespace RatEngine.DataModel
         /// command does so.
         /// </summary>
         /// <param name="command">The command to process.</param>
-        public virtual void ProcessCommand(GameCommand command)
+        public virtual IEnumerable<Task> ProcessCommand(GameCommand command)
         {
             if (IsListening && command != null && command.CommandString != null && command.Source != null)
             {
-                foreach (CommandListener listener in CommandListeners)
-                {
-                    listener.ProcessCommand(command);
-                }
+                return CommandListeners.Select(listener => listener.ProcessCommand(command));
             }
+            return new List<Task>();
         }
 
         /// <summary>

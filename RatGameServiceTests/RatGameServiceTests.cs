@@ -13,14 +13,14 @@ namespace RatGameService.Tests
     [TestClass()]
     public class RatGameServiceTests
     {
-        [TestMethod()]
-        public void GetRealmListTest()
-        {
-            RatGameService service = new RatGameService();
-            List<Realm> realms = service.GetRealmList();
+        //[TestMethod()]
+        //public void GetRealmListTest()
+        //{
+        //    RatGameService service = new RatGameService();
+        //    List<Realm> realms = service.GetRealmList();
 
-            Assert.IsNotNull(realms);
-            Assert.IsTrue(realms.Count > 0);
-        }
+        //    Assert.IsNotNull(realms);
+        //    Assert.IsTrue(realms.Count > 0);
+        //}
     }
 }

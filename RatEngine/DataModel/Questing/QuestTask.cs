@@ -28,8 +28,9 @@ namespace RatEngine.DataModel.Questing
         
         public QuestTask() { }
 
-        public QuestTask(Quest quest)
+        public QuestTask(string name, Quest quest)
         {
+            Name = name;
             Quest = quest;
             IsComplete = false;
         }
